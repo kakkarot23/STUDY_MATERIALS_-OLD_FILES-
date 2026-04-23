@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH Notes Portal</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 15px 30px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* Layout */
+  .container {
+    display: flex;
+    height: calc(100vh - 70px);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    overflow-y: auto;
+    padding-top: 20px;
+  }
+
+  .sidebar button {
+    display: block;
+    width: 90%;
+    margin: 8px auto;
+    padding: 10px;
+    border: none;
+    background-color: #34495e;
+    color: white;
+    text-align: left;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .sidebar button:hover, .sidebar button.active {
+    background-color: #1abc9c;
+  }
+
+  /* Main content */
+  .content {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    background-color: white;
+    border-left: 2px solid #ecf0f1;
+  }
+
+  .note-section {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .note-section.active {
+    display: block;
+  }
+
+  .view-link {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 8px 14px;
+    margin-top: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .view-link:hover {
+    background: #1abc9c;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sidebar button {
+      width: 45%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>SHATECH - Notes Portal</header>
+
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <button class="active" onclick="showNote(1)">Notes 1</button>
+    <button onclick="showNote(2)">Notes 2</button>
+    <button onclick="showNote(3)">Notes 3</button>
+    <button onclick="showNote(4)">Notes 4</button>
+    <button onclick="showNote(5)">Notes 5</button>
+    <button onclick="showNote(6)">Notes 6</button>
+    <button onclick="showNote(7)">Notes 7</button>
+    <button onclick="showNote(8)">Notes 8</button>
+    <button onclick="showNote(9)">Notes 9</button>
+    <button onclick="showNote(10)">Notes 10</button>
+    <button onclick="showNote(11)">Notes 11</button>
+    <button onclick="showNote(12)">Notes 12</button>
+  </nav>
+
+  <main class="content">
+
+    <!-- NOTES TEMPLATE -->
+    <div id="note1" class="note-section active">
+      <h2>Notes 1</h2>
+      <p>This section displays the content or summary of <strong>NOTES1.html</strong>.</p>
+      <a href="NOTES1.html" target="_blank" class="view-link">🔗 View Original Notes 1</a>
+    </div>
+
+    <div id="note2" class="note-section">
+      <h2>Notes 2</h2>
+      <p>This section displays the content or summary of <strong>NOTES2.html</strong>.</p>
+      <a href="NOTES2.html" target="_blank" class="view-link">🔗 View Original Notes 2</a>
+    </div>
+
+    <div id="note3" class="note-section">
+      <h2>Notes 3</h2>
+      <p>This section displays the content or summary of <strong>NOTES3.html</strong>.</p>
+      <a href="NOTES3.html" target="_blank" class="view-link">🔗 View Original Notes 3</a>
+    </div>
+
+    <div id="note4" class="note-section">
+      <h2>Notes 4</h2>
+      <p>This section displays the content or summary of <strong>NOTES4.html</strong>.</p>
+      <a href="NOTES4.html" target="_blank" class="view-link">🔗 View Original Notes 4</a>
+    </div>
+
+    <div id="note5" class="note-section">
+      <h2>Notes 5</h2>
+      <p>This section displays the content or summary of <strong>NOTES5.html</strong>.</p>
+      <a href="NOTES5.html" target="_blank" class="view-link">🔗 View Original Notes 5</a>
+    </div>
+
+    <div id="note6" class="note-section">
+      <h2>Notes 6</h2>
+      <p>This section displays the content or summary of <strong>NOTES6.html</strong>.</p>
+      <a href="NOTES6.html" target="_blank" class="view-link">🔗 View Original Notes 6</a>
+    </div>
+
+    <div id="note7" class="note-section">
+      <h2>Notes 7</h2>
+      <p>This section displays the content or summary of <strong>NOTES7.html</strong>.</p>
+      <a href="NOTES7.html" target="_blank" class="view-link">🔗 View Original Notes 7</a>
+    </div>
+
+    <div id="note8" class="note-section">
+      <h2>Notes 8</h2>
+      <p>This section displays the content or summary of <strong>NOTES8.html</strong>.</p>
+      <a href="NOTES8.html" target="_blank" class="view-link">🔗 View Original Notes 8</a>
+    </div>
+
+    <div id="note9" class="note-section">
+      <h2>Notes 9</h2>
+      <p>This section displays the content or summary of <strong>NOTES9.html</strong>.</p>
+      <a href="NOTES9.html" target="_blank" class="view-link">🔗 View Original Notes 9</a>
+    </div>
+
+    <div id="note10" class="note-section">
+      <h2>Notes 10</h2>
+      <p>This section displays the content or summary of <strong>NOTES10.html</strong>.</p>
+      <a href="NOTES10.html" target="_blank" class="view-link">🔗 View Original Notes 10</a>
+    </div>
+
+    <div id="note11" class="note-section">
+      <h2>Notes 11</h2>
+      <p>This section displays the content or summary of <strong>NOTES11.html</strong>.</p>
+      <a href="NOTES11.html" target="_blank" class="view-link">🔗 View Original Notes 11</a>
+    </div>
+
+    <div id="note12" class="note-section">
+      <h2>Notes 12</h2>
+      <p>This section displays the content or summary of <strong>NOTES12.html</strong>.</p>
+      <a href="NOTES12.html" target="_blank" class="view-link">🔗 View Original Notes 12</a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function showNote(noteNumber) {
+    const notes = document.querySelectorAll('.note-section');
+    notes.forEach(note => note.classList.remove('active'));
+
+    document.getElementById('note' + noteNumber).classList.add('active');
+
+    const buttons = document.querySelectorAll('.sidebar button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    buttons[noteNumber - 1].classList.add('active');
+  }
+</script>
+
+</body>
+</html>

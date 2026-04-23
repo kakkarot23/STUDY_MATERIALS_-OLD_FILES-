@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Notes</p>
+            
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li>**Data Science** is the application of statistical and mathematical principles to analyze and understand data.</li>
+                    <li>**Artificial Intelligence (AI)** involves imparting human-like cognitive functions to machines for inference and decision-making.</li>
+                    <li>**Machine Learning (ML)** is the use of computers to learn from datasets to make predictions for unseen data points, rather than just memorizing.</li>
+                    <li>**The process of ML** includes Model Selection, Prediction, Data Generation, Feature Engineering, and Training.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>History of AI/ML</h3>
+                <ul>
+                    <li>**1950** saw Alan Turing propose the **Turing Test**.</li>
+                    <li>The term **AI** was coined in **1956** at the Dartmouth workshop.</li>
+                    <li>**Arthur Samuel** defined ML in **1959** as the ability of a computer to learn without being explicitly programmed.</li>
+                    <li>The **1980s-1990s** saw the rise of ML, shifting from rules to **data-driven learning**.</li>
+                    <li>The **Deep Learning revolution** took place from the **2000s-2020s**, fueled by big data and GPU computing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: What is the primary role of probability and statistics in data science?**</h3>
+                    <span class="mcq-option">A. To define the ethical guidelines for AI development.</span>
+                    <span class="mcq-option">B. To analyze and understand data via mathematical principles.</span>
+                    <span class="mcq-option">C. To completely eliminate the stochastic nature of physical processes.</span>
+                    <span class="mcq-option">D. To serve as the only component of Machine Learning.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> Probability and statistics are crucial because they are the statistical and mathematical principles applied to **analyze and understand data**. They play a major role due to the **probabilistic (stochastic) nature** of many real-world processes.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: Which of the following is an advantage of using Machine Learning?**</h3>
+                    <span class="mcq-option">A. It always provides models that are fully interpretable in terms of physics/chemistry.</span>
+                    <span class="mcq-option">B. It requires very little data to train highly accurate models.</span>
+                    <span class="mcq-option">C. It can reduce the computational cost of making predictions after training.</span>
+                    <span class="mcq-option">D. It eliminates the need for any linear algebra or multivariate optimization.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> A significant advantage of ML is that once a model is trained, it can **reduce the computational cost of making predictions** by several orders of magnitude. Requiring less data and obscuring physics are generally disadvantages, not advantages.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: In the context of the relationship between AI and ML, which statement is accurate?**</h3>
+                    <span class="mcq-option">A. AI is a subset of ML, focusing only on predictions.</span>
+                    <span class="mcq-option">B. ML is a subset of AI, where machines make predictions or learn patterns.</span>
+                    <span class="mcq-option">C. AI and ML are completely separate fields with no overlap.</span>
+                    <span class="mcq-option">D. Both AI and ML exclusively focus on symbolic, rule-based reasoning.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> The diagram shows that **ML is contained within AI**. ML focuses on machines making **predictions or learning patterns**, while the broader AI involves machines making **decisions and/or taking actions**.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: What is the definition of Machine Learning (ML)?**</h3>
+                <p class="answer">**A:** Machine learning is the use of computers to **learn** (rather than memorize) from datasets involving a number of variables, enabling them to make **predictions** corresponding to unseen data points.</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: List the three main reasons for the increasing popularity of AI and ML in core engineering.**</h3>
+                <p class="answer">**A:** The popularity is surging due to:
+                    <ol>
+                        <li>**Availability of large amounts of data** (even with variable quality).</li>
+                        <li>**Development of new and advanced algorithms** for understanding and predicting data.</li>
+                        <li>**Ability to automate experiments and simulations**, along with the rise of field-specific large-language models.</li>
+                    </ol>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: What role does Feature Engineering play in the ML process?**</h3>
+                <p class="answer">**A:** Feature Engineering is one of the five key stages in the machine learning process. It precedes the Training stage and is crucial for preparing the input data in a way that allows the learning algorithm to perform optimally.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Describe the key advantages and disadvantages of Machine Learning.**</h3>
+                <h4>Advantages:</h4>
+                <ul>
+                    <li>**Mitigates challenges** associated with a lack of closed-form expressions or theories for a process.</li>
+                    <li>Helps **demystify datasets with a high degree of dimensionality** (large number of independent variables) where individual effects are unclear.</li>
+                    <li>**Reduces computational cost** of making predictions by several orders of magnitude once the model is trained.</li>
+                </ul>
+                <h4>Disadvantages:</h4>
+                <ul>
+                    <li>Models typically require a **large amount of data** to train, which may not always be available or may be of poor quality. (This is mitigated by foundation models and fine-tuning strategies).</li>
+                    <li>ML models may **obscure the physics, chemistry, or biology** of the underlying problem because all the focus is on data. (This is being addressed by physics-informed or physics-inspired ML).</li>
+                </ul>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Illustrate the relationship between AI and ML and list the mathematical fundamentals that underpin ML.**</h3>
+                <p class="answer">**A:** Machine Learning (ML) is a **subset of Artificial Intelligence (AI)**.
+                <ul>
+                    <li>**ML (Inner Circle):** Machines primarily make **predictions or learn patterns**.</li>
+                    <li>**AI (Outer Circle):** Machines make **decisions and/or take actions**, encompassing ML's capabilities and more.</li>
+                </ul>
+                **Mathematical Fundamentals for ML:**
+                <p>The ML subset is underpinned by several mathematical and statistical fields:</p>
+                <ol>
+                    <li>**Probability and statistics**</li>
+                    <li>**Linear algebra**</li>
+                    <li>**Multivariate optimization**</li>
+                </ol>
+                
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: Provide an example of ML application for each of the core engineering disciplines listed in the notes.**</h3>
+                <p class="answer">**A:** Machine Learning has diverse applications across core engineering disciplines:</p>
+                <ul>
+                    <li>**Chemical Engineering:** Optimization of operating conditions for a chemical plant to increase process efficiency.</li>
+                    <li>**Materials Engineering:** Discovery of new electrocatalysts for green hydrogen production.</li>
+                    <li>**Electrical Engineering:** Circuit design for reducing power consumption in processors.</li>
+                    <li>**Civil Engineering:** Optimizing structural layouts of skyscrapers for earthquake resistance.</li>
+                    <li>**Mechanical/Aerospace Engineering:** Automobile or aeroplane design for increased fuel efficiency.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

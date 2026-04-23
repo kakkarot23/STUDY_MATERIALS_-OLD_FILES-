@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 02 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 02 Notes</p>
+            <p>Topic: Broad Categorization of ML Algorithms</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>ML Algorithm Categories</h3>
+                <ul>
+                    <li>**Supervised Learning** trains a model based on **labels** assigned to a **target variable**.</li>
+                    <li>**Unsupervised Learning** does not require specified target variables or labels, seeking the data's **underlying structure**.</li>
+                    <li>**Reinforcement Learning (RL)** involves a **virtual agent** receiving **rewards** based on favorable outcomes.</li>
+                    <li>**Regression** is a type of supervised learning used to predict a **continuous variable** (e.g., temperature).</li>
+                    <li>**Classification** is a type of supervised learning used to classify data into a **fixed number of categories** (e.g., overheated/not overheated).</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Key ML Terms</h3>
+                <ul>
+                    <li>A **Target variable** ($y$) is the variable of interest one desires to predict using a supervised ML model.</li>
+                    <li>**Features** ($x$) are the independent variables that characterize each data point in the dataset.</li>
+                    <li>**Parameters** ($\beta$) are the **learnable coefficients** (weights) adjusted during model training via optimization.</li>
+                    <li>**Hyperparameters** ($\alpha$) are model configuration variables specified **before** training, determining model architecture.</li>
+                    <li>A **Loss function** is the metric used to quantify the performance error between predicted and actual values.</li>
+                    <li>**Cross validation** is a method to determine the **generalizability** of the model and choose hyperparameters rationally.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: Which type of Machine Learning is primarily used to discover the inherent patterns of data when labels are not specified?**</h3>
+                    <span class="mcq-option">A. Regression</span>
+                    <span class="mcq-option">B. Supervised Learning</span>
+                    <span class="mcq-option">C. Unsupervised Learning</span>
+                    <span class="mcq-option">D. Reinforcement Learning</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> **Unsupervised Learning** is characterized by the absence of specified target variables and the goal of learning the underlying structure of the data based on a similarity metric.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: In a model predicting whether a chemical reactor has 'overheated' or 'not,' what type of supervised learning problem is this?**</h3>
+                    <span class="mcq-option">A. Regression</span>
+                    <span class="mcq-option">B. Binary Classification</span>
+                    <span class="mcq-option">C. Clustering</span>
+                    <span class="mcq-option">D. Dimensionality Reduction</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> This is a **Classification** problem because the output is one of a **fixed number of categories** ("overheated" or "not"). Specifically, with two categories, it is **Binary Classification**.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: Which of the following defines the model configuration variables that are specified *before* the training process begins?**</h3>
+                    <span class="mcq-option">A. Features ($x$)</span>
+                    <span class="mcq-option">B. Target variable ($y$)</span>
+                    <span class="mcq-option">C. Parameters ($\beta$)</span>
+                    <span class="mcq-option">D. Hyperparameters ($\alpha$)</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: D.</span> **Hyperparameters** are configuration variables specified **before training** that determine the model architecture and training process (e.g., learning rate, number of layers). **Parameters** are learned *during* training.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Distinguish between the Training Set and the Test Set in ML.**</h3>
+                <p class="answer">**A:**
+                    <ul>
+                        <li>**Training Set:** The collection of data points (features and corresponding target variable values) used by the algorithm to **train** the ML model, learning the relationships between inputs and outputs.</li>
+                        <li>**Test Set:** A collection of **unseen data points** used to **independently verify** the performance and generalizability of the final model *after* training is complete.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Give one example of a problem that requires Regression and one that requires Classification.**</h3>
+                <p class="answer">**A:**
+                    <ul>
+                        <li>**Regression Example:** Predicting the **Voltage** (a continuous value) provided by a battery based on its type, age, and temperature.</li>
+                        <li>**Classification Example:** Determining if a person is suffering from **chest congestion or not** (Yes/No) based on their chest X-ray and symptoms.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: What are Generative Algorithms and name two common examples.**</h3>
+                <p class="answer">**A:** Generative algorithms are a broad type of unsupervised learning that **learn the distribution underlying the data**. This allows them to generate **new samples** which are statistically similar to the input training data. Examples include **Generative Adversarial Networks (GANs)** and **Variational Autoencoders (VAEs)**.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Explain the three broad categories of Machine Learning (ML) algorithms based on their training mechanism.**</h3>
+                <p class="answer">**A: The three broad categories are Supervised, Unsupervised, and Reinforcement Learning:**</p>
+                <ul>
+                    <li>**Supervised Learning:**
+                        <ul>
+                            <li>**Mechanism:** Training happens based on specified values (labels) assigned to a target variable. It seeks to map each input feature vector to a known output value.</li>
+                            <li>**Application:** Applies to the prediction of both continuous (Regression) and discrete (Classification) variables.</li>
+                        </ul>
+                    </li>
+                    <li>**Unsupervised Learning:**
+                        <ul>
+                            <li>**Mechanism:** Target variables are not specified, and labels are not required. The model learns the **underlying structure and inherent patterns** of the data based on some similarity metric.</li>
+                            <li>**Application:** This is used for tasks like Clustering and Dimensionality Reduction (e.g., PCA).</li>
+                        </ul>
+                    </li>
+                    <li>**Reinforcement Learning (RL):**
+                        <ul>
+                            <li>**Mechanism:** A virtual agent takes **actions** in an **environment** and receives **rewards** based on favorable outcomes or **penalties** for unfavorable ones.</li>
+                            <li>**Goal:** The maximization of the cumulative reward leads to an optimal policy or sequence of actions for solving the problem. </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Describe Supervised ML's role as a function approximator, defining its key components.**</h3>
+                <p class="answer">**A:** Supervised Machine Learning acts as a complex function approximator that maps a set of input features to a target variable. This relationship is mathematically represented as:
+                $$y=f(x_{1},x_{2},...,x_{n};\beta_{1},\beta_{2},...,\beta_{p};\alpha_{1},\alpha_{2},...,\alpha_{h})$$
+                </p>
+                <dl>
+                    <dt>Target Variable ($y$):</dt>
+                    <dd>The variable of interest that the model is trained to predict. It can be a **continuous** value (for Regression) or a **discrete** category (for Classification).</dd>
+                    <dt>Features ($x_{1}, \dots, x_{n}$):</dt>
+                    <dd>The **independent variables** (inputs) that characterize each data point in the dataset. These are the observed values used to make the prediction.</dd>
+                    <dt>Parameters ($\beta_{1}, \dots, \beta_{p}$):</dt>
+                    <dd>The **learnable coefficients or weights** within the model. These values are iteratively adjusted by the algorithm during the **Training** phase using **multivariate optimization** to minimize the Loss Function.</dd>
+                    <dt>Hyperparameters ($\alpha_{1}, \dots, \alpha_{h}$):</dt>
+                    <dd>The **model configuration variables** that are set externally by the user *before* training starts. They determine the model architecture and training process (e.g., depth of a tree, number of layers in a neural network).</dd>
+                </dl>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

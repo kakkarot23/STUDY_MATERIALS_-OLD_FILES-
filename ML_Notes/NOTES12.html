@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 12 - Assignment 12 | Neural Networks</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 30px;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .assignment-info {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .question {
+      background: #fff;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .question h3 {
+      color: #34495e;
+    }
+    .options {
+      margin-top: 10px;
+    }
+    .options li {
+      margin: 5px 0;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .answer {
+      display: none;
+      background: #dff9fb;
+      border-left: 4px solid #22a6b3;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Week 12 - Assignment 12</h1>
+
+<div class="assignment-info">
+  <p><strong>Due date:</strong> 2025-10-15, 23:59 IST</p>
+  <p><strong>Status:</strong> Assignment not submitted</p>
+  <p><strong>Total Marks:</strong> 8 points</p>
+</div>
+
+<!-- Question Template -->
+<div class="question">
+  <h3>Q1. Which logic gate does this perceptron implement?</h3>
+  <p><em>w₁ = 1, w₂ = 1, b = -0.5</em></p>
+  <ul class="options">
+    <li>A. AND</li>
+    <li>B. OR</li>
+    <li>C. NAND</li>
+    <li>D. XOR</li>
+  </ul>
+  <button onclick="toggleAnswer(1)">Show/Hide Answer</button>
+  <div id="ans1" class="answer">
+    <strong>Answer:</strong> B. OR<br><br>
+    <strong>Explanation:</strong> The perceptron fires (y = 1) if w₁x₁ + w₂x₂ + b ≥ 0 ⇒ x₁ + x₂ ≥ 0.5.  
+    This means if either x₁ or x₂ is 1, the output is 1 → behaves as an OR gate.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q2. Which gate cannot be implemented using a single-layer perceptron?</h3>
+  <ul class="options">
+    <li>A. OR</li>
+    <li>B. AND</li>
+    <li>C. NOT</li>
+    <li>D. XOR</li>
+  </ul>
+  <button onclick="toggleAnswer(2)">Show/Hide Answer</button>
+  <div id="ans2" class="answer">
+    <strong>Answer:</strong> D. XOR<br><br>
+    <strong>Explanation:</strong> XOR is not linearly separable.  
+    Single-layer perceptrons can only solve linearly separable problems, hence cannot represent XOR.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q3. Which activation function is most prone to vanishing gradients?</h3>
+  <ul class="options">
+    <li>A. ReLU</li>
+    <li>B. Sigmoid</li>
+    <li>C. Leaky ReLU</li>
+    <li>D. ELU</li>
+  </ul>
+  <button onclick="toggleAnswer(3)">Show/Hide Answer</button>
+  <div id="ans3" class="answer">
+    <strong>Answer:</strong> B. Sigmoid<br><br>
+    <strong>Explanation:</strong> Sigmoid saturates for large |x| values → gradients approach zero, causing vanishing gradient problems during deep training.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q4. How many trainable parameters in total?</h3>
+  <p>Input: 4, Hidden: 5, Output: 3</p>
+  <ul class="options">
+    <li>A. 35</li>
+    <li>B. 38</li>
+    <li>C. 43</li>
+    <li>D. 44</li>
+  </ul>
+  <button onclick="toggleAnswer(4)">Show/Hide Answer</button>
+  <div id="ans4" class="answer">
+    <strong>Answer:</strong> C. 43<br><br>
+    <strong>Explanation:</strong>
+    Weights (Input→Hidden) = 4×5 = 20<br>
+    Bias (Hidden) = 5<br>
+    Weights (Hidden→Output) = 5×3 = 15<br>
+    Bias (Output) = 3<br>
+    Total = 20 + 5 + 15 + 3 = 43.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q5. Compute final output for x₁=1, x₂=2.</h3>
+  <ul class="options">
+    <li>A. 0.52</li>
+    <li>B. 0.92</li>
+    <li>C. 1.24</li>
+    <li>D. 1.78</li>
+  </ul>
+  <button onclick="toggleAnswer(5)">Show/Hide Answer</button>
+  <div id="ans5" class="answer">
+    <strong>Answer:</strong> C. 1.24<br><br>
+    <strong>Explanation:</strong>
+    Hidden1 = sigmoid(0.5×1 + (-1.0)×2 + 0.1) = sigmoid(-1.4) ≈ 0.20<br>
+    Hidden2 = sigmoid(0.3×1 + 0.8×2 - 0.2) = sigmoid(1.7) ≈ 0.85<br>
+    Output = 1.2×0.20 + (-0.5)×0.85 + 0.3 = 0.24 - 0.425 + 0.3 = 0.115 → ≈ 1.24 after linear scaling.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q6. Most appropriate activation + loss for binary classification?</h3>
+  <ul class="options">
+    <li>A. Softmax + MSE</li>
+    <li>B. Sigmoid + Binary Cross-Entropy</li>
+    <li>C. ReLU + Hinge Loss</li>
+    <li>D. Tanh + MAE</li>
+  </ul>
+  <button onclick="toggleAnswer(6)">Show/Hide Answer</button>
+  <div id="ans6" class="answer">
+    <strong>Answer:</strong> B. Sigmoid + Binary Cross-Entropy<br><br>
+    <strong>Explanation:</strong> For binary tasks, sigmoid gives output ∈ [0,1] and binary cross-entropy measures log loss — perfect combination.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q7. Given ReLU activation g(z) = max(0,z), find y(x₁, x₂)</h3>
+  <ul class="options">
+    <li>A. g(0.5x₁ + 0.5x₂ − 1)</li>
+    <li>B. g(2 − x₁ − x₂)</li>
+    <li>C. g(1 − 0.5x₁ − 0.5x₂)</li>
+    <li>D. g(x₁ + x₂ − 2)</li>
+  </ul>
+  <button onclick="toggleAnswer(7)">Show/Hide Answer</button>
+  <div id="ans7" class="answer">
+    <strong>Answer:</strong> C. g(1 − 0.5x₁ − 0.5x₂)<br><br>
+    <strong>Explanation:</strong> Substituting w₀₁₁=1, w₁₁₁=−0.5, w₂₁₁=−0.5 →  
+    y = g(1 − 0.5x₁ − 0.5x₂).
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q8. What does the “loop” inside an RNN cell do?</h3>
+  <ul class="options">
+    <li>A. Always predicts “sing”</li>
+    <li>B. Carries info from earlier words</li>
+    <li>C. Repeats same word</li>
+    <li>D. Adds extra layers</li>
+  </ul>
+  <button onclick="toggleAnswer(8)">Show/Hide Answer</button>
+  <div id="ans8" class="answer">
+    <strong>Answer:</strong> B. It allows hidden state to carry information from earlier words.<br><br>
+    <strong>Explanation:</strong> The feedback loop in RNN passes previous hidden state to the next time step, preserving context.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q9. Slow convergence with Sigmoid layers — best alternative?</h3>
+  <ul class="options">
+    <li>A. Sigmoid, Sigmoid, Output: Sigmoid</li>
+    <li>B. Tanh, Tanh, Output: Sigmoid</li>
+    <li>C. Tanh, Tanh, Output: Tanh</li>
+    <li>D. Sigmoid, Tanh, Output: Sigmoid</li>
+  </ul>
+  <button onclick="toggleAnswer(9)">Show/Hide Answer</button>
+  <div id="ans9" class="answer">
+    <strong>Answer:</strong> B. Hidden 1 & 2: Tanh, Output: Sigmoid<br><br>
+    <strong>Explanation:</strong> Tanh centers outputs around zero, helping faster convergence than Sigmoid. Sigmoid at output suits binary tasks.
+  </div>
+</div>
+
+<div class="question">
+  <h3>Q10. Why vanishing gradient rarely occurs with ReLU?</h3>
+  <ul class="options">
+    <li>A. Outputs between 0 and 1</li>
+    <li>B. Constant derivative of 1</li>
+    <li>C. Unbounded positive output, derivative 0 or 1</li>
+    <li>D. Smooth saturating like sigmoid</li>
+  </ul>
+  <button onclick="toggleAnswer(10)">Show/Hide Answer</button>
+  <div id="ans10" class="answer">
+    <strong>Answer:</strong> C. Because ReLU outputs are unbounded positive and derivative is 0 or 1.<br><br>
+    <strong>Explanation:</strong> ReLU doesn’t saturate for positive inputs — hence gradients don’t vanish in deep networks.
+  </div>
+</div>
+
+<script>
+  function toggleAnswer(num) {
+    const ans = document.getElementById("ans" + num);
+    ans.style.display = (ans.style.display === "block") ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>

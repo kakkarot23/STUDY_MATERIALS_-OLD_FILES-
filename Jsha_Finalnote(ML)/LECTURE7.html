@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 07 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 07 Notes</p>
+            <p>Topic: Population Statistics (Mean, Variance, Covariance, Correlation)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Population vs. Sample</h3>
+                <ul>
+                    <li>The **Population** is the entire set of data points of interest.</li>
+                    <li>The **Sample** is a representative subset of the population used for statistical analysis.</li>
+                    <li>Statistical properties of the population can be inferred from its **underlying probability density function (PDF)**.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Moments and Measures</h3>
+                <ul>
+                    <li>The **Population Mean ($\mu$)**, or **Expected Value ($E[X]$)**, is the **first moment** of the PDF.</li>
+                    <li>The **Population Variance ($\sigma^2$)** quantifies the extent of **spread** in a distribution.</li>
+                    <li>The Variance is calculated as the expected value of the square of the difference between $X$ and $\mu$.</li>
+                    <li>The **Standard Deviation ($\sigma$)** is the square root of the variance and has the **same unit** as the random variable.</li>
+                    <li>The **Covariance ($Cov(X, Y)$)** quantifies the degree of **linear correlation** between two random variables.</li>
+                    <li>The **Correlation Coefficient ($\rho_{XY}$)** is the **normalized measure** of the correlation between two random variables.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: The population mean $E[X]$ is mathematically defined as the:**</h3>
+                    <span class="mcq-option">A. Second moment of the PDF $f(x)$</span>
+                    <span class="mcq-option">B. Integral of $x^2 f(x) dx$ over the domain</span>
+                    <span class="mcq-option">C. First moment of the PDF $f(x)$</span>
+                    <span class="mcq-option">D. Square root of the variance</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> The population mean (or expected value) $E[X]$ is calculated as $\int_{-\infty}^{\infty} x f(x) dx$, which is the definition of the **first moment** of the PDF.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: What is the relationship between $\text{Cov}(X, Y)$ and the variables $X$ and $Y$ when $\text{Cov}(X, Y) > 0$?**</h3>
+                    <span class="mcq-option">A. $X$ and $Y$ are independent.</span>
+                    <span class="mcq-option">B. Larger values of $X$ correspond to lower values of $Y$.</span>
+                    <span class="mcq-option">C. Larger values of $X$ correspond to larger values of $Y$.</span>
+                    <span class="mcq-option">D. $X$ and $Y$ are anti-correlated.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> When $\text{Cov}(X, Y) > 0$, it means that larger values of $X$ tend to correspond to larger values of $Y$ (positive correlation).
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: The Correlation Coefficient $\rho_{XY}$ is a normalized measure, calculated by dividing the Covariance by:**</h3>
+                    <span class="mcq-option">A. The product of the means $\mu_X \mu_Y$</span>
+                    <span class="mcq-option">B. The sum of the variances $\sigma_X^2 + \sigma_Y^2$</span>
+                    <span class="mcq-option">C. The product of the standard deviations $\sigma_X \sigma_Y$</span>
+                    <span class="mcq-option">D. The square of the Expected Value $E[XY]^2$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> The Pearson's correlation coefficient is the covariance normalized by the product of the standard deviations: $\rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the mathematical expression for Population Variance $\text{Var}(X)$ in terms of Expected Values.**</h3>
+                <p class="answer">**A:** The Population Variance is defined as:
+                    <span class="math">$$\text{Var}(X) = E[X^2] - (E[X])^2$$</span>
+                    where $E[X^2]$ is the second moment of the PDF.
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: What is the significance of the two different outcomes of $\text{Cov}(X, Y) < 0$ and $\text{Cov}(X, Y) \approx 0$?**</h3>
+                <p class="answer">**A:**
+                    <ul>
+                        <li>$\text{Cov}(X, Y) < 0$ implies **negative correlation**: larger values of $X$ correspond to lower values of $Y$.</li>
+                        <li>$\text{Cov}(X, Y) \approx 0$ implies **no linear correlation**: $X$ and $Y$ are either independent or have a non-linear relationship.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: How does the Standard Deviation $\sigma$ relate to the Variance $\sigma^2$ in terms of units?**</h3>
+                <p class="answer">**A:** The Standard Deviation ($\sigma$) is the square root of the variance ($\sigma^2$). This operation ensures that the standard deviation has the **same unit** as the random variable $X$ itself, making it more interpretable than variance in the physical world.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Define and provide the formulas for the Population Mean, Variance, and Covariance, explaining what each statistical property quantifies.**</h3>
+                <p class="answer">**A: Key Statistical Properties of a Population (from the PDF):**</p>
+                <dl>
+                    <dt>Population Mean / Expected Value ($\mu$ or $E[X]$):</dt>
+                    <dd>
+                        Quantifies the **central tendency** of the distribution. It is the average value that the random variable $X$ is expected to take over the long run.
+                        <span class="math">$$\mu = E[X] = \int_{-\infty}^{\infty} x f(x) dx$$</span>
+                    </dd>
+
+                    <dt>Population Variance ($\sigma^2$ or $\text{Var}(X)$):</dt>
+                    <dd>
+                        Quantifies the **extent of spread or dispersion** of the random variable around its mean.
+                        <span class="math">$$\text{Var}(X) = E[(X-\mu)^2] = E[X^2] - (E[X])^2$$</span>
+                    </dd>
+
+                    <dt>Covariance ($\text{Cov}(X, Y)$):</dt>
+                    <dd>
+                        Quantifies the **degree of linear correlation** between two random variables $X$ and $Y$.
+                        <span class="math">$$\text{Cov}(X, Y) = E[XY] - E[X] E[Y]$$</span>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Prove that the Covariance of two independent random variables $X$ and $Y$ is zero, assuming their joint PDF is $f_{XY}(x, y) = f_X(x) f_Y(y)$.**</h3>
+                <p class="answer">**A: Proof:**</p>
+                <ol>
+                    <li>**Covariance Definition:**
+                        The covariance of $X$ and $Y$ is defined as:
+                        <span class="math">$$\text{Cov}(X, Y) = E[XY] - E[X] E[Y]$$</span>
+                    </li>
+                    <li>**Expected Value $E[XY]$ for Independent Variables:**
+                        The expected value $E[XY]$ is calculated using the Joint PDF, $f_{XY}(x, y)$:
+                        <span class="math">$$E[XY] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xy f_{XY}(x, y) dx dy$$</span>
+                    </li>
+                    <li>**Substitute for Independence:**
+                        For independent random variables, the Joint PDF is the product of the marginal PDFs: $f_{XY}(x, y) = f_X(x) f_Y(y)$.
+                        <span class="math">$$E[XY] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xy f_X(x) f_Y(y) dx dy$$</span>
+                    </li>
+                    <li>**Separate the Integrals:**
+                        Since the variables are separable, the integral can be factored:
+                        <span class="math">$$E[XY] = \left( \int_{-\infty}^{\infty} x f_X(x) dx \right) \left( \int_{-\infty}^{\infty} y f_Y(y) dy \right)$$</span>
+                    </li>
+                    <li>**Identify Expected Values:**
+                        Recognizing the definition of $E[X]$ and $E[Y]$:
+                        <span class="math">$$E[X] = \int_{-\infty}^{\infty} x f_X(x) dx$$</span>
+                        <span class="math">$$E[Y] = \int_{-\infty}^{\infty} y f_Y(y) dy$$</span>
+                        Therefore, $E[XY] = E[X] E[Y]$.
+                    </li>
+                    <li>**Final Substitution into Covariance Formula:**
+                        <span class="math">$$\text{Cov}(X, Y) = E[XY] - E[X] E[Y] = E[X] E[Y] - E[X] E[Y] = 0$$</span>
+                    </li>
+                </ol>
+                <p class="answer">**Conclusion:** For independent random variables, the covariance is always **zero** ($\text{Cov}(X, Y) = 0$).</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 03 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 03 Notes</p>
+            <p>Topic: Probability and Statistics Fundamentals (Frequentist vs. Bayesian)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Statistical Views</h3>
+                <ul>
+                    <li>The understanding and analysis of data in AI/ML is fundamentally supported by **Probability and Statistics**.</li>
+                    <li>**Frequentist statistics** evaluates probabilities based on repeated **data collected** regarding a certain event or hypothesis.</li>
+                    <li>In the Frequentist view, probabilities are determined by the **ratio of favorable outcomes** to the total number of experiments.</li>
+                    <li>**Bayesian statistics** evaluates probabilities from two perspectives: **prior** (before evidence) and **posterior** (after evidence).</li>
+                    <li>The core of Bayesian statistics is the concept of **conditional probability** and the **Bayes Theorem**.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Bayes Theorem Components</h3>
+                <ul>
+                    <li>The **Prior Probability, $P(A)$**, is the initial likelihood of the hypothesis A before any evidence B is known.</li>
+                    <li>The **Posterior Probability, $P(A|B)$**, is the updated likelihood of the hypothesis A after the evidence B has occurred.</li>
+                    <li>The **Likelihood Function, $P(B|A)$**, measures how likely the evidence B is, given that the hypothesis A has occurred.</li>
+                    <li>The **Evidential Probability, $P(B)$**, is the probability of the evidential event B occurring, used as a **normalizing factor**.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: In the Frequentist view, how is the probability of an event A, $P(A)$, determined?**</h3>
+                    <span class="mcq-option">A. By calculating the subjective prior probability.</span>
+                    <span class="mcq-option">B. By repeatedly conducting an experiment and calculating the ratio of successes to total trials.</span>
+                    <span class="mcq-option">C. By using the Likelihood Function $P(B|A)$.</span>
+                    <span class="mcq-option">D. By accounting for all other events that may or may not influence the event A.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> Frequentist statistics determines $P(A)$ by the ratio of the number of times event A occurred to the total number of times the experiment was conducted: $P(A) = \frac{n(A)}{n(\Omega)}$.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: What term in the Bayes Theorem formula, $P(A|B) = \frac{P(B|A) P(A)}{P(B)}$, represents the Likelihood Function?**</h3>
+                    <span class="mcq-option">A. $P(A)$</span>
+                    <span class="mcq-option">B. $P(B)$</span>
+                    <span class="mcq-option">C. $P(A|B)$</span>
+                    <span class="mcq-option">D. $P(B|A)$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: D.</span> The term $P(B|A)$ is the **Likelihood Function**, measuring the probability of the evidence B given the hypothesis A is true.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: Bayesian statistics is primarily based on which concept of probability?**</h3>
+                    <span class="mcq-option">A. Joint Probability $P(A \cap B)$</span>
+                    <span class="mcq-option">B. Marginal Probability $P(A)$</span>
+                    <span class="mcq-option">C. Conditional Probability $P(A|B)$</span>
+                    <span class="mcq-option">D. Ideal Probability $P(\text{Ideal})$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> Bayesian statistics is based on the concept of **conditional probability**, which provides a formal way to account for probabilities after (posterior to) knowing a piece of evidence.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: What is the main characteristic of the Frequentist approach regarding external influencing events?**</h3>
+                <p class="answer">**A:** In the Frequentist approach, **no importance is given to other events** which may or may not influence the event under consideration. The focus is purely on the data collected from repeated experiments.</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Write the definition and formula for Conditional Probability $P(A|B)$.**</h3>
+                <p class="answer">**A:** The conditional probability $P(A|B)$ is the probability of event **A occurring, provided event B has occurred**.
+                    <span class="math">$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$</span>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: What does the Prior Probability $P(A)$ represent in the context of Bayes Theorem?**</h3>
+                <p class="answer">**A:** The Prior Probability $P(A)$ is the probability of the hypothesis $A$ occurring **prior to** knowing whether the evidential event $B$ has occurred or not. It is treated as the initial belief or hypothesis whose likelihood is being estimated.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: State Bayes Theorem and describe its components, illustrating the relationship between them.**</h3>
+                <p class="answer">**A: Bayes Theorem** provides a way to update the probability of a hypothesis ($A$) when new evidence ($B$) becomes available. The formula is:
+                <span class="math">$$P(A|B) = \frac{P(B|A) P(A)}{P(B)}$$</span>
+                </p>
+                <dl>
+                    <dt>Posterior Probability ($P(A|B)$):</dt>
+                    <dd>The target probability; the updated belief in the hypothesis $A$ after observing the evidence $B$.</dd>
+
+                    <dt>Prior Probability ($P(A)$):</dt>
+                    <dd>The initial belief in the hypothesis $A$ before seeing any evidence.</dd>
+
+                    <dt>Likelihood Function ($P(B|A)$):</dt>
+                    <dd>How likely the evidence $B$ is, assuming the hypothesis $A$ is true.</dd>
+
+                    <dt>Evidential Probability ($P(B)$):</dt>
+                    <dd>The total probability of the evidence $B$ occurring. It acts as a normalizing constant to ensure the posterior probability is valid.</dd>
+                </dl>
+                <p>The relationship is often summarized as: **POSTERIOR $\propto$ LIKELIHOOD $\times$ PRIOR** (Ignoring the normalizing Evidence term).</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Contrast the philosophies of Frequentist and Bayesian statistics as they relate to probability.**</h3>
+                <p class="answer">**A:** The two views differ fundamentally in how they define and determine probability:</p>
+                <ul>
+                    <li>**Frequentist Philosophy:**
+                        <ul>
+                            <li>**Definition:** Probability is the **long-run frequency** of an event.</li>
+                            <li>**Method:** Determined by repeatedly conducting an experiment and recording outcomes. It is strictly data-driven and objective based on observation.</li>
+                            <li>**Perspective:** It does not integrate external knowledge or prior belief into the calculation.</li>
+                            <li>**Application:** Used for hypothesis testing and calculating confidence intervals based on sample data.</li>
+                        </ul>
+                    </li>
+                    <li>**Bayesian Philosophy:**
+                        <ul>
+                            <li>**Definition:** Probability is a **degree of belief** in a hypothesis.</li>
+                            <li>**Method:** Determined by combining an initial belief (**Prior**) with new evidence (**Likelihood**) to produce an updated belief (**Posterior**).</li>
+                            <li>**Perspective:** It explicitly incorporates prior knowledge (subjective or objective) and updates it systematically using Bayes Theorem.</li>
+                            <li>**Application:** Widely used in ML for tasks like classification (Naive Bayes) and in modeling uncertainty.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

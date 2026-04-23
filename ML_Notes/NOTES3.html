@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH - Week 4 Assignment 4 Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #d4c1ec, #b18ddb);
+    color: #fff;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Question Card */
+.question-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* Question Header */
+.question-card h3 {
+    margin: 0 0 10px;
+}
+
+/* Options */
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.options li {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.options li.correct {
+    background: rgba(0,255,150,0.3);
+    font-weight: bold;
+}
+
+.options li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Explanation */
+.explanation {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-left: 4px solid #ff6ec7;
+    display: none;
+    border-radius: 5px;
+}
+
+/* Toggle Button */
+.show-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ff6ec7;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.show-btn:hover {
+    background: #ff3fb5;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SHATECH - Week 4 Assignment 4 Notes</h1>
+</header>
+
+<div class="container" id="questionsContainer">
+    <!-- Questions will be injected here -->
+</div>
+
+<script>
+// Question Data
+const questions = [
+{
+    q: "The efficiency of an energy conversion device predicted by a model: [55,60,45,70], actual: [50,65,50,60]. Which is true for MAE and RMSE?",
+    options: ["RMSE > MAE ✅", "MAE = RMSE", "MAE > RMSE", "None of these"],
+    answer: 0,
+    explanation: "RMSE penalizes larger errors more than MAE, so RMSE > MAE in this case."
+},
+{
+    q: "Fit quadratic y=ax²+bx+c to points {(1,3),(2,5),(3,10)} using L2 loss. Which triplet minimizes L2 loss?",
+    options: ["(1,0,1) ✅", "(1,0,2)", "(1,1,0)", "(0.5,1,1)"],
+    answer: 0,
+    explanation: "By minimizing sum((y-ax²-bx-c)²), (1,0,1) gives the minimum L2 error."
+},
+{
+    q: "In Matplotlib, plot x vs y as red dashed line with circle markers.",
+    options: ["plt.plot(x, y, 'ro')", "plt.plot(x, y, 'or')", "plt.plot(x, y, '--ro') ✅", "plt.plot(x, y, 'ro-')"],
+    answer: 2,
+    explanation: "'--' denotes dashed line, 'ro' denotes red circle markers."
+},
+{
+    q: "Given df = pd.DataFrame({ 'Department': ['Sales','Sales','HR','HR','IT'], 'Salary':[50000,55000,60000,58000,75000]}); grouped = df.groupby('Department').mean(); grouped.loc['HR','Salary']?",
+    options: ["60000", "59000 ✅", "58000", "61000"],
+    answer: 1,
+    explanation: "HR salaries: [60000,58000], mean = 59000."
+},
+{
+    q: "Best-fit slope β1^ of linear regression y=β0+β1x?",
+    options: ["∑(x²iȳ−x²iyi)/∑(x²i−xix̄)", "∑(x²iyi−x²iȳ)/∑(x²i−xix̄)", "∑(xiȳ−xiyi)/∑(x²i−xix̄)", "∑(xiyi−xiȳ)/∑(x²i−xix̄) ✅"],
+    answer: 3,
+    explanation: "Formula for slope using L2 loss minimization is ∑(xiyi−xiȳ)/∑(x²i−xix̄)."
+},
+{
+    q: "Expression for β1^ in terms of β0^, xi's and yi's?",
+    options: ["∑(β0^−yi)/∑(xi)", "∑(yi−β0^)/∑(xi) ✅", "∑(yi−β0^xi)/∑(xi)", "∑(yi−β0^xi)/∑(x²i)"],
+    answer: 1,
+    explanation: "Slope β1^ = ∑(yi−β0^)/∑(xi) for linear regression with one variable."
+},
+{
+    q: "Calculate best-fit linear regression parameter β^ for y=β^x dataset: x=[0,6,8,10], y=[0,10,18,20].",
+    options: ["2.00", "2.01", "2.02 ✅", "2.03"],
+    answer: 2,
+    explanation: "Using least squares fitting, β^ ≈ 2.02."
+},
+{
+    q: "Dataset actual=[150,200,180,170,160,210,190], predicted=[145,195,185,160,155,220,195]. Correct RMSE?",
+    options: ["5.477", "7.416", "6.814 ✅", "8.602"],
+    answer: 2,
+    explanation: "RMSE = sqrt(mean((predicted-actual)²)) ≈ 6.814."
+},
+{
+    q: "Classifier logits z=[2.0,1.0,0.1], true label class A (index 0). Categorical cross-entropy loss?",
+    options: ["0.417 ✅", "0.803", "0.551", "1.223"],
+    answer: 0,
+    explanation: "Softmax probabilities and cross-entropy loss gives 0.417."
+},
+{
+    q: "Linear regression for dataset x=[1,2,4], y=[4,6,10]. Equations to solve for optimal parameters?",
+    options: ["3b0+7b1=20,7b0+21b1=26", "3b0+7b1=56,7b0+21b1=20", "3b0+7b1=20,7b0+21b1=56 ✅", "3b0+7b1=7,7b0+21b1=56"],
+    answer: 2,
+    explanation: "Normal equations for L2 minimization gives 3b0+7b1=20, 7b0+21b1=56."
+}
+];
+
+// Render questions
+const container = document.getElementById('questionsContainer');
+
+questions.forEach((qData,index)=>{
+    const card = document.createElement('div');
+    card.className = 'question-card';
+
+    let optionsHtml = '<ul class="options">';
+    qData.options.forEach((opt,i)=>{
+        const isCorrect = (i === qData.answer) ? 'correct' : '';
+        optionsHtml += `<li class="${isCorrect}">${opt}</li>`;
+    });
+    optionsHtml += '</ul>';
+
+    card.innerHTML = `
+        <h3>Q${index+1}. ${qData.q}</h3>
+        ${optionsHtml}
+        <button class="show-btn">Show Explanation</button>
+        <div class="explanation">${qData.explanation}</div>
+    `;
+
+    container.appendChild(card);
+});
+
+// Toggle explanations
+document.querySelectorAll('.show-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const expl = btn.nextElementSibling;
+        expl.style.display = (expl.style.display === 'block') ? 'none' : 'block';
+    });
+});
+</script>
+
+</body>
+</html>

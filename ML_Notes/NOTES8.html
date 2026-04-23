@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 9 Assignment 9 - MCQ Quiz</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #eef3f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      background: #fff;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #004aad;
+    }
+
+    .question {
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #f8fbff;
+      border-radius: 10px;
+      border-left: 5px solid #007bff;
+    }
+
+    .question h3 {
+      color: #333;
+    }
+
+    .options label {
+      display: block;
+      background: #f1f1f1;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .options input {
+      margin-right: 10px;
+    }
+
+    .options label:hover {
+      background: #dbeafe;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result, .explanation {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .correct {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .wrong {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .explanation {
+      background: #e8f0fe;
+      color: #003366;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+      font-weight: bold;
+      color: #004aad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Week 9 Assignment 9 - MCQ Quiz</h1>
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit Quiz</button>
+    <div class="score" id="score"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Q1. What does the given NumPy code do?",
+        options: [
+          "Determines the mean and standard deviation of the dataset",
+          "Determines the eigenvalues and eigenvectors of the dataset",
+          "Determines the principal components of the dataset ✅",
+          "Determines the cumulative explained variance"
+        ],
+        correct: 2,
+        explanation: "✔ PCA works by computing eigenvalues & eigenvectors of the covariance matrix."
+      },
+      {
+        question: "Q2. Which of the following is NOT an example of data leakage?",
+        options: [
+          "Standardising the entire data before performing PCA on the test set",
+          "Fitting PCA outside the cross-validation steps",
+          "Performing PCA on the entire data set, which would save the need for test-train splitting",
+          "Including features which are already correlated ✅"
+        ],
+        correct: 3,
+        explanation: "✔ Correlated features ≠ leakage, just multicollinearity."
+      },
+      {
+        question: "Q3. Which two sources of randomness affect binary recursive splitting inside Random Forests?",
+        options: [
+          "Random choice of labels + random loss function",
+          "Bootstrap sampling of data + random subset of features at each split ✅",
+          "Randomly scaling features + random stopping depth",
+          "Random order of samples + random choice of target variable"
+        ],
+        correct: 1,
+        explanation: "✔ Random Forests introduce randomness via bootstrapped samples & feature subsets."
+      },
+      {
+        question: "Q4. How does Random Forest reduce overfitting?",
+        options: [
+          "By pruning each tree aggressively",
+          "By averaging many deep, unpruned trees trained on random samples and features ✅",
+          "By limiting every tree to only one split",
+          "By using linear regression instead of recursive splits"
+        ],
+        correct: 1,
+        explanation: "✔ Ensemble averaging of uncorrelated trees reduces overfitting."
+      },
+      {
+        question: "Q5. If trained with bootstrapping on 200 samples, approximately how many are out-of-bag per tree?",
+        options: ["74", "73 ✅", "126", "100"],
+        correct: 1,
+        explanation: "✔ About 36.8% of samples are OOB → 0.368 × 200 ≈ 74."
+      },
+      {
+        question: "Q6. Random Forest predictions = [1, 0, 1, 1, 0]. Final class?",
+        options: ["0", "1 ✅", "0.1", "0.3"],
+        correct: 1,
+        explanation: "✔ Majority vote = 3 ones vs 2 zeros → prediction = 1."
+      },
+      {
+        question: "Q7. AdaBoost misclassifies 2/5 samples. Weighted error = ? New misclassified weight?",
+        options: [
+          "0.4, 0.25 ✅",
+          "0.4, 0.5",
+          "0.2, 0.2",
+          "0.2, 0.25"
+        ],
+        correct: 0,
+        explanation: "✔ Weighted error = 0.4; misclassified weights get multiplied by exp(α) ≈ 0.25."
+      },
+      {
+        question: "Q8. Which model does NOT use gradient boosting?",
+        options: ["CatBoost", "AdaBoost ✅", "LightGBM", "XGBoost"],
+        correct: 1,
+        explanation: "✔ AdaBoost uses exponential reweighting, not gradient boosting."
+      },
+      {
+        question: "Q9. In AdaBoost, which 5th weight gives final prediction = Strong?",
+        options: ["0.18", "0.19", "0.21 ✅", "None of these"],
+        correct: 2,
+        explanation: "✔ For Strong to win: 0.40 + w₅ > 0.60 → w₅ > 0.20 → 0.21 is valid."
+      },
+      {
+        question: "Q10. Gradient boosting: loss 1.0 → 0.6 with η=1.0. If η=0.1, new loss?",
+        options: ["0.96 ✅", "0.90", "0.84", "0.6"],
+        correct: 0,
+        explanation: "✔ Reduction = 0.4 × 0.1 = 0.04 → new loss = 1.0 − 0.04 = 0.96."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+
+    function loadQuiz() {
+      quizContainer.innerHTML = "";
+      quizData.forEach((q, index) => {
+        const qDiv = document.createElement("div");
+        qDiv.classList.add("question");
+        qDiv.innerHTML = `
+          <h3>${q.question}</h3>
+          <div class="options">
+            ${q.options
+              .map(
+                (opt, i) =>
+                  `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`
+              )
+              .join("")}
+          </div>
+          <div id="result${index}" class="result"></div>
+          <div id="explanation${index}" class="explanation" style="display:none;">${q.explanation}</div>
+        `;
+        quizContainer.appendChild(qDiv);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      quizData.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const resultDiv = document.getElementById(`result${index}`);
+        const explanationDiv = document.getElementById(`explanation${index}`);
+        if (selected) {
+          if (parseInt(selected.value) === q.correct) {
+            resultDiv.className = "result correct";
+            resultDiv.textContent = "✅ Correct!";
+            score++;
+          } else {
+            resultDiv.className = "result wrong";
+            resultDiv.textContent = "❌ Wrong!";
+          }
+          explanationDiv.style.display = "block";
+        } else {
+          resultDiv.className = "result wrong";
+          resultDiv.textContent = "⚠️ Not answered!";
+        }
+      });
+      document.getElementById("score").textContent = `Your Score: ${score} / ${quizData.length}`;
+    }
+
+    loadQuiz();
+  </script>
+</body>
+</html>

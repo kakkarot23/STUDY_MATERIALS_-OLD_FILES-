@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 2 Assignment 2 - Machine Learning</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f6fa;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    h1 {
+        text-align: center;
+        color: #004aad;
+    }
+    .question {
+        background: #fff;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .question h3 {
+        color: #222;
+    }
+    label {
+        display: block;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+    button {
+        background: #004aad;
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    button:hover {
+        background: #0077ff;
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        z-index: 10;
+        text-align: center;
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top:0; left:0; right:0; bottom:0;
+        background: rgba(0,0,0,0.4);
+        z-index: 5;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
+</style>
+</head>
+<body>
+
+<h1>📘 Week 2 Assignment 2</h1>
+<form id="quizForm">
+
+    <div id="questionsContainer"></div>
+
+    <center>
+        <button type="button" onclick="submitQuiz()">Submit Assignment</button>
+    </center>
+</form>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <h2>✅ Assignment Submitted!</h2>
+    <p id="scoreText"></p>
+    <button onclick="downloadPDF()">Download Answer Key (PDF)</button>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const questions = [
+    {
+        q: "Given a probability density function for a random variable X, what is the expected value of x?",
+        options: ["1/2", "2/3", "3/4", "5/6"],
+        correct: 1
+    },
+    {
+        q: "Which of the following is NOT true about the coefficient of determination R²?",
+        options: [
+            "R² can be negative for an inferior model",
+            "If R² = 0, model always predicts mean",
+            "R² is always less than 1",
+            "If R² ≈ 1, predictions are close to actual values"
+        ],
+        correct: 2
+    },
+    {
+        q: "If X ~ U[0,1] and Y = X², what is the distribution of Y?",
+        options: [
+            "g(y)=√(2y)",
+            "g(y)=2√y",
+            "g(y)=1/(2√y)",
+            "g(y)=1/√(2y)"
+        ],
+        correct: 2
+    },
+    {
+        q: "Given P_X(x)=648/x³ for 0<x≤1.5, what are the mean and SD?",
+        options: ["1.2, 0.245", "0.25, 6.0", "0.25, 1.2", "0.16, 0.32"],
+        correct: 0
+    },
+    {
+        q: "Which statement is TRUE for unbiased estimator of population mean?",
+        options: [
+            "Sample mean = population mean always",
+            "E(sample mean) = population mean",
+            "Variance(sample mean)=0",
+            "Sample mean independent of sample size"
+        ],
+        correct: 1
+    },
+    {
+        q: "Vitamin D levels: [19,25,32,23,42,17,15,21,22,19]. What is mean & SD?",
+        options: [
+            "8, 23.5",
+            "23.5, 64.5",
+            "23.5, 7.6",
+            "23.5, 8"
+        ],
+        correct: 3
+    },
+    {
+        q: "If MAE=0 on training set, what angle is made by parity plot with horizontal axis?",
+        options: ["0°", "45°", "90°", "Can't say"],
+        correct: 1
+    },
+    {
+        q: "In linear regression, which CANNOT be a hyperparameter?",
+        options: [
+            "Number of parameters",
+            "Regularisation parameter",
+            "Number of features",
+            "Value of intercept"
+        ],
+        correct: 3
+    },
+    {
+        q: "What is the null hypothesis for new drug improving recovery time?",
+        options: [
+            "Drug improves recovery",
+            "Drug has no effect",
+            "Drug worsens recovery",
+            "Unpredictable recovery"
+        ],
+        correct: 1
+    },
+    {
+        q: "For protein intake data of 12 men, which test statistic and value apply?",
+        options: [
+            "t-statistic, 1.775",
+            "z-statistic, 1.854",
+            "t-statistic, 1.854",
+            "z-statistic, 1.575"
+        ],
+        correct: 2
+    }
+];
+
+// Render questions
+const container = document.getElementById("questionsContainer");
+questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `<h3>Q${i+1}. ${q.q}</h3>` + 
+        q.options.map((opt, j) => `
+        <label>
+            <input type="radio" name="q${i}" value="${j}"> ${opt}
+        </label>
+    `).join("");
+    container.appendChild(div);
+});
+
+let userAnswers = [];
+
+function submitQuiz() {
+    userAnswers = [];
+    let score = 0;
+    questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+            const ans = parseInt(selected.value);
+            userAnswers.push(ans);
+            if (ans === q.correct) score += 1;
+        } else {
+            userAnswers.push(null);
+        }
+    });
+    const total = questions.length;
+    document.getElementById("scoreText").innerText = `You scored ${score} / ${total}`;
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    pdf.setFontSize(14);
+    pdf.text("Week 2 Assignment 2 - Answer Key & Report", 10, 15);
+    let y = 25;
+    questions.forEach((q, i) => {
+        pdf.setFontSize(12);
+        pdf.text(`Q${i+1}. ${q.q}`, 10, y);
+        y += 6;
+        q.options.forEach((opt, j) => {
+            let mark = "";
+            if (j === q.correct) mark = "✅ Correct Answer";
+            if (userAnswers[i] === j && j !== q.correct) mark = "❌ Selected (Incorrect)";
+            pdf.text(`• ${opt} ${mark}`, 12, y);
+            y += 6;
+        });
+        pdf.text(`Marks Awarded: ${userAnswers[i] === q.correct ? "1" : "0"}`, 12, y);
+        y += 8;
+        if (y > 270) { pdf.addPage(); y = 20; }
+    });
+    pdf.save("Week2_Assignment2_AnswerKey.pdf");
+}
+</script>
+</body>
+</html>

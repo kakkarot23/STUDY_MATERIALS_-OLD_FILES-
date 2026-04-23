@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 10 Assignment 10 Review</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f4f6fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #004aad;
+    }
+    .question {
+      border-left: 5px solid #004aad;
+      background: #f9fbff;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .question h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+    .options {
+      margin-top: 10px;
+    }
+    .option {
+      padding: 8px;
+      border-radius: 6px;
+      margin: 4px 0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option.correct {
+      background: #d4f8d4;
+      border-left: 5px solid #22bb33;
+    }
+    .option.incorrect {
+      background: #ffe6e6;
+      border-left: 5px solid #ff4d4d;
+    }
+    .score {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #004aad;
+      margin-top: 20px;
+      border-top: 2px solid #ddd;
+      padding-top: 15px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Week 10 Assignment 10 Review</h1>
+
+    <div class="question">
+      <h3>Q1. What is the Gini impurity of the left node?</h3>
+      <div class="options">
+        <div class="option correct">✅ 0.32 (Correct)</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q2. What is the information gain from this split?</h3>
+      <div class="options">
+        <div class="option correct">✅ 0.00 (Correct)</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q3. Which of the following about Gini impurity and Shannon entropy is correct?</h3>
+      <div class="options">
+        <div class="option correct">✅ Both measures are maximum when classes are equally distributed.</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q4. How are SVC model parameters obtained?</h3>
+      <div class="options">
+        <div class="option correct">✅ By minimizing the norm squared of the SVC weights.</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q5. For soft-margin SVM, if a point lies inside the margin but is correctly classified?</h3>
+      <div class="options">
+        <div class="option correct">✅ 0 &lt; ξᵢ &lt; 1</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q6. Which statement is true about Kernel Ridge Regression (KRR)?</h3>
+      <div class="options">
+        <div class="option correct">✅ Non-parametric — parameters grow with training size.</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q7. For linearly separable SVM, when is a point correctly classified and outside margin?</h3>
+      <div class="options">
+        <div class="option correct">✅ yᵢ (w·xᵢ + b) > 1</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q8. Distance of point (3,2) from 2x₁ + 3x₂ − 6 = 0 and its class label?</h3>
+      <div class="options">
+        <div class="option incorrect">❌ Your Answer: 21.63, 1</div>
+        <div class="option correct">✅ Correct Answer: 2.63, -1</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q9. Main objective of a Support Vector Machine (SVM)?</h3>
+      <div class="options">
+        <div class="option correct">✅ To maximize the margin between two classes.</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Q10. For bridge inspection data (clearly separable classes), best SVM kernel?</h3>
+      <div class="options">
+        <div class="option correct">✅ Linear kernel (clearly separable classes).</div>
+      </div>
+    </div>
+
+    <div class="score">
+      ✅ Final Score: <strong>9 / 10</strong><br>
+      Mistake: Question 8 (Hyperplane distance & class label)
+    </div>
+  </div>
+
+  <footer>© 2025 Machine Learning Module — Week 10 Results</footer>
+
+  <script>
+    // Optional small animation for correct/incorrect reveal
+    document.querySelectorAll(".option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        opt.classList.toggle("highlight");
+      });
+    });
+  </script>
+</body>
+</html>

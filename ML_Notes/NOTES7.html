@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Week 7 Assignment 7 — MCQ Quiz</title>
+<style>
+  :root{
+    --bg:#0f172a;
+    --card:#0b1220;
+    --muted:#9aa8c7;
+    --accent:#7dd3fc;
+    --correct:#16a34a;
+    --wrong:#ef4444;
+    --glass: rgba(255,255,255,0.03);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 8%),
+      linear-gradient(180deg, rgba(2,6,23,1) 0%, rgba(9,12,20,1) 100%),
+      var(--bg);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .wrap{
+    width:100%;
+    max-width:980px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;
+    padding:20px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  header{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    margin-bottom:12px;
+  }
+  .title{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .meta{color:var(--muted); font-size:13px}
+  .quiz{
+    display:grid;
+    grid-template-columns: 1fr 300px;
+    gap:18px;
+    align-items:start;
+  }
+
+  /* question card */
+  .card{
+    background:var(--card);
+    border-radius:10px;
+    padding:18px;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+  .qnum{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .qtext{
+    font-size:18px;
+    margin-bottom:14px;
+    line-height:1.4;
+  }
+
+  .options{display:flex; flex-direction:column; gap:10px}
+  .option{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    padding:10px;
+    border-radius:8px;
+    background:var(--glass);
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:all .15s ease;
+  }
+  .option:hover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(2,6,23,0.6) }
+  .option input{ accent-color:var(--accent); width:18px; height:18px }
+  .option .label{ font-size:15px; color:#e6eef6 }
+
+  .controls{
+    margin-top:12px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  button{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:var(--accent);
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  button.primary{
+    background:linear-gradient(90deg,var(--accent),#60a5fa);
+    color:#022;
+    border:none;
+  }
+  .note{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  /* sidebar */
+  .sidebar{
+    position:relative;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .panel{
+    background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border-radius:10px;
+    padding:12px;
+    border:1px solid rgba(255,255,255,0.02);
+    color:var(--muted);
+  }
+  .progress{
+    height:12px;
+    background:rgba(255,255,255,0.03);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .progress > i{
+    display:block;
+    height:100%;
+    background:linear-gradient(90deg,var(--accent),#60a5fa 70%);
+    width:0%;
+    transition:width .35s ease;
+  }
+  .score{
+    font-size:28px;
+    font-weight:700;
+    color:var(--accent);
+    text-align:center;
+  }
+  .explain{
+    margin-top:8px;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.4;
+  }
+
+  .result-list{
+    display:grid;
+    gap:6px;
+    margin-top:8px;
+  }
+  .result-item{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    padding:6px 8px;
+    border-radius:8px;
+  }
+  .result-item.correct{ background: rgba(22,163,74,0.12); color:var(--correct); border:1px solid rgba(22,163,74,0.12) }
+  .result-item.wrong{ background: rgba(239,68,68,0.08); color:var(--wrong); border:1px solid rgba(239,68,68,0.06) }
+
+  footer{
+    margin-top:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .small{ font-size:13px; color:var(--muted) }
+
+  /* responsive */
+  @media (max-width:880px){
+    .quiz{ grid-template-columns: 1fr; }
+    .sidebar{ order: -1; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="Week 7 MCQ Quiz">
+    <header>
+      <div>
+        <div class="title">Week 7 — Assignment 7: MCQ Quiz</div>
+        <div class="meta">Due: Sep 10, 2025 23:59 IST — Your submission: Sep 07, 2025 11:21 IST</div>
+      </div>
+    </header>
+
+    <div class="quiz" id="quiz">
+      <main class="card" id="mainCard" aria-live="polite">
+        <div class="qnum" id="qnum">Question 1 of 10</div>
+        <div class="qtext" id="qtext">Loading …</div>
+
+        <form id="optionsForm" class="options" onsubmit="return false" aria-label="Question options">
+          <!-- options injected here -->
+        </form>
+
+        <div class="controls">
+          <button id="prevBtn" type="button">◀ Prev</button>
+          <button id="nextBtn" type="button">Next ▶</button>
+          <button id="checkBtn" class="primary" type="button">Check Answer</button>
+          <button id="revealBtn" type="button">Reveal Explanation</button>
+          <div style="flex:1"></div>
+          <button id="submitAllBtn" type="button">Submit All</button>
+        </div>
+
+        <div class="note" id="noteArea">Select an option and click <strong>Check Answer</strong> to see immediate feedback and explanation. Or use <strong>Submit All</strong> when finished.</div>
+
+        <div id="explanation" class="card" style="margin-top:14px; display:none;">
+          <div style="font-weight:700; margin-bottom:6px;">Explanation / Notes</div>
+          <div id="explanationText" class="explain"></div>
+        </div>
+      </main>
+
+      <aside class="sidebar">
+        <div class="panel">
+          <div style="font-weight:700">Progress</div>
+          <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+            <div style="flex:1">
+              <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+            </div>
+            <div style="width:64px; text-align:right; font-weight:700;" id="progressText">0/10</div>
+          </div>
+          <div style="margin-top:8px; font-size:13px; color:var(--muted)">(Questions answered / total)</div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:700">Score</div>
+          <div class="score" id="scoreBox">0 / 10</div>
+          <div class="small">Each question = 1 point</div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:700">Review</div>
+          <div id="reviewList" class="result-list">
+            <!-- per-question result items will be injected -->
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:700">Quick tips</div>
+          <div class="explain" style="margin-top:8px; font-size:13px">
+            Read the explanation after checking each question — they reinforce key concepts: SVD, WCSS, perplexity, DBSCAN, PCA, K-medoids, DBSCAN advantages, elbow method, and t-SNE limitations.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="small">Built with HTML • CSS • vanilla JS — Accessible & responsive</div>
+      <div class="small">Open-source: copy, adapt, reuse</div>
+    </footer>
+  </div>
+
+<script>
+/*
+  Questions data: uses content and accepted answers from your supplied assignment.
+  Each question has: text, choices[], correct index (0-based), and explanation string.
+*/
+const questions = [
+  {
+    text: "Given the 2×2 matrix A = \\[ [3 \\; 4] \\' [0 \\; 0] \\]. The singular values of A are:",
+    choices: ["3, 4", "5, 0", "2, 3", "25, 0"],
+    correct: 1,
+    explanation:
+`Correct answer: 5, 0.
+Reason: A = [[3,4],[0,0]] is rank-1 with first row vector (3,4). Singular values are sqrt(eigenvalues of A^T A). The nonzero singular value equals the Euclidean norm of (3,4): sqrt(3^2 + 4^2) = 5. The second singular value is 0.`
+  },
+  {
+    text: "We wish to cluster 6 points on a line: {1, 2, 3, 10, 11, 12} into k=2 clusters. The centroids are μ₁=2 and μ₂=11. The WCSS is:",
+    choices: ["9", "4", "3", "12"],
+    correct: 1,
+    explanation:
+`Correct answer: 4.
+Reason: WCSS = sum of squared distances within each cluster. Cluster 1: {1,2,3} → centroid 2 → squared distances = 1 + 0 + 1 = 2. Cluster 2: {10,11,12} → centroid 11 → 1 + 0 + 1 = 2. Total WCSS = 2 + 2 = 4.`
+  },
+  {
+    text: "t-SNE defines perplexity as 2^{H(P)}, where H(P) is the Shannon entropy in bits of a distribution P. Given P = [0.5, 0.25, 0.125, 0.125], compute H(P) and perplexity.",
+    choices: ["H(P) = 1.75 bits, perplexity ≈ 3.36", "H(P) = 2 bits, perplexity = 4", "H(P) = 1.5 bits, perplexity ≈ 2.83", "H(P) = 2.5 bits, perplexity ≈ 5.66"],
+    correct: 0,
+    explanation:
+`Correct answer: H(P) = 1.75 bits, perplexity ≈ 3.36.
+Reason: H(P) = -Σ p_i log2 p_i = 0.5*1 + 0.25*2 + 0.125*3 + 0.125*3 = 1.75 bits. Perplexity = 2^{H(P)} = 2^{1.75} ≈ 3.363.`
+  },
+  {
+    text: "Suppose ε = 2, minPts = 3, for 5 points on a line: {1, 1.5, 2, 8, 9}. How many clusters will DBSCAN form?",
+    choices: ["1 cluster", "2 clusters", "3 clusters", "Noise only"],
+    correct: 0,
+    explanation:
+`Correct answer: 1 cluster.
+Reason: Points 1, 1.5, 2 are mutually within ε=2 and there are ≥ minPts=3 points => they form a core cluster. Points 8 and 9 are within ε of each other but form only 2 points (< minPts), so they are marked as noise (or border but cannot form a new cluster). Hence only one cluster.`
+  },
+  {
+    text: "A company did PCA (first 3 components explain 70%,20%,5%) then ran k-means (k=3) with centroids c1=(2,0,0), c2=(-2,0,0), c3=(0,3,0). New customer projected x=(1,1,0). Which is correct?",
+    choices: [
+      "Assigned to cluster-1, PCA reduces dimensionality to focus on key variance and avoid noise issues",
+      "Assigned to cluster-3, PCA only helps visualization",
+      "Assigned to cluster-2, PCA preserves distances but speeds computation",
+      "Assigned to cluster-1, PCA distorts distances"
+    ],
+    correct: 0,
+    explanation:
+`Correct answer: Assigned to cluster-1, PCA reduces dimensionality to focus on key variance and avoid noise issues.
+Reason: Euclidean distances: dist(x,c1)=√[(1-2)^2+(1-0)^2]=√2≈1.414; dist to c2≈3.162; dist to c3≈2.236. Nearest is c1. PCA here reduced noise and captured the main variance axes used by k-means, so assignment to cluster-1 is sensible.`
+  },
+  {
+    text: "After applying PCA, you observe first 3 components explain 95% of variance. What does this imply?",
+    choices: [
+      "The first three original features are the most important",
+      "There are exactly three clusters in the data",
+      "The dataset likely lies close to a 3D linear subspace in the high-dimensional space",
+      "The remaining components are completely uncorrelated"
+    ],
+    correct: 2,
+    explanation:
+`Correct answer: The dataset likely lies close to a 3D linear subspace.
+Reason: If the first 3 principal components explain ~95% of variance, most of the data's variability can be represented in a three-dimensional linear subspace. This does not mean original features or cluster count directly — PCA is about directions of maximal variance.`
+  },
+  {
+    text: "Which statement is true about K-medoid clustering?",
+    choices: [
+      "It is the most sensitive to outliers",
+      "It assigns each point to the farthest centroid",
+      "The number of clusters (K) must be specified before training",
+      "It always finds the global optimum"
+    ],
+    correct: 2,
+    explanation:
+`Correct answer: The number of clusters (K) must be specified before training.
+Reason: K-medoids, like K-means, requires the user to set K. K-medoids is actually more robust to outliers than K-means (because centers are actual data points), and like many clustering heuristics it doesn't guarantee a global optimum.`
+  },
+  {
+    text: "Key advantage of DBSCAN over K-Means?",
+    choices: [
+      "DBSCAN requires fewer distance calculations",
+      "DBSCAN performs better only on high-dimensional data",
+      "DBSCAN can detect clusters of arbitrary shape and handles noise points well",
+      "DBSCAN uses centroids while K-Means uses density estimation"
+    ],
+    correct: 2,
+    explanation:
+`Correct answer: DBSCAN can detect clusters of arbitrary shape and handles noise points well.
+Reason: DBSCAN groups density-connected points; it can find non-convex clusters and label noise points, unlike K-Means which assumes spherical clusters and uses centroids.`
+  },
+  {
+    text: "Using elbow method in K-means, what should you look for in the WCSS vs. k plot?",
+    choices: [
+      "Point where WCSS is maximum",
+      "Value of k where WCSS becomes zero",
+      "Point where decrease in WCSS slows down significantly",
+      "Smallest k with lowest WCSS"
+    ],
+    correct: 2,
+    explanation:
+`Correct answer: The point where the decrease in WCSS slows down significantly (the "elbow").
+Reason: The elbow indicates a diminishing return in explained variance as K increases; that's a heuristic to pick a reasonable K without overfitting.`
+  },
+  {
+    text: "Why are t-SNE plots sometimes criticized for being misleading in cluster distances?",
+    choices: [
+      "t-SNE preserves global geometry too strongly",
+      "t-SNE embeddings preserve Euclidean distances but distort density",
+      "t-SNE cannot separate clusters even if they exist",
+      "t-SNE exaggerates local structure and shrinks global distances"
+    ],
+    correct: 3,
+    explanation:
+`Correct answer: t-SNE exaggerates local structure and shrinks global distances.
+Reason: t-SNE focuses on preserving local neighbor relations; it can exaggerate small-scale separations and distort global relationships — clusters that appear far apart may not be so in original space. Use t-SNE for local structure visualization, and be careful interpreting global geometry.`
+  }
+];
+
+// runtime state
+let state = {
+  idx: 0,
+  answers: Array(questions.length).fill(null), // user chosen index or null
+  checked: Array(questions.length).fill(false), // whether checked/revealed
+  score: 0,
+  submitted: false,
+};
+
+// DOM refs
+const qnum = document.getElementById('qnum');
+const qtext = document.getElementById('qtext');
+const optionsForm = document.getElementById('optionsForm');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const checkBtn = document.getElementById('checkBtn');
+const revealBtn = document.getElementById('revealBtn');
+const submitAllBtn = document.getElementById('submitAllBtn');
+const explanationEl = document.getElementById('explanation');
+const explanationText = document.getElementById('explanationText');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const scoreBox = document.getElementById('scoreBox');
+const reviewList = document.getElementById('reviewList');
+const noteArea = document.getElementById('noteArea');
+
+function renderQuestion(i){
+  const q = questions[i];
+  qnum.textContent = `Question ${i+1} of ${questions.length}`;
+  // render math-friendly text (simple replacement for displayed matrices)
+  qtext.innerHTML = q.text.replace(/\\\\/g,'\\').replace(/\n/g,'<br>');
+  // options
+  optionsForm.innerHTML = '';
+  q.choices.forEach((opt, idx)=>{
+    const id = `opt_${i}_${idx}`;
+    const wrapper = document.createElement('label');
+    wrapper.className = 'option';
+    wrapper.setAttribute('for', id);
+    wrapper.tabIndex = 0;
+    wrapper.innerHTML = `
+      <input type="radio" name="opt" id="${id}" value="${idx}" ${state.answers[i]===idx ? 'checked' : ''} />
+      <div class="label"><strong>${String.fromCharCode(65+idx)}.</strong> ${opt}</div>
+    `;
+    // click handler selects
+    wrapper.addEventListener('click', (e)=>{
+      const input = wrapper.querySelector('input');
+      input.checked = true;
+      state.answers[i] = parseInt(input.value,10);
+      updateProgress();
+      // hide previous explanation until check/reveal
+      // explanationEl.style.display = 'none';
+    });
+    optionsForm.appendChild(wrapper);
+  });
+
+  // keyboard accessibility: press Enter while option is focused -> check it
+  Array.from(optionsForm.querySelectorAll('.option')).forEach(label=>{
+    label.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        label.click();
+      }
+    });
+  });
+
+  // if already checked show explanation
+  if(state.checked[i]){
+    showExplanation(i);
+  } else {
+    explanationEl.style.display = 'none';
+  }
+
+  // update buttons
+  prevBtn.disabled = (i===0);
+  nextBtn.disabled = (i===questions.length-1);
+}
+
+function showExplanation(i){
+  const q = questions[i];
+  const chosen = state.answers[i];
+  const isCorrect = chosen === q.correct;
+  explanationEl.style.display = 'block';
+  explanationText.innerHTML = `
+    <div style="margin-bottom:8px"><strong>Your answer:</strong> ${chosen===null ? '<em>Not answered</em>' : q.choices[chosen]}</div>
+    <div style="margin-bottom:8px"><strong>Correct answer:</strong> ${q.choices[q.correct]}</div>
+    <div>${q.explanation.replace(/\n/g,'<br>')}</div>
+  `;
+  // update review list and score
+  state.checked[i] = true;
+  updateReviewList();
+  updateScore();
+}
+
+function updateProgress(){
+  const answered = state.answers.filter(x => x !== null).length;
+  const total = questions.length;
+  const pct = Math.round((answered/total)*100);
+  progressBar.style.width = pct + '%';
+  progressText.textContent = `${answered}/${total}`;
+}
+
+function updateScore(){
+  let s = 0;
+  for(let i=0;i<questions.length;i++){
+    if(state.answers[i] === questions[i].correct) s++;
+  }
+  state.score = s;
+  scoreBox.textContent = `${s} / ${questions.length}`;
+}
+
+function updateReviewList(){
+  reviewList.innerHTML = '';
+  for(let i=0;i<questions.length;i++){
+    const item = document.createElement('div');
+    const answered = state.answers[i];
+    const cls = answered === questions[i].correct ? 'result-item correct' : (answered === null ? 'result-item wrong' : 'result-item wrong');
+    item.className = cls;
+    item.innerHTML = `<div>Q${i+1}</div><div>${answered===null ? '—' : (answered===questions[i].correct ? '✓' : '✕')}</div>`;
+    // clicking item jumps to that question
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', ()=>{ state.idx = i; renderQuestion(i); });
+    reviewList.appendChild(item);
+  }
+}
+
+// button handlers
+prevBtn.addEventListener('click', ()=>{
+  if(state.idx > 0){
+    state.idx--;
+    renderQuestion(state.idx);
+  }
+});
+nextBtn.addEventListener('click', ()=>{
+  if(state.idx < questions.length-1){
+    state.idx++;
+    renderQuestion(state.idx);
+  }
+});
+
+checkBtn.addEventListener('click', ()=>{
+  const i = state.idx;
+  const chosen = state.answers[i];
+  if(chosen === null){
+    // mark as unanswered but still show explanation with note
+    explanationEl.style.display = 'block';
+    explanationText.innerHTML = `<div style="color:var(--muted)"><em>No option selected.</em></div><div style="margin-top:8px"><strong>Correct answer:</strong> ${questions[i].choices[questions[i].correct]}</div><div style="margin-top:8px">${questions[i].explanation.replace(/\n/g,'<br>')}</div>`;
+    state.checked[i] = true;
+    updateReviewList();
+    updateScore();
+    return;
+  }
+  // Show immediate feedback visually on options
+  const options = optionsForm.querySelectorAll('.option');
+  options.forEach((optEl, idx)=>{
+    optEl.style.borderColor = 'transparent';
+    optEl.style.background = 'var(--glass)';
+    optEl.style.boxShadow = 'none';
+  });
+  const correctIdx = questions[i].correct;
+  // highlight chosen + correct
+  options.forEach((optEl, idx)=>{
+    if(idx === correctIdx){
+      optEl.style.borderColor = 'rgba(34,197,94,0.18)';
+      optEl.style.background = 'rgba(16,185,129,0.07)';
+    }
+    if(state.answers[i] === idx && idx !== correctIdx){
+      optEl.style.borderColor = 'rgba(239,68,68,0.14)';
+      optEl.style.background = 'rgba(239,68,68,0.06)';
+    }
+  });
+  // show explanation
+  showExplanation(i);
+});
+
+revealBtn.addEventListener('click', ()=>{
+  // reveal explanation regardless of answer
+  showExplanation(state.idx);
+});
+
+submitAllBtn.addEventListener('click', ()=>{
+  // finalize: mark all checked, compute score, show dialog-like summary
+  state.submitted = true;
+  for(let i=0;i<questions.length;i++){
+    // if unanswered, leave as null but still mark checked
+    state.checked[i] = true;
+  }
+  updateReviewList();
+  updateScore();
+  updateProgress();
+  renderQuestion(state.idx);
+  // show a simple modal-like result using explanation area
+  explanationEl.style.display = 'block';
+  explanationText.innerHTML = `<div style="font-weight:700; font-size:16px; margin-bottom:8px">Final score: ${state.score} / ${questions.length}</div>
+  <div style="margin-bottom:8px">You can review each question in the list to the right and see explanations. Correct answers are shown in green, incorrect in red.</div>
+  <div style="font-size:13px; color:var(--muted)">Tip: if you want an offline copy, save this page (File → Save As) after reviewing.</div>`;
+});
+
+// initialize
+function init(){
+  // make first question render
+  renderQuestion(state.idx);
+  updateProgress();
+  updateReviewList();
+  updateScore();
+}
+init();
+
+// allow selecting option by clicking radio input directly (handles state as well)
+optionsForm.addEventListener('change', (e)=>{
+  if(e.target && e.target.name === 'opt'){
+    const val = parseInt(e.target.value,10);
+    state.answers[state.idx] = val;
+    updateProgress();
+  }
+});
+
+// keyboard: left/right arrows navigate
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowLeft'){ prevBtn.click(); }
+  if(e.key === 'ArrowRight'){ nextBtn.click(); }
+  if(e.key === 'Enter' && (document.activeElement === checkBtn || document.activeElement === revealBtn || document.activeElement === submitAllBtn)){
+    document.activeElement.click();
+  }
+});
+</script>
+</body>
+</html>

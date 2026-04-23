@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 9 Assignment 9 – ML & Ensemble Learning Quiz</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6fb;
+    color: #222;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #2e3a87;
+  }
+  .question {
+    background: #fff;
+    margin: 20px auto;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    max-width: 900px;
+  }
+  .question h3 {
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    padding: 6px 10px;
+    margin: 4px 0;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  label:hover {
+    background-color: #eef;
+  }
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  .correct { background: #d4edda; }
+  .incorrect { background: #f8d7da; }
+  button {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 20px;
+    background: #2e3a87;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover { background: #1f2961; }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Week 9 Assignment 9 – Machine Learning & Ensemble Methods</h1>
+
+<form id="quizForm">
+
+  <!-- Q1 -->
+  <div class="question" data-correct="2" data-explanation="✔ PCA works by computing eigenvalues & eigenvectors of the covariance matrix.">
+    <h3>1️⃣ What does the code do?</h3>
+    <label><input type="radio" name="q1" value="0">Determines mean and std deviation</label>
+    <label><input type="radio" name="q1" value="1">Determines eigenvalues & eigenvectors</label>
+    <label><input type="radio" name="q1" value="2">Determines principal components of the dataset</label>
+    <label><input type="radio" name="q1" value="3">Determines cumulative explained variance</label>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" data-correct="3" data-explanation="✔ Correlated features ≠ leakage, just multicollinearity.">
+    <h3>2️⃣ Which is NOT an example of data leakage?</h3>
+    <label><input type="radio" name="q2" value="0">Standardising full data before PCA</label>
+    <label><input type="radio" name="q2" value="1">Fitting PCA outside CV</label>
+    <label><input type="radio" name="q2" value="2">Performing PCA on entire dataset</label>
+    <label><input type="radio" name="q2" value="3">Including correlated features</label>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" data-correct="1" data-explanation="✔ Randomness: bootstrap sampling + random feature subset per split.">
+    <h3>3️⃣ Randomness sources in Random Forests?</h3>
+    <label><input type="radio" name="q3" value="0">Random choice of labels + random loss</label>
+    <label><input type="radio" name="q3" value="1">Bootstrap sampling + random feature subset</label>
+    <label><input type="radio" name="q3" value="2">Randomly scaling features + random depth</label>
+    <label><input type="radio" name="q3" value="3">Random sample order + target choice</label>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" data-correct="1" data-explanation="✔ Averaging unpruned trees trained on random subsets reduces overfitting.">
+    <h3>4️⃣ How does Random Forest reduce overfitting?</h3>
+    <label><input type="radio" name="q4" value="0">By pruning trees</label>
+    <label><input type="radio" name="q4" value="1">By averaging many deep, random trees</label>
+    <label><input type="radio" name="q4" value="2">By limiting to one split</label>
+    <label><input type="radio" name="q4" value="3">By using linear regression</label>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" data-correct="1" data-explanation="✔ About 36.8% are OOB → 0.368×200 ≈ 74 samples.">
+    <h3>5️⃣ OOB samples for 200 bootstrapped data?</h3>
+    <label><input type="radio" name="q5" value="0">74</label>
+    <label><input type="radio" name="q5" value="1">73</label>
+    <label><input type="radio" name="q5" value="2">126</label>
+    <label><input type="radio" name="q5" value="3">100</label>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" data-correct="1" data-explanation="✔ Majority vote: 3 ones vs 2 zeros → prediction = 1.">
+    <h3>6️⃣ Random Forest final class for [1,0,1,1,0]?</h3>
+    <label><input type="radio" name="q6" value="0">0</label>
+    <label><input type="radio" name="q6" value="1">1</label>
+    <label><input type="radio" name="q6" value="2">0.1</label>
+    <label><input type="radio" name="q6" value="3">0.3</label>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" data-correct="0" data-explanation="✔ Weighted error = 2/5 = 0.4; new misclassified weight ≈ 0.25.">
+    <h3>7️⃣ AdaBoost weighted error?</h3>
+    <label><input type="radio" name="q7" value="0">0.4, 0.25</label>
+    <label><input type="radio" name="q7" value="1">0.4, 0.5</label>
+    <label><input type="radio" name="q7" value="2">0.2, 0.2</label>
+    <label><input type="radio" name="q7" value="3">0.2, 0.25</label>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" data-correct="1" data-explanation="✔ AdaBoost uses exponential reweighting, not gradient boosting.">
+    <h3>8️⃣ Which model doesn’t use gradient boosting?</h3>
+    <label><input type="radio" name="q8" value="0">CatBoost</label>
+    <label><input type="radio" name="q8" value="1">AdaBoost</label>
+    <label><input type="radio" name="q8" value="2">LightGBM</label>
+    <label><input type="radio" name="q8" value="3">XGBoost</label>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" data-correct="2" data-explanation="✔ Weighted votes: strong wins if w₅ > 0.20 → min valid = 0.21.">
+    <h3>9️⃣ 5th weight for final prediction = Strong?</h3>
+    <label><input type="radio" name="q9" value="0">0.18</label>
+    <label><input type="radio" name="q9" value="1">0.19</label>
+    <label><input type="radio" name="q9" value="2">0.21</label>
+    <label><input type="radio" name="q9" value="3">None of these</label>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" data-correct="0" data-explanation="✔ η=1.0 → loss=0.6; scaling by 0.1 gives loss=0.96.">
+    <h3>🔟 New loss with η=0.1?</h3>
+    <label><input type="radio" name="q10" value="0">0.96</label>
+    <label><input type="radio" name="q10" value="1">0.90</label>
+    <label><input type="radio" name="q10" value="2">0.84</label>
+    <label><input type="radio" name="q10" value="3">0.6</label>
+  </div>
+
+  <button type="button" onclick="evaluateQuiz()">Submit Quiz</button>
+</form>
+
+<div id="result"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function evaluateQuiz() {
+  const questions = document.querySelectorAll('.question');
+  let score = 0, total = questions.length;
+  let report = "Week 9 Assignment 9 – Answer Key & Feedback\n\n";
+
+  questions.forEach((q, index) => {
+    const selected = q.querySelector('input[type="radio"]:checked');
+    const correct = q.dataset.correct;
+    const explanation = q.dataset.explanation;
+    if (selected) {
+      const labels = q.querySelectorAll('label');
+      labels.forEach(l => l.classList.remove('correct', 'incorrect'));
+      if (selected.value === correct) {
+        score++;
+        selected.parentElement.classList.add('correct');
+      } else {
+        selected.parentElement.classList.add('incorrect');
+        labels[correct].classList.add('correct');
+      }
+      report += `Q${index+1}: Your Answer → ${selected.nextSibling.textContent.trim()}\n`;
+      report += `Correct Answer → ${labels[correct].textContent.trim()}\n`;
+      report += `${explanation}\n\n`;
+    } else {
+      report += `Q${index+1}: Not Answered\n${explanation}\n\n`;
+    }
+  });
+
+  const resultText = `✅ Your Score: ${score}/${total}`;
+  document.getElementById('result').innerText = resultText;
+  alert(resultText);
+
+  // Generate downloadable PDF
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.text("Week 9 Assignment 9 – Detailed Answer Key", 10, 10);
+  doc.text(report, 10, 20);
+  doc.save("Week9_Assignment9_AnswerKey.pdf");
+}
+</script>
+
+</body>
+</html>

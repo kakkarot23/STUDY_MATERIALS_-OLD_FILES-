@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Week 7 Assignment 7</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f8f9fa;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .question h3 {
+      color: #34495e;
+    }
+    .option {
+      margin: 8px 0;
+    }
+    .option input {
+      margin-right: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 7 Assignment 7 – Evaluation</h1>
+  <form id="quizForm">
+    
+    <div class="question">
+      <h3>1. Singular values of A = [[3,4],[0,0]] are:</h3>
+      <label class="option"><input type="radio" name="q1" value="A">3, 4</label><br>
+      <label class="option"><input type="radio" name="q1" value="B">5, 0</label><br>
+      <label class="option"><input type="radio" name="q1" value="C">2, 3</label><br>
+      <label class="option"><input type="radio" name="q1" value="D">25, 0</label>
+    </div>
+
+    <div class="question">
+      <h3>2. Cluster points {1,2,3,10,11,12} with k=2, centroids (2,11): WCSS = ?</h3>
+      <label class="option"><input type="radio" name="q2" value="A">9</label><br>
+      <label class="option"><input type="radio" name="q2" value="B">4</label><br>
+      <label class="option"><input type="radio" name="q2" value="C">3</label><br>
+      <label class="option"><input type="radio" name="q2" value="D">12</label>
+    </div>
+
+    <div class="question">
+      <h3>3. Given P = [0.5, 0.25, 0.125, 0.125], H(P) and perplexity = ?</h3>
+      <label class="option"><input type="radio" name="q3" value="A">H=1.75, perplexity≈3.36</label><br>
+      <label class="option"><input type="radio" name="q3" value="B">H=2, perplexity=4</label><br>
+      <label class="option"><input type="radio" name="q3" value="C">H=1.5, perplexity≈2.83</label><br>
+      <label class="option"><input type="radio" name="q3" value="D">H=2.5, perplexity≈5.66</label>
+    </div>
+
+    <div class="question">
+      <h3>4. DBSCAN with ε=2, minPts=3 for {1,1.5,2,8,9} forms how many clusters?</h3>
+      <label class="option"><input type="radio" name="q4" value="A">1 cluster</label><br>
+      <label class="option"><input type="radio" name="q4" value="B">2 clusters</label><br>
+      <label class="option"><input type="radio" name="q4" value="C">3 clusters</label><br>
+      <label class="option"><input type="radio" name="q4" value="D">Noise only</label>
+    </div>
+
+    <div class="question">
+      <h3>5. PCA → KMeans with k=3, new x=(1,1,0). Which is correct?</h3>
+      <label class="option"><input type="radio" name="q5" value="A">Assigned to cluster-1, PCA reduces noise</label><br>
+      <label class="option"><input type="radio" name="q5" value="B">Assigned to cluster-3, PCA helps visualization</label><br>
+      <label class="option"><input type="radio" name="q5" value="C">Assigned to cluster-2, speeds computation</label><br>
+      <label class="option"><input type="radio" name="q5" value="D">Assigned to cluster-1, PCA distorts distances</label>
+    </div>
+
+    <div class="question">
+      <h3>6. After PCA, first 3 components explain 95% variance. Implies?</h3>
+      <label class="option"><input type="radio" name="q6" value="A">First 3 original features are key</label><br>
+      <label class="option"><input type="radio" name="q6" value="B">There are exactly 3 clusters</label><br>
+      <label class="option"><input type="radio" name="q6" value="C">Dataset lies close to 3D subspace</label><br>
+      <label class="option"><input type="radio" name="q6" value="D">Remaining components uncorrelated</label>
+    </div>
+
+    <div class="question">
+      <h3>7. Which is true about K-medoid clustering?</h3>
+      <label class="option"><input type="radio" name="q7" value="A">Most sensitive to outliers</label><br>
+      <label class="option"><input type="radio" name="q7" value="B">Assigns point to farthest centroid</label><br>
+      <label class="option"><input type="radio" name="q7" value="C">K must be specified before training</label><br>
+      <label class="option"><input type="radio" name="q7" value="D">Always finds global optimum</label>
+    </div>
+
+    <div class="question">
+      <h3>8. Key advantage of DBSCAN over K-Means?</h3>
+      <label class="option"><input type="radio" name="q8" value="A">Fewer distance calculations</label><br>
+      <label class="option"><input type="radio" name="q8" value="B">Better for high-dim data only</label><br>
+      <label class="option"><input type="radio" name="q8" value="C">Detects arbitrary shape clusters and noise</label><br>
+      <label class="option"><input type="radio" name="q8" value="D">Uses centroids, not density</label>
+    </div>
+
+    <div class="question">
+      <h3>9. In elbow method, what do we look for in WCSS vs k plot?</h3>
+      <label class="option"><input type="radio" name="q9" value="A">Point where WCSS max</label><br>
+      <label class="option"><input type="radio" name="q9" value="B">WCSS becomes zero</label><br>
+      <label class="option"><input type="radio" name="q9" value="C">Where WCSS drop slows down</label><br>
+      <label class="option"><input type="radio" name="q9" value="D">Smallest k with lowest WCSS</label>
+    </div>
+
+    <div class="question">
+      <h3>10. Why t-SNE plots can be misleading?</h3>
+      <label class="option"><input type="radio" name="q10" value="A">Preserves global geometry too much</label><br>
+      <label class="option"><input type="radio" name="q10" value="B">Preserves Euclidean but distorts density</label><br>
+      <label class="option"><input type="radio" name="q10" value="C">Cannot separate existing clusters</label><br>
+      <label class="option"><input type="radio" name="q10" value="D">Exaggerates local structure & shrinks global distances</label>
+    </div>
+
+    <button type="button" onclick="submitQuiz()">Submit</button>
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const correctAnswers = {
+      q1: "B", q2: "B", q3: "A", q4: "A", q5: "A",
+      q6: "C", q7: "C", q8: "C", q9: "C", q10: "D"
+    };
+
+    function submitQuiz() {
+      let score = 0;
+      let details = "WEEK 7 ASSIGNMENT 7 - ANSWER KEY\\n\\n";
+      for (let i = 1; i <= 10; i++) {
+        const qName = `q${i}`;
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        if (selected) {
+          const val = selected.value;
+          const correct = correctAnswers[qName];
+          if (val === correct) {
+            score++;
+            details += `Q${i}: ✅ Correct (${val})\\n`;
+          } else {
+            details += `Q${i}: ❌ Incorrect (Your: ${val}, Correct: ${correct})\\n`;
+          }
+        } else {
+          details += `Q${i}: ❌ Not Attempted (Correct: ${correctAnswers[qName]})\\n`;
+        }
+      }
+      alert("Your Final Score: " + score + "/10");
+
+      // PDF generation
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Week 7 Assignment 7 - Evaluation Summary", 10, 10);
+      doc.text("Final Score: " + score + "/10", 10, 20);
+      doc.text(details, 10, 30);
+      doc.save("Week7_Assignment7_AnswerKey.pdf");
+    }
+  </script>
+</body>
+</html>

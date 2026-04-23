@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 05 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 05 Notes</p>
+            <p>Topic: Example Probability Distributions (Discrete and Continuous)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Discrete Random Variables</h3>
+                <ul>
+                    <li>The **Bernoulli distribution** models a random variable with only two possible outcomes: success (1) or failure (0).</li>
+                    <li>The **Binomial distribution** generalizes the Bernoulli distribution to $n$ independent and identical trials.</li>
+                    <li>The **Poisson distribution** models the number of events occurring in a fixed interval of time or space.</li>
+                    <li>The **Geometric distribution** models the number of Bernoulli trials needed to get the **first** success.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Continuous Random Variables</h3>
+                <ul>
+                    <li>The **Uniform distribution** models a continuous random variable that has an equal probability to lie anywhere in a specific domain $x \in (a, b)$.</li>
+                    <li>The **Normal/Gaussian distribution** is commonly known as the "**bell curve**".</li>
+                    <li>The **Central Limit Theorem** states that the normalized sum of many independent and identical distributions tends to the normal distribution.</li>
+                    <li>The **Exponential distribution** represents the probability underlying the **time interval** between two incidences of an event.</li>
+                    <li>The **Student's t distribution** is used for determining **confidence intervals** for a range in which the true fit lies, especially in linear regression.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: Which probability distribution models the number of independent events occurring in a fixed interval at a constant average rate $\lambda$?**</h3>
+                    <span class="mcq-option">A. Geometric distribution</span>
+                    <span class="mcq-option">B. Binomial distribution</span>
+                    <span class="mcq-option">C. Poisson distribution</span>
+                    <span class="mcq-option">D. Uniform distribution</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> The Poisson distribution specifically models the number of independent events over a fixed interval, characterized by the average rate parameter $\lambda$.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: What is the defining characteristic of the Probability Density Function (PDF) for a Uniform distribution over the range $[a, b]$?**</h3>
+                    <span class="mcq-option">A. It is proportional to $e^{-x}$</span>
+                    <span class="mcq-option">B. It is $\frac{1}{\sqrt{2\pi}\sigma}$</span>
+                    <span class="mcq-option">C. It is $\frac{1}{b-a}$ for $a \le x \le b$</span>
+                    <span class="mcq-option">D. It is $\binom{n}{k}p^k(1-p)^{n-k}$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> For a Uniform distribution, the PDF $f(x)$ is constant and equal to $1/(b-a)$ over the defined domain $[a, b]$, ensuring the total area is 1.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: The **Binomial distribution** generalizes which other distribution to $n$ independent trials?**</h3>
+                    <span class="mcq-option">A. Poisson distribution</span>
+                    <span class="mcq-option">B. Normal distribution</span>
+                    <span class="mcq-option">C. Geometric distribution</span>
+                    <span class="mcq-option">D. Bernoulli distribution</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: D.</span> The Binomial distribution counts the number of successes in $n$ repeated, independent, and identical Bernoulli trials.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: What is the core difference between the Bernoulli and the Binomial distributions?**</h3>
+                <p class="answer">**A:** The **Bernoulli distribution** models a single trial with two outcomes (success/failure). The **Binomial distribution** models the number of successes, $k$, in a fixed number of $n$ independent and identical Bernoulli trials.</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: What is the common name for the Normal/Gaussian distribution and why is it important in statistics?**</h3>
+                <p class="answer">**A:** It is commonly known as the "**bell curve**". It is fundamentally important due to the **Central Limit Theorem**, which states that the sum of many independent random variables, regardless of their original distribution, tends toward a normal distribution.</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: State the condition and PMF for the Geometric distribution.**</h3>
+                <p class="answer">**A:** The Geometric distribution models the number of Bernoulli trials, $k$, required to achieve the **first success**.
+                    <br>The **Probability Mass Function (PMF)** is:
+                    <span class="math">$$P(X=k)=(1-p)^{k-1}p \quad \text{for } k=1, 2, 3, \ldots$$</span>
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the Probability Density Function (PDF) for the Normal/Gaussian distribution and explain the roles of its two parameters.**</h3>
+                <p class="answer">**A:** The PDF for a Normal/Gaussian distribution $X \sim N(\mu, \sigma^2)$ is:
+                    <span class="math">$$f_{x}(x)=\frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\right)$$</span>
+                The two parameters are:
+                <ol>
+                    <li>**Mean ($\mu$):** Represents the **center** of the distribution. The curve is symmetric around $x = \mu$.</li>
+                    <li>**Standard Deviation ($\sigma$):** Represents the **spread** or dispersion of the distribution. It is a measure of the extent of deviation from the mean. (The variance is $\sigma^2$).</li>
+                </ol>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Describe the key features and PDF of the Uniform distribution for a continuous random variable $X$.**</h3>
+                <p class="answer">**A:** The Uniform distribution models a continuous random variable $X$ that has an **equal probability** of lying anywhere within a defined domain, $x \in (a, b)$. It has no peaks or troughs over this interval.
+                <br>The **Probability Density Function (PDF)** is defined by:
+                    <span class="math">$$f(x)=\begin{cases}\frac{1}{b-a} & a \le x \le b \\ 0 & x < a \text{ or } x > b\end{cases}$$</span>
+                The height of the PDF, $\frac{1}{b-a}$, ensures that the area of the rectangle (base $\times$ height) over the interval $[a, b]$ is exactly 1, satisfying the total probability rule.
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

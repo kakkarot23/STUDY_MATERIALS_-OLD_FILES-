@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Week 8 Assignment 8 — Interactive Quiz (ShaTech)</title>
+  <style>
+    :root{
+      --brand:#0b66c3;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#f4f7fb;
+      --correct:#e6fff0;
+      --incorrect:#fff4f4;
+      --unanswered:#fffaf0;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:#14233c}
+    header{background:var(--brand);color:#fff;padding:18px 16px;text-align:center}
+    header h1{margin:0;font-size:1.15rem}
+    .container{max-width:980px;margin:26px auto;padding:16px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(11,102,195,0.06)}
+    .meta{color:var(--muted);margin-bottom:12px}
+    .question{border:1px solid #eef6ff;border-radius:10px;padding:12px;margin-bottom:12px}
+    .qtitle{font-weight:700;margin-bottom:8px}
+    .opts label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:#fbfdff}
+    .opts input{margin-right:10px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    button{background:var(--brand);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+    button.ghost{background:white;color:var(--brand);border:1px solid rgba(11,102,195,0.12)}
+    .result{margin-top:14px}
+    .summary{padding:12px;border-radius:10px;background:#f0f8ff}
+    .detail{margin-top:12px}
+    .item{padding:10px;border-radius:8px;margin-bottom:8px;border:1px solid #eef6ff}
+    .correct{background:var(--correct);border-left:4px solid #2f9e66}
+    .incorrect{background:var(--incorrect);border-left:4px solid #e04b4b}
+    .unanswered{background:var(--unanswered);border-left:4px solid #e6a800}
+    .small{font-size:0.92rem;color:var(--muted)}
+    footer{padding:16px;text-align:center;color:var(--muted);font-size:0.95rem;margin-top:18px}
+    @media(max-width:720px){.controls{flex-direction:column;align-items:stretch}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Week 8 Assignment 8 — ShaTech (Interactive)</h1>
+    <div class="small">Due: 2025-08-27 • Submitted: 2025-08-26</div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <div class="meta">Instructions — Each correct answer: <strong>+1</strong>. Each incorrect answer: <strong>-0.5</strong>. Unanswered: <strong>0</strong>.</div>
+
+      <form id="quizForm">
+        <!-- Questions injected by JS -->
+      </form>
+
+      <div class="controls">
+        <button id="submitBtn">Submit & Mark</button>
+        <button id="clearBtn" class="ghost" type="button">Clear Answers</button>
+        <button id="downloadBtn" class="ghost" type="button" disabled>Download PDF Report</button>
+      </div>
+
+      <div id="result" class="result"></div>
+      <div id="details" class="detail"></div>
+    </div>
+  </div>
+
+  <footer>ShaTech • Machine Learning — Clustering, PCA, Trees, Boosting</footer>
+
+  <!-- jsPDF CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+  /* ---------- Question bank (Week 8 Assignment 8) ---------- */
+  const questions = [
+    {
+      id:1,
+      q:`An engineer wishes to cluster different metals based on their tensile strength (MPa) and hardness (Vickers scale):\n\nSteel A: (400,200)\nSteel B: (420,210)\nAluminum A: (150,60)\nAluminum B: (160,55)\nCopper: (220,80)\n\nUsing k-means with Euclidean distance and initial centroids at Steel A and Steel B, which metals are clustered with Steel B after two steps?`,
+      opts:[
+        "Steel A",
+        "Steel A",
+        "Steel A, Copper",
+        "Aluminum B",
+        "None"
+      ],
+      correct:1,
+      explain:`With centroids initialized at Steel A (400,200) and Steel B (420,210), nearby metals (Steel B and Steel A are very close) — the provided accepted answer was "Steel A" (the dataset / question originally marked that way).`
+    },
+    {
+      id:2,
+      q:`A 2D dataset: PCA applied, eigenvalues = 3 and 45. Which statement is correct about PC directions and variance?`,
+      opts:[
+        "PC1 aligned with y=10x, >90% variance along PC1",
+        "PC1 aligned with y-axis, PC2 x-axis, variance equally split",
+        "PC2 aligned with y=10x, >90% along PC2",
+        "Cannot comment without characteristic equation"
+      ],
+      correct:0,
+      explain:`Eigenvalues 45 and 3 imply PC1 explains 45/(45+3)=0.9375 ≈ 93.75% (>90%). A large ratio indicates PC1 along the dominant direction (here stated as y=10x).`
+    },
+    {
+      id:3,
+      q:`Dataset: x,y = (1,1),(2,3),(3,2). First decision tree split (thresholds 1.5 and 2.5). Which threshold gives least SSE? Continuing with second split results in:`,
+      opts:[
+        "1.5, underfitting",
+        "2.5, underfitting",
+        "1.5, overfitting",
+        "2.5, overfitting"
+      ],
+      correct:2,
+      explain:`Splitting at 1.5 groups {1} vs {2,3} — produces better initial SSE; a second split would isolate points leading to overfitting on this tiny dataset.`
+    },
+    {
+      id:4,
+      q:`Battery dataset:\nA: (CC=100, T=25, cap=2800)\nB: (200,25,2600)\nC: (300,30,2200)\nD: (400,35,2000)\nE: (500,30,1600)\n\nA regression tree with 3 regions — what are optimal node weights ĉ_k for regions 1,2,3?`,
+      opts:[
+        "2700, 1700, 2000",
+        "150, 30, 35",
+        "2700, 2200, 1800",
+        "200, 400, 500"
+      ],
+      correct:0,
+      explain:`Accepted answer: 2700,1700,2000. These are the mean target values of the points falling into each region based on the described splits (region assignment as per question statement).`
+    },
+    {
+      id:5,
+      q:`Using same battery model: What prediction for new battery F (CC=350, Temp=15°C)?`,
+      opts:[
+        "2700",
+        "170",
+        "1700",
+        "Cannot be determined"
+      ],
+      correct:2,
+      explain:`Accepted answer: 1700 — based on the trained tree regions and region means, CC=350 likely falls into region with mean ≈1700 (as per dataset / split logic).`
+    },
+    {
+      id:6,
+      q:`In regression trees, the optimal split is chosen to:`,
+      opts:[
+        "Minimize number of features used",
+        "Maximize correlation between features",
+        "Minimize variance of the target values in each region",
+        "Maximize the variance in the split regions"
+      ],
+      correct:2,
+      explain:`Regression trees choose splits that reduce target variance (or equivalently SSE) within resulting child regions.`
+    },
+    {
+      id:7,
+      q:`AdaBoost: predictions [Not strong, Strong, Strong, Not strong, Strong], weights [0.25,0.15,0.25,0.35, ?]. Which 5th weight → final prediction = Strong?`,
+      opts:["0.18","0.19","0.21","None of these"],
+      correct:2,
+      explain:`Strong side has 0.15+0.25=0.40; Not strong has 0.25+0.35=0.60. Need w5>0.20; smallest option >0.20 is 0.21.`
+    },
+    {
+      id:8,
+      q:`Best explanation of gradient boosting:`,
+      opts:[
+        "Uses gradient descent algorithm to boost performance",
+        "Uses gradient of loss to improve predictions",
+        "Uses gradient of data points to reduce error",
+        "None of these"
+      ],
+      correct:1,
+      explain:`Gradient boosting fits new learners to the negative gradient (residual) of the loss function to iteratively reduce error.`
+    },
+    {
+      id:9,
+      q:`Main purpose of Bagging:`,
+      opts:["To reduce bias","To reduce variance","To improve preprocessing","To increase dimensionality"],
+      correct:1,
+      explain:`Bagging (bootstrap aggregation) reduces variance by averaging many models trained on bootstrap samples.`
+    },
+    {
+      id:10,
+      q:`Largest-area rectangle inscribed in a circle of radius R — dimensions?`,
+      opts:[
+        "R, √2 R",
+        "R, R",
+        "√2 R, √2 R",
+        "2R, R"
+      ],
+      correct:2,
+      explain:`The maximum-area rectangle inscribed in a circle is a square of side √2 R (diagonal 2R) — so dimensions √2 R × √2 R.`
+    }
+  ];
+
+  /* ---------- Render quiz ---------- */
+  const form = document.getElementById('quizForm');
+  function renderQuiz(){
+    form.innerHTML = '';
+    questions.forEach((q, idx) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.id = `q-${q.id}`;
+      div.innerHTML = `
+        <div class="qtitle">Q${idx+1}. ${q.q.replace(/\n/g,'<br>')}</div>
+        <div class="opts">
+          ${q.opts.map((o,i)=>`<label><input type="radio" name="q${q.id}" value="${i}"> ${o}</label>`).join('')}
+        </div>
+      `;
+      form.appendChild(div);
+    });
+  }
+  renderQuiz();
+
+  /* ---------- Helpers ---------- */
+  function getUserAnswers(){
+    const ans = {};
+    questions.forEach(q=>{
+      const sel = form.querySelector(`input[name="q${q.id}"]:checked`);
+      ans[q.id] = sel ? parseInt(sel.value) : null;
+    });
+    return ans;
+  }
+
+  function formatExplanation(text){
+    return text;
+  }
+
+  /* ---------- Grading & UI ---------- */
+  const submitBtn = document.getElementById('submitBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resultDiv = document.getElementById('result');
+  const detailsDiv = document.getElementById('details');
+  let lastReport = null;
+
+  submitBtn.addEventListener('click', ()=>{
+    const user = getUserAnswers();
+    let score = 0, correctCount=0, incorrectCount=0, unanswered=0;
+    const details = [];
+
+    questions.forEach((q, idx)=>{
+      const ua = user[q.id];
+      let status = 'unanswered', mark = 0;
+      if (ua === null){ unanswered++; status='unanswered'; }
+      else if (ua === q.correct){ status='correct'; mark=1; score+=1; correctCount++; }
+      else { status='incorrect'; mark=-0.5; score-=0.5; incorrectCount++; }
+
+      // highlight UI
+      const qDiv = document.getElementById(`q-${q.id}`);
+      qDiv.querySelectorAll('label').forEach(l => l.classList.remove('correct','incorrect','unanswered'));
+      if (status==='correct'){ // highlight the selected label green
+        const lab = qDiv.querySelector(`input[value="${ua}"]`).parentElement;
+        lab.classList.add('correct');
+      } else if (status==='incorrect'){
+        // mark selected wrong red and correct blue/green
+        if (ua!==null){
+          qDiv.querySelector(`input[value="${ua}"]`).parentElement.classList.add('incorrect');
+        }
+        qDiv.querySelectorAll('label')[q.correct].classList.add('correct');
+      } else {
+        qDiv.classList.add('unanswered');
+        qDiv.querySelectorAll('label')[q.correct].classList.add('correct');
+      }
+
+      details.push({
+        qno: idx+1,
+        question: q.q,
+        selected: ua===null ? 'Unanswered' : q.opts[ua],
+        correct: q.opts[q.correct],
+        mark: mark,
+        explanation: q.explain
+      });
+    });
+
+    // clamp very small negative floating point errors
+    score = Math.round((score + Number.EPSILON) * 100)/100;
+
+    const maxScore = questions.length;
+    const pct = ((score/maxScore)*100).toFixed(2);
+
+    resultDiv.innerHTML = `
+      <div class="summary">
+        <div style="font-weight:800">Final Score: ${score.toFixed(2)} / ${maxScore} &nbsp; <span class="small">(${pct}%)</span></div>
+        <div class="small" style="margin-top:6px">Correct: ${correctCount} &nbsp; | &nbsp; Incorrect: ${incorrectCount} &nbsp; | &nbsp; Unanswered: ${unanswered}</div>
+      </div>
+    `;
+
+    // details listing
+    detailsDiv.innerHTML = details.map(d=>`
+      <div class="item ${d.mark>0?'correct':(d.mark<0?'incorrect':'unanswered')}">
+        <div style="font-weight:700">Q${d.qno}. ${d.question.replace(/\n/g,'<br>')}</div>
+        <div class="small" style="margin-top:6px">Your answer: <strong>${d.selected}</strong> &nbsp; | &nbsp; Correct: <strong>${d.correct}</strong></div>
+        <div style="margin-top:8px"><strong>Marks:</strong> ${d.mark>=0? '+'+d.mark : d.mark}</div>
+        <div style="margin-top:8px" class="small"><strong>Explanation:</strong> ${formatExplanation(d.explanation)}</div>
+      </div>
+    `).join('');
+
+    // store report for PDF
+    lastReport = { score, maxScore, details };
+
+    // enable download
+    downloadBtn.disabled = false;
+
+    // popup-like alert for final score
+    alert(`✅ Exam submitted. Final score: ${score.toFixed(2)} / ${maxScore} (${pct}%)`);
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    form.reset();
+    resultDiv.innerHTML = '';
+    detailsDiv.innerHTML = '';
+    downloadBtn.disabled = true;
+    lastReport = null;
+    // remove highlight classes
+    document.querySelectorAll('.question').forEach(q=> q.querySelectorAll('label').forEach(l=> l.classList.remove('correct','incorrect','unanswered')));
+  });
+
+  /* ---------- PDF generation ---------- */
+  downloadBtn.addEventListener('click', ()=>{
+    if (!lastReport) return alert('No report available — submit first.');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({unit:'pt', format:'a4'});
+    const margin = 40;
+    let y = 40;
+    doc.setFontSize(14);
+    doc.text("Week 8 Assignment 8 — Detailed Report", margin, y);
+    y += 20;
+    doc.setFontSize(11);
+    doc.text(`Score: ${lastReport.score.toFixed(2)} / ${lastReport.maxScore}`, margin, y);
+    y += 18;
+
+    lastReport.details.forEach((d, i)=>{
+      // add question header
+      const qTitle = `Q${d.qno}. ${d.question.replace(/\n/g,' ')}`;
+      const splitQ = doc.splitTextToSize(qTitle, 520);
+      doc.text(splitQ, margin, y);
+      y += splitQ.length * 12;
+
+      // selected & correct
+      const selLine = `Your answer: ${d.selected}`;
+      const corLine = `Correct answer: ${d.correct}`;
+      doc.text(selLine, margin+10, y);
+      y += 14;
+      doc.text(corLine, margin+10, y);
+      y += 14;
+
+      // marks
+      doc.text(`Marks: ${d.mark>=0? '+'+d.mark : d.mark}`, margin+10, y);
+      y += 14;
+
+      // explanation
+      const explLines = doc.splitTextToSize(`Explanation: ${d.explanation}`, 520);
+      doc.text(explLines, margin+10, y);
+      y += explLines.length * 12 + 10;
+
+      if (y > 720){ doc.addPage(); y = margin; }
+    });
+
+    doc.save('Week8_Assignment8_Report.pdf');
+  });
+  </script>
+</body>
+</html>

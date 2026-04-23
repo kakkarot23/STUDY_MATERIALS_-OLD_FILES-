@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH - Week 2 Assignment 2 Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #d4c1ec, #b18ddb);
+    color: #fff;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Question Card */
+.question-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* Question Header */
+.question-card h3 {
+    margin: 0 0 10px;
+}
+
+/* Options */
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.options li {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.options li.correct {
+    background: rgba(0,255,150,0.3);
+    font-weight: bold;
+}
+
+.options li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Explanation */
+.explanation {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-left: 4px solid #ff6ec7;
+    display: none;
+    border-radius: 5px;
+}
+
+/* Toggle Button */
+.show-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ff6ec7;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.show-btn:hover {
+    background: #ff3fb5;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SHATECH - Week 2 Assignment 2 Notes</h1>
+</header>
+
+<div class="container" id="questionsContainer">
+    <!-- Questions will be injected here -->
+</div>
+
+<script>
+// Question Data
+const questions = [
+    {
+        q: `Given a probability density function for a random variable X:
+P_X(x) =
+{4/3(1-x); 0 <= x <= 0.5
+ 4/3(x); 0.5 < x <= 1}
+What is the expected value of x?`,
+        options: ["1/2", "2/3", "3/4", "5/6"],
+        answer: 0,
+        explanation: "Expected value E[X] = ∫ x f(x) dx. Solve piecewise to get E[X] = 1/2."
+    },
+    {
+        q: "You wish to use the coefficient of determination R^2 to analyse the predictions made by a linear regression model. Which of the following is not true about R^2?",
+        options: ["The R^2 can be negative for an inferior model.",
+                  "If R^2 is 0, then the model will always predict the mean value.",
+                  "The value of R^2 is always less than 1.",
+                  "If the value of R^2 is close to 1, then the model predictions are close to the actual values."],
+        answer: 2,
+        explanation: "R^2 can sometimes be greater than 1 for poorly fitted models with transformations. So 'always less than 1' is incorrect."
+    },
+    {
+        q: "If X ~ U[0,1], and Y = X^2, what is the probability distribution of Y?",
+        options: ["g(y) = √(2y); 0<=x<=1", "g(y) = 2√y; 0<=x<=1", "g(y) = 1/(2√y); 0<=x<=1", "g(y) = 1/√(2y); 0<=x<=1"],
+        answer: 1,
+        explanation: "Using transformation method: g(y) = f(x)/|dx/dy| = 2√y."
+    },
+    {
+        q: "Given a probability density function: P_X(x) = 648/x^3 for 0<x<=1.5, 0 otherwise. What are the mean and standard deviation of x?",
+        options: ["1.2, 0.245", "0.25, 6.0", "0.25, 1.2", "0.16, 0.32"],
+        answer: 0,
+        explanation: "Compute E[X] = ∫ x f(x) dx and Var(X) = E[X^2]-E[X]^2 to get mean and std deviation."
+    },
+    {
+        q: "The sample mean is an unbiased estimator of the population mean. Which statement is true?",
+        options: ["The sample mean will always be equal to the population mean.",
+                  "The expected value of the sample mean will be equal to the population mean.",
+                  "The variance of the sample mean will be 0.",
+                  "The sample mean is independent of the sample size taken from the population."],
+        answer: 1,
+        explanation: "Expected value of sample mean = population mean. Hence it is unbiased."
+    },
+    {
+        q: "Vitamin D levels of 10 individuals measured: 19, 25, 32, 23, 42, 17, 15, 21, 22, 19. What is mean and std deviation?",
+        options: ["8, 23.5", "23.5, 64.5", "23.5, 7.6", "23.5, 8"],
+        answer: 3,
+        explanation: "Mean = sum/10 = 23.5; Std Dev = sqrt(sum((x-mean)^2)/n) ≈ 8."
+    },
+    {
+        q: "If mean absolute error of an ML model is zero on training set, what is the angle made by parity plot (test set) with horizontal axis?",
+        options: ["0 degrees", "45 degrees", "90 degrees", "Can't say"],
+        answer: 1,
+        explanation: "Perfect prediction implies line y=x, which makes 45° with x-axis."
+    },
+    {
+        q: "In linear regression, which cannot be considered a hyperparameter?",
+        options: ["Number of parameters", "Regularisation parameter", "Number of features", "Value of the intercept"],
+        answer: 3,
+        explanation: "Intercept is learned from data, not set manually, so it's a parameter, not a hyperparameter."
+    },
+    {
+        q: "A researcher claims a new drug improves recovery time. What is the null hypothesis?",
+        options: ["The new drug improves recovery time", "The new drug has no effect on recovery time", "Recovery time is worse with drug", "Recovery time is unpredictable"],
+        answer: 1,
+        explanation: "Null hypothesis is the statement of no effect: drug has no effect."
+    },
+    {
+        q: "Average daily protein intake of 12 men measured. Test if mean >60 g using 5% significance. Test statistic?",
+        options: ["t-statistic, 1.775", "z-statistic, 1.854", "t-statistic, 1.854", "z-statistic, 1.575"],
+        answer: 2,
+        explanation: "Use t-test for sample mean (population std unknown). t = (x̄-μ)/(s/√n) ≈ 1.854."
+    }
+];
+
+// Render questions
+const container = document.getElementById('questionsContainer');
+
+questions.forEach((qData,index)=>{
+    const card = document.createElement('div');
+    card.className = 'question-card';
+
+    let optionsHtml = '<ul class="options">';
+    qData.options.forEach((opt,i)=>{
+        const isCorrect = (i === qData.answer) ? 'correct' : '';
+        optionsHtml += `<li class="${isCorrect}">${opt}</li>`;
+    });
+    optionsHtml += '</ul>';
+
+    card.innerHTML = `
+        <h3>Q${index+1}. ${qData.q}</h3>
+        ${optionsHtml}
+        <button class="show-btn">Show Explanation</button>
+        <div class="explanation">${qData.explanation}</div>
+    `;
+
+    container.appendChild(card);
+});
+
+// Toggle explanations
+document.querySelectorAll('.show-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const expl = btn.nextElementSibling;
+        expl.style.display = (expl.style.display === 'block') ? 'none' : 'block';
+    });
+});
+</script>
+
+</body>
+</html>

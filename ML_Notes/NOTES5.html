@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5 Assignment 5</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 25px 40px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    h2 {
+        color: #444;
+        margin-top: 30px;
+    }
+    .question {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-left: 4px solid #007BFF;
+        background-color: #f0f8ff;
+        border-radius: 4px;
+    }
+    .options {
+        list-style: none;
+        padding-left: 0;
+    }
+    .options li {
+        margin: 5px 0;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 4px;
+        transition: 0.2s;
+    }
+    .options li:hover {
+        background-color: #e0e0e0;
+    }
+    .correct {
+        background-color: #d4edda !important;
+        border-left: 4px solid #28a745;
+    }
+    .show-answer {
+        display: none;
+        margin-top: 5px;
+        color: #155724;
+        font-weight: bold;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 12px;
+        background: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background: #0056b3;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Week 5 Assignment 5</h1>
+    <p><strong>Due Date:</strong> 2025-08-27, 23:59 IST | <strong>Submitted On:</strong> 2025-08-26, 22:01 IST</p>
+
+    <!-- Question 1 -->
+    <div class="question">
+        <h2>Q1. Which of the following cases would reducing the learning rate NOT help with?</h2>
+        <ul class="options">
+            <li class="correct">Model is underfitted and the predictions are not very accurate</li>
+            <li>Large oscillations in the loss function which are not settling</li>
+            <li>Loss function diverges and the values blow up</li>
+            <li>Loss function seems to approach minima and overshooting is to be avoided</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: Model is underfitted and the predictions are not very accurate</div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question">
+        <h2>Q2. Which of the following methods addresses the rapid decay of learning rate in AdaGrad and how?</h2>
+        <ul class="options">
+            <li>RMSProp, by adding a velocity vector which accumulates past gradients</li>
+            <li>SGD with momentum, by using an exponentially weighted moving average</li>
+            <li>Adam by adding a velocity vector which accumulates past gradients</li>
+            <li class="correct">RMSProp, by using an exponentially weighted moving average</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: RMSProp, by using an exponentially weighted moving average</div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question">
+        <h2>Q3. The Adam optimizer combines the benefits of which two techniques?</h2>
+        <ul class="options">
+            <li>Stochastic gradient descent and dropout</li>
+            <li class="correct">Momentum and adaptive learning rates</li>
+            <li>L1 and L2 regularization</li>
+            <li>Cross-entropy and mean squared loss</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: Momentum and adaptive learning rates</div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+        <h2>Q4. Why are adaptive learning rate methods preferred in deep learning?</h2>
+        <ul class="options">
+            <li>They eliminate the need for regularization</li>
+            <li>They make the model invariant to the number of layers</li>
+            <li class="correct">They automatically adjust learning rates for different parameters, speeding up convergence</li>
+            <li>They remove the need for batch normalization</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: They automatically adjust learning rates for different parameters, speeding up convergence</div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question">
+        <h2>Q5. Gradient descent first step values for dataset (β0, β1)?</h2>
+        <ul class="options">
+            <li>0.4, 1.38</li>
+            <li>0.04, 0.138</li>
+            <li class="correct">0.08, 0.276</li>
+            <li>0.2, 0.69</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: 0.08, 0.276</div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question">
+        <h2>Q6. Which of the following matrices are positive definite?</h2>
+        <ul class="options">
+            <li class="correct">M1</li>
+            <li>M1 and M3</li>
+            <li>M2 and M3</li>
+            <li>M1, M2, M3</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: M1</div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question">
+        <h2>Q7. Which statement is NOT true regarding the Hessian?</h2>
+        <ul class="options">
+            <li class="correct">The Hessian is always positive definite</li>
+            <li>The Hessian does not depend on the value of the parameters</li>
+            <li>The Hessian does not depend on the actual value of y</li>
+            <li>All of these</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: The Hessian is always positive definite</div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question">
+        <h2>Q8. Eigenvalues of the matrix [[2,0,0],[1,3,0],[0,1,4]]?</h2>
+        <ul class="options">
+            <li class="correct">2, 3, 4</li>
+            <li>2, 2, 4</li>
+            <li>2, 3, 3</li>
+            <li>1, 3, 4</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: 2, 3, 4</div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question">
+        <h2>Q9. Hessian at (0,0) for f(x,y) = x² + 4y² and classify?</h2>
+        <ul class="options">
+            <li class="correct">Hessian = [2 0; 0 8], local minimum</li>
+            <li>Hessian = [-2 0; 0 -8], local maximum</li>
+            <li>Hessian = [2 0; 0 -8], saddle point</li>
+            <li>Hessian = [0 0; 0 0], cannot determine</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: Hessian = [2 0; 0 8], local minimum</div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question">
+        <h2>Q10. L(θ) using Hessian H = [4 0; 0 9], θ - θ₀ = [1 -2], L(θ₀)=5?</h2>
+        <ul class="options">
+            <li>21</li>
+            <li>15</li>
+            <li>17</li>
+            <li class="correct">25</li>
+        </ul>
+        <button class="btn" onclick="toggleAnswer(this)">Show Answer</button>
+        <div class="show-answer">Correct Answer: 25</div>
+    </div>
+
+</div>
+
+<script>
+function toggleAnswer(button) {
+    const answer = button.nextElementSibling;
+    if (answer.style.display === "block") {
+        answer.style.display = "none";
+        button.textContent = "Show Answer";
+    } else {
+        answer.style.display = "block";
+        button.textContent = "Hide Answer";
+    }
+}
+</script>
+</body>
+</html>

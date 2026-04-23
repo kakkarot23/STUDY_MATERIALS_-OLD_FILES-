@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #d4c1ec, #b18ddb);
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    animation: slideDown 1s ease;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Keyframes */
+@keyframes slideDown {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeInUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes fillBar {
+    0% { width: 0; }
+}
+
+/* Dashboard Stats */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px;
+    gap: 20px;
+}
+
+.stat-card {
+    flex: 1 1 200px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease forwards;
+}
+
+.stat-card h2 {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.stat-card p {
+    font-size: 1.1rem;
+}
+
+/* Progress Bars */
+.progress {
+    width: 100%;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6ec7, #ff3fb5);
+    width: 0;
+    border-radius: 10px;
+    animation: fillBar 1.5s forwards;
+}
+
+/* Dashboard Grid */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px;
+    gap: 20px;
+}
+
+/* Assignment Card */
+.assignment-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    width: 220px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.4s, box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.assignment-card.completed {
+    background: rgba(0, 255, 150, 0.2);
+    border: 2px solid #00ff96;
+}
+
+.assignment-card h3 {
+    margin: 0 0 15px;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.assignment-card p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.assignment-card .marks {
+    font-weight: bold;
+}
+
+.assignment-card button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 25px;
+    background: #ff6ec7;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(255,110,199,0.5);
+}
+
+.assignment-card button:hover {
+    transform: scale(1.05);
+    background: #ff3fb5;
+    box-shadow: 0 6px 20px rgba(255,63,181,0.6);
+}
+
+.assignment-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SHATECH</h1>
+</header>
+
+<!-- Stats Section -->
+<div class="stats">
+    <div class="stat-card">
+        <p>Total Marks</p>
+        <h2 id="totalMarks">0</h2>
+        <div class="progress"><div class="progress-bar" id="marksBar"></div></div>
+    </div>
+    <div class="stat-card">
+        <p>Average Marks</p>
+        <h2 id="avgMarks">0</h2>
+        <div class="progress"><div class="progress-bar" id="avgBar"></div></div>
+    </div>
+    <div class="stat-card">
+        <p>Completed Assignments</p>
+        <h2 id="completedCount">0</h2>
+        <div class="progress"><div class="progress-bar" id="completedBar"></div></div>
+    </div>
+</div>
+
+<!-- Assignment Cards -->
+<div class="dashboard" id="dashboard">
+    <!-- Assignment cards injected via JS -->
+</div>
+
+<script>
+const assignments = [
+    {id: 1, name: "Assignment 1", marks: 00, completed: true, link: "Assignment1.html"},
+    {id: 2, name: "Assignment 2", marks: 00, completed: true, link: "Assignment2.html"},
+    {id: 3, name: "Assignment 3", marks: 00, completed: true, link: "Assignment3.html"},
+    {id: 4, name: "Assignment 4", marks: 00, completed: true, link: "Assignment4.html"},
+    {id: 5, name: "Assignment 5", marks: 00, completed: true, link: "Assignment5.html"},
+    {id: 6, name: "Assignment 6", marks: 00, completed: true, link: "Assignment6.html"},
+    {id: 7, name: "Assignment 7", marks: 00, completed: true, link: "Assignment7.html"},
+    {id: 8, name: "Assignment 8", marks: 00, completed: true, link: "Assignment8.html"},
+    {id: 9, name: "Assignment 9", marks: 00, completed: true, link: "Assignment9.html"},
+    {id: 10, name: "Assignment 10", marks: 00, completed: true, link: "Assignment10.html"}
+];
+
+// Calculate stats
+let totalMarks = assignments.reduce((acc,a)=>acc+a.marks,0);
+let avgMarks = Math.round(totalMarks / assignments.length);
+let completedCount = assignments.filter(a=>a.completed).length;
+
+// Update stats
+document.getElementById('totalMarks').innerText = totalMarks;
+document.getElementById('avgMarks').innerText = avgMarks;
+document.getElementById('completedCount').innerText = completedCount;
+
+// Progress bars
+document.getElementById('marksBar').style.width = Math.min(totalMarks, 100) + '%';
+document.getElementById('avgBar').style.width = Math.min(avgMarks, 100) + '%';
+document.getElementById('completedBar').style.width = (completedCount/assignments.length*100) + '%';
+
+// Render assignment cards
+const dashboard = document.getElementById('dashboard');
+assignments.forEach((assignment,index)=>{
+    const card = document.createElement('div');
+    card.className = 'assignment-card' + (assignment.completed ? ' completed':'');
+    card.style.animationDelay = `${index*0.1}s`;
+    card.innerHTML = `
+        <h3>${assignment.name}</h3>
+        <p class="marks">Marks: ${assignment.marks}</p>
+        <p>Status: ${assignment.completed ? 'Completed ✅':'Pending ❌'}</p>
+        <button onclick="window.location.href='${assignment.link}'">Go to Assignment</button>
+    `;
+    dashboard.appendChild(card);
+});
+</script>
+
+</body>
+</html>

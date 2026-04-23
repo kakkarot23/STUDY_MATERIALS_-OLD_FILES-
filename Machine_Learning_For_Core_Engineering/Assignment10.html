@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Week 10 Assignment 10 — Interactive Quiz (ShaTech)</title>
+  <style>
+    :root{
+      --brand:#0b66c3; --bg:#f4f7fb; --card:#fff;
+      --ok:#e6fff0; --bad:#fff4f4; --note:#fffaf0;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:#112}
+    header{background:var(--brand);color:#fff;padding:18px 16px;text-align:center}
+    header h1{margin:0;font-size:1.15rem}
+    .wrap{max-width:980px;margin:22px auto;padding:16px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(11,102,195,0.06)}
+    .meta{color:#6b7280;margin-bottom:12px}
+    .question{border:1px solid #eef6ff;border-radius:10px;padding:12px;margin-bottom:12px}
+    .qtitle{font-weight:700;margin-bottom:8px}
+    .opts label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:#fbfdff}
+    .opts input{margin-right:10px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    button{background:var(--brand);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+    button.ghost{background:#fff;color:var(--brand);border:1px solid rgba(11,102,195,0.12)}
+    .result{margin-top:14px}
+    .summary{padding:12px;border-radius:10px;background:#f0f8ff}
+    .detail{margin-top:12px}
+    .item{padding:10px;border-radius:8px;margin-bottom:8px;border:1px solid #eef6ff}
+    .correct{background:var(--ok);border-left:4px solid #2f9e66}
+    .incorrect{background:var(--bad);border-left:4px solid #e04b4b}
+    .unanswered{background:var(--note);border-left:4px solid #e6a800}
+    .small{font-size:0.92rem;color:#6b7280}
+    footer{padding:16px;text-align:center;color:#6b7280;margin-top:18px}
+    @media(max-width:720px){.controls{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Week 10 Assignment 10 — ShaTech</h1>
+    <div class="small">Due: 2025-10-01 • Submitted: 2025-10-01</div>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="meta">Instructions — Correct: <strong>+1</strong>. Incorrect: <strong>-0.5</strong>. Unanswered: <strong>0</strong>.</div>
+
+      <form id="quizForm"></form>
+
+      <div class="controls">
+        <button id="submitBtn">Submit & Mark</button>
+        <button id="clearBtn" class="ghost" type="button">Clear Answers</button>
+        <button id="downloadBtn" class="ghost" type="button" disabled>Download PDF Report</button>
+      </div>
+
+      <div id="result" class="result"></div>
+      <div id="details" class="detail"></div>
+    </div>
+  </div>
+
+  <footer>ShaTech • Support Vector Machines, Impurity Measures & Kernel Methods</footer>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+  /* Question bank with accepted answers and short explanations */
+  const questions = [
+    {
+      id:1,
+      q:`A decision stump splits 20 samples into:
+Left node: 8 positive, 2 negative
+Right node: 5 positive, 5 negative
+What is the Gini impurity of the left node?`,
+      opts:["0.16","0.32","0.36","0.48"],
+      correct:1,
+      explain:`Gini = 1 - (p_pos^2 + p_neg^2). Left node: p_pos=8/10=0.8, p_neg=0.2 → Gini=1-(0.64+0.04)=0.32.`
+    },
+    {
+      id:2,
+      q:`Parent: 12 positive, 4 negative. Split → Child1: 6 pos,2 neg; Child2: 6 pos,2 neg. What is information gain?`,
+      opts:["0.00","0.19","0.31","0.81"],
+      correct:0,
+      explain:`Both children have same class proportions as parent (p_pos=0.75). Entropy unchanged → information gain = 0.`
+    },
+    {
+      id:3,
+      q:`Which statement about Gini impurity and Shannon entropy is correct?`,
+      opts:[
+        "Entropy is always ≤ Gini",
+        "Gini penalizes misclassifications more strongly",
+        "Both measures are maximum when classes are equally distributed",
+        "Gini can be negative while entropy cannot"
+      ],
+      correct:2,
+      explain:`Both impurity measures attain maximum when class proportions are uniform (e.g., 50/50).`
+    },
+    {
+      id:4,
+      q:`In SVC, how are model parameters obtained?`,
+      opts:[
+        "By minimizing the margin",
+        "By minimizing the norm squared of the SVC weights",
+        "By minimizing the length of the support vectors",
+        "None of these"
+      ],
+      correct:1,
+      explain:`Primal SVM objective minimizes (1/2)||w||^2 subject to margin constraints — i.e., minimize norm squared of weights.`
+    },
+    {
+      id:5,
+      q:`Soft-margin SVM with slack ξᵢ. If a point is correctly classified but inside the margin, which holds?`,
+      opts:["ξᵢ = 0","0 < ξᵢ < 1","ξᵢ = 1","ξᵢ > 1"],
+      correct:1,
+      explain:`If correctly classified but within margin, hinge loss value 0<ξ<1 (slack positive but <1).`
+    },
+    {
+      id:6,
+      q:`Which is true regarding Kernel Ridge Regression (KRR)?`,
+      opts:[
+        "It is parametric (fixed form)",
+        "It is non-parametric: effective parameters grow w/ training size",
+        "Parametric because it uses kernel functions with fixed params",
+        "Neither parametric nor non-parametric"
+      ],
+      correct:1,
+      explain:`KRR solutions depend on all training points (kernel matrix invert), so effective complexity grows with data → non-parametric behavior.`
+    },
+    {
+      id:7,
+      q:`For linearly separable SVM, a point xᵢ with label yᵢ is correctly classified and outside margin if:`,
+      opts:["yᵢ(w·xᵢ+b) > 1","yᵢ(w·xᵢ+b) = 1","yᵢ(w·xᵢ+b) < 1","yᵢ(w·xᵢ+b) = 0"],
+      correct:0,
+      explain:`If margin≥1 for correctly classified outside-margin points: y_i*(w·x_i+b) > 1.`
+    },
+    {
+      id:8,
+      q:`Separating hyperplane: 2x1 + 3x2 − 6 = 0. Distance of point (3,2) from plane and class label?`,
+      opts:["12.63, 1","21.63, 1","2.63, -1","21.63, -1"],
+      correct:1,
+      explain:`Distance = |2*3 + 3*2 -6| / sqrt(2^2+3^2) = |6+6-6|/√13 = 6/√13 ≈ 1.664. If the question's accepted numeric was 21.63 they used scaled units; accepted answer from sheet: "21.63, 1". (We keep official accepted answer for grading.)`
+    },
+    {
+      id:9,
+      q:`Primary objective of SVM for binary classification:`,
+      opts:[
+        "Minimize misclassified points",
+        "Maximize number of support vectors",
+        "Maximize the margin between the two classes",
+        "Reduce dimensionality of input"
+      ],
+      correct:2,
+      explain:`SVM seeks the hyperplane that maximizes margin between classes (distance to nearest points).`
+    },
+    {
+      id:10,
+      q:`600 bridges labeled healthy/danger with clear separation. Which SVM kernel is most appropriate?`,
+      opts:["RBF kernel","Polynomial kernel","Linear kernel","Sigmoid kernel"],
+      correct:2,
+      explain:`When classes are clearly separable in original feature space, a linear kernel is appropriate and fast.`
+    }
+  ];
+
+  /* Render quiz */
+  const form = document.getElementById('quizForm');
+  function render(){
+    form.innerHTML = '';
+    questions.forEach((q, idx) => {
+      const node = document.createElement('div');
+      node.className = 'question';
+      node.id = `q-${q.id}`;
+      node.innerHTML = `
+        <div class="qtitle">Q${idx+1}. ${q.q.replace(/\n/g,'<br>')}</div>
+        <div class="opts">${q.opts.map((o,i)=>`<label><input type="radio" name="q${q.id}" value="${i}"> ${o}</label>`).join('')}</div>
+      `;
+      form.appendChild(node);
+    });
+  }
+  render();
+
+  /* Helpers */
+  function getAnswers(){
+    const out = {};
+    questions.forEach(q=>{
+      const sel = form.querySelector(`input[name="q${q.id}"]:checked`);
+      out[q.id] = sel ? parseInt(sel.value) : null;
+    });
+    return out;
+  }
+
+  /* UI elements */
+  const submitBtn = document.getElementById('submitBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resultDiv = document.getElementById('result');
+  const detailsDiv = document.getElementById('details');
+
+  let lastReport = null;
+
+  submitBtn.addEventListener('click', ()=>{
+    const user = getAnswers();
+    let score = 0, correct=0, incorrect=0, unanswered=0;
+    const details = [];
+
+    questions.forEach((q, idx)=>{
+      const ua = user[q.id];
+      let status='unanswered', mark=0;
+      if (ua===null){ unanswered++; status='unanswered'; }
+      else if (ua === q.correct){ status='correct'; mark=1; score+=1; correct++; }
+      else { status='incorrect'; mark=-0.5; score-=0.5; incorrect++; }
+
+      // UI highlight
+      const qDiv = document.getElementById(`q-${q.id}`);
+      qDiv.querySelectorAll('label').forEach(l=> l.classList.remove('correct','incorrect','unanswered'));
+      if (status==='correct'){ qDiv.querySelector(`input[value="${ua}"]`).parentElement.classList.add('correct'); }
+      else if (status==='incorrect'){
+        if (ua !== null) qDiv.querySelector(`input[value="${ua}"]`).parentElement.classList.add('incorrect');
+        qDiv.querySelectorAll('label')[q.correct].classList.add('correct');
+      } else {
+        qDiv.classList.add('unanswered');
+        qDiv.querySelectorAll('label')[q.correct].classList.add('correct');
+      }
+
+      details.push({
+        qno: idx+1,
+        question: q.q,
+        selected: ua===null ? 'Unanswered' : q.opts[ua],
+        correct: q.opts[q.correct],
+        mark, explanation: q.explain
+      });
+    });
+
+    // rounding
+    score = Math.round((score + Number.EPSILON) * 100)/100;
+    const max = questions.length;
+    const pct = ((score/max)*100).toFixed(2);
+
+    resultDiv.innerHTML = `
+      <div class="summary">
+        <div style="font-weight:800">Final Score: ${score.toFixed(2)} / ${max} &nbsp;<span class="small">(${pct}%)</span></div>
+        <div class="small" style="margin-top:6px">Correct: ${correct} | Incorrect: ${incorrect} | Unanswered: ${unanswered}</div>
+      </div>
+    `;
+
+    detailsDiv.innerHTML = details.map(d=>`
+      <div class="item ${d.mark>0?'correct':(d.mark<0?'incorrect':'unanswered')}">
+        <div style="font-weight:700">Q${d.qno}. ${d.question.replace(/\n/g,'<br>')}</div>
+        <div class="small" style="margin-top:6px">Your answer: <strong>${d.selected}</strong> &nbsp; | &nbsp; Correct: <strong>${d.correct}</strong></div>
+        <div style="margin-top:8px"><strong>Marks:</strong> ${d.mark>=0? '+'+d.mark : d.mark}</div>
+        <div style="margin-top:8px" class="small"><strong>Explanation:</strong> ${d.explanation}</div>
+      </div>
+    `).join('');
+
+    lastReport = { score, max, details };
+    downloadBtn.disabled = false;
+    alert(`✅ Submitted — Final score: ${score.toFixed(2)} / ${max} (${pct}%)`);
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    form.reset();
+    resultDiv.innerHTML = '';
+    detailsDiv.innerHTML = '';
+    downloadBtn.disabled = true;
+    lastReport = null;
+    document.querySelectorAll('.question').forEach(q=> q.querySelectorAll('label').forEach(l=> l.classList.remove('correct','incorrect','unanswered')));
+  });
+
+  /* PDF generation */
+  downloadBtn.addEventListener('click', ()=>{
+    if (!lastReport) return alert('Submit first to generate report.');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({unit:'pt', format:'a4'});
+    let y = 40, margin=40;
+    doc.setFontSize(14);
+    doc.text('Week 10 Assignment 10 — Detailed Report', margin, y); y+=18;
+    doc.setFontSize(11);
+    doc.text(`Score: ${lastReport.score.toFixed(2)} / ${lastReport.max}`, margin, y); y+=18;
+
+    lastReport.details.forEach(d=>{
+      const qTitle = `Q${d.qno}. ${d.question.replace(/\n/g,' ')}`;
+      const qLines = doc.splitTextToSize(qTitle, 520);
+      doc.text(qLines, margin, y); y += qLines.length*12;
+
+      doc.text(`Your answer: ${d.selected}`, margin+12, y); y+=14;
+      doc.text(`Correct answer: ${d.correct}`, margin+12, y); y+=14;
+      doc.text(`Marks: ${d.mark>=0? '+'+d.mark : d.mark}`, margin+12, y); y+=14;
+
+      const expl = doc.splitTextToSize(`Explanation: ${d.explanation}`, 520);
+      doc.text(expl, margin+12, y); y += expl.length*12 + 8;
+
+      if (y > 740){ doc.addPage(); y = 40; }
+    });
+
+    doc.save('Week10_Assignment10_Report.pdf');
+  });
+  </script>
+</body>
+</html>

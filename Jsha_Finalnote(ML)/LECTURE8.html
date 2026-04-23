@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 08 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .matrix {
+            font-family: 'Courier New', monospace;
+            display: block;
+            white-space: pre;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 08 Notes</p>
+            <p>Topic: Sample Properties and Estimators (Bias, Mean, Variance, Covariance)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Estimators and Bias</h3>
+                <ul>
+                    [cite_start]<li>An **Estimator** ($\hat{\theta}$) is a statistical expression used to estimate an unknown **population parameter** ($\theta$), such as the population mean ($\mu$) or variance ($\sigma^2$)[cite: 9, 13, 16, 17, 18].</li>
+                    [cite_start]<li>The **Bias** of an estimator is defined as the difference between its expected value and the true value of the estimand: $B(\hat{\theta})=E(\hat{\theta})-\theta$[cite: 24, 25].</li>
+                    [cite_start]<li>An estimator is **Unbiased** if its bias is zero, i.e., $E(\hat{\theta})=\theta$[cite: 29, 31].</li>
+                    [cite_start]<li>An estimator is **Biased** if its expected value is not equal to the true parameter value, i.e., $E(\hat{\theta})\ne\theta$[cite: 32, 36].</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Sample Statistics</h3>
+                <ul>
+                    [cite_start]<li>The **Sample Mean** ($\overline{x}$) is the arithmetic average of the $n$ measurements in a sample[cite: 46, 48].</li>
+                    [cite_start]<li>The **Sample Mean** ($\overline{x}$) is an **unbiased estimator** for the population mean ($\mu$)[cite: 37, 39, 63].</li>
+                    [cite_start]<li>The **Unbiased Sample Variance** ($s^2$) uses a divisor of **$(n-1)$** to account for the loss of one **degree of freedom** after calculating the sample mean[cite: 73, 79, 80].</li>
+                    [cite_start]<li>The **Uncorrected Sample Variance** ($\tilde{s}^{2}$) uses a divisor of $n$ and is a **biased estimator**[cite: 84, 86].</li>
+                    [cite_start]<li>The **Sample Covariance Matrix ($\mathbf{S}$)** is a symmetric matrix where the diagonal entries are the sample variances[cite: 132, 134, 135, 136].</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: The condition for an estimator $\hat{\theta}$ to be **unbiased** is:**</h3>
+                    <span class="mcq-option">A. $B(\hat{\theta}) = E(\hat{\theta}) + \theta$</span>
+                    <span class="mcq-option">B. $E(\hat{\theta}) = \frac{\theta}{2}$</span>
+                    <span class="mcq-option">C. $E(\hat{\theta}) = \theta$</span>
+                    <span class="mcq-option">D. $\hat{\theta} = 0$</span>
+                    <div class="mcq-explanation">
+                        [cite_start]<span class="answer">Answer: C.</span> An estimator is unbiased if its expected value is equal to the true value of the estimand, which means the bias $B(\hat{\theta})=E(\hat{\theta})-\theta$ is zero[cite: 25, 29].
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: Which quantity is an **unbiased estimator** for the population mean $\mu$?**</h3>
+                    <span class="mcq-option">A. The population variance $\sigma^2$</span>
+                    <span class="mcq-option">B. The sample mean $\overline{x}$</span>
+                    <span class="mcq-option">C. The uncorrected sample variance $\tilde{s}^{2}$</span>
+                    <span class="mcq-option">D. The population standard deviation $\sigma$</span>
+                    <div class="mcq-explanation">
+                        [cite_start]<span class="answer">Answer: B.</span> The sample mean, $\overline{x}$, is proven to be an unbiased estimator for the population mean, $\mu$, as $E(\overline{x}) = \mu$[cite: 37, 39, 63].
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: The factor $(n-1)$ in the unbiased sample variance formula is there to account for:**</h3>
+                    <span class="mcq-option">A. The total number of data points.</span>
+                    <span class="mcq-option">B. The Central Limit Theorem.</span>
+                    <span class="mcq-option">C. The number of degrees of freedom.</span>
+                    <span class="mcq-option">D. The square root operation.</span>
+                    <div class="mcq-explanation">
+                        [cite_start]<span class="answer">Answer: C.</span> The factor $(n-1)$ appears as the number of **degrees of freedom**, reflecting that one degree of freedom is lost after the sample mean ($\overline{x}$) is calculated from the data[cite: 79, 80].
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the formula for the Sample Mean ($\overline{x}$) and demonstrate why it is an unbiased estimator for the population mean ($\mu$).**</h3>
+                <p class="answer">**A:** The formula for the Sample Mean based on $n$ measurements is:
+                    <span class="math">$$\overline{x} = \frac{1}{n}\sum_{i=1}^{n}x_{i}$$</span>
+                    It is an unbiased estimator because its expected value equals the population mean $\mu$:
+                    <span class="math">$$E(\overline{x}) = E\left(\frac{1}{n}\sum_{i=1}^{n}x_{i}\right) = \frac{1}{n}\sum_{i=1}^{n}E(x_{i}) = \frac{1}{n}\sum_{i=1}^{n}\mu = \frac{1}{n} \cdot n\mu = \mu$$</span>
+                    [cite_start]Since $E(\overline{x})=\mu$, the bias $B(\overline{x}) = \mu - \mu = 0$[cite: 53, 54, 57, 63].
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: What is the difference between the unbiased and uncorrected formulas for sample variance? Which one is generally preferred for estimating $\sigma^2$?**</h3>
+                <p class="answer">**A:**
+                    <ul>
+                        <li>**Unbiased (Corrected) Sample Variance ($s^2$):** Uses a denominator of $(n-1)$.
+                            <span class="math">$$s^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}$$</span>
+                            [cite_start]This is an **unbiased estimator** for $\sigma^2$[cite: 73, 77].
+                        </li>
+                        <li>**Uncorrected Sample Variance ($\tilde{s}^{2}$):** Uses a denominator of $n$.
+                            <span class="math">$$\tilde{s}^{2} = \frac{1}{n}\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}$$</span>
+                            [cite_start]This is a **biased estimator**[cite: 84, 86].
+                        </li>
+                    </ul>
+                    [cite_start]The **unbiased (corrected) sample variance $s^2$ is generally preferred** as it provides a more accurate estimate of the population variance $\sigma^2$[cite: 77].
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Describe the Sample Covariance Matrix ($\mathbf{S}$) for $p$ random variables and explain the meaning of its diagonal and off-diagonal entries.**</h3>
+                [cite_start]<p class="answer">**A:** The **Sample Covariance Matrix ($\mathbf{S}$)** is a square, $p \times p$ matrix used to estimate the joint linear variability among $p$ random variables ($X_1, X_2, \ldots, X_p$) based on $n$ data points[cite: 97, 117, 131, 132].</p>
+                <p>The elements of the matrix, $s_{jk}$, are defined as:
+                    <span class="math">$$s_{jk} = s_{kj} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\overline{x_{j}})(x_{ik}-\overline{x_{k}})$$</span>
+                </p>
+                <dl>
+                    <dt>Diagonal Entries ($s_{jj}$):</dt>
+                    <dd>
+                        [cite_start]The diagonal entries represent the **Sample Variance** of each individual random variable[cite: 134, 135]. For example, $s_{11}$ is the sample variance of $X_1$, and $s_{pp}$ is the sample variance of $X_p$:
+                        <span class="math">$$s_{jj} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{ij}-\overline{x_{j}})^{2}$$</span>
+                    </dd>
+
+                    <dt>Off-Diagonal Entries ($s_{jk}, j \ne k$):</dt>
+                    <dd>
+                        [cite_start]The off-diagonal entries represent the **Sample Covariance** between two distinct random variables, $X_j$ and $X_k$[cite: 117].
+                    </dd>
+                </dl>
+                [cite_start]<p>The matrix $\mathbf{S}$ is always **symmetric** because $s_{jk}$ (covariance between $X_j$ and $X_k$) is mathematically equal to $s_{kj}$ (covariance between $X_k$ and $X_j$)[cite: 136].</p>
+
+                [cite_start]<p>The structure of the Sample Covariance Matrix is[cite: 127, 132]:</p>
+                <span class="matrix">
+                    $$\mathbf{S} = \begin{pmatrix}
+                        s_{11} & s_{12} & \ldots & s_{1p} \\
+                        s_{21} & s_{22} & \ldots & s_{2p} \\
+                        \vdots & \vdots & \ddots & \vdots \\
+                        s_{p1} & s_{p2} & \ldots & s_{pp}
+                    \end{pmatrix}$$
+                </span>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

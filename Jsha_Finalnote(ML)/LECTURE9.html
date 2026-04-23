@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 09 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 09 Notes</p>
+            <p>Topic: Linear Regression (Matrix Formulation and Goodness of Fit)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Linear Model and Objective</h3>
+                <ul>
+                    <li>**Linear Regression** uses a linear model to approximate an unknown function that depends on several variables.</li>
+                    <li>The objective is to find the **optimal parameters** ($\beta$) of the linear model that minimize the error.</li>
+                    <li>The **Predicted Value** of the target variable ($\hat{y}_i$) is a linear combination of the features ($x_{ij}$) and parameters ($\beta_j$).</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Optimization and Solution</h3>
+                <ul>
+                    <li>The most common loss function for linear regression is the **Mean-Squared Error (MSE)**, also called the **Residual Sum of Squares**.</li>
+                    <li>The optimal parameters ($\hat{\beta}$) are found by minimizing the MSE, typically by setting the **gradient** of the MSE with respect to $\beta$ to zero.</li>
+                    <li>The optimal solution $\hat{\beta}$ for the parameters is given by the **Normal Equation**: $\hat{\beta} = (\mathbf{X}^{\text{T}}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}\mathbf{Y}$.</li>
+                    <li>The term $\mathbf{X}^{+} = (\mathbf{X}^{\text{T}}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}$ is known as the **Moore-Penrose inverse** or **pseudo-inverse** of the matrix $\mathbf{X}$.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Goodness of Fit</h3>
+                <ul>
+                    <li>The **Coefficient of Determination ($R^2$)** is a measure of the **goodness of fit** of the linear model.</li>
+                    <li>$R^2$ is defined as $R^{2}=1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}$.</li>
+                    <li>$SS_{\text{res}}$ is the **Residual Sum of Squares**, and $SS_{\text{tot}}$ is the **Total Sum of Squares**.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: The loss function most commonly minimized to find the optimal parameters in linear regression is the:**</h3>
+                    <span class="mcq-option">A. Cross-Entropy Error</span>
+                    <span class="mcq-option">B. Moore-Penrose Inverse</span>
+                    <span class="mcq-option">C. Mean-Squared Error (MSE)</span>
+                    <span class="mcq-option">D. Total Sum of Squares ($SS_{\text{tot}}$)</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> The Mean-Squared Error (MSE), which is also known as the residual sum of squares, is the standard loss function for linear regression.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: What is the primary purpose of setting the gradient of the MSE with respect to the parameter vector $\beta$ to zero ($\nabla_\beta MSE(\beta) = 0$)?**</h3>
+                    <span class="mcq-option">A. To find the minimum MSE.</span>
+                    <span class="mcq-option">B. To perform feature scaling.</span>
+                    <span class="mcq-option">C. To calculate the $R^2$ value.</span>
+                    <span class="mcq-option">D. To check for multicollinearity.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: A.</span> Setting the gradient to zero is the condition required to find the stationary point, which corresponds to the minimum value for the Mean-Squared Error function, thereby yielding the optimal parameters.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: The Coefficient of Determination ($R^2$) measures the goodness of fit of a model using which two sums of squares?**</h3>
+                    <span class="mcq-option">A. $SS_{\text{res}}$ and $SS_{\text{model}}$</span>
+                    <span class="mcq-option">B. $SS_{\text{res}}$ and $SS_{\text{tot}}$</span>
+                    <span class="mcq-option">C. $SS_{\text{model}}$ and $SS_{\text{tot}}$</span>
+                    <span class="mcq-option">D. $SS_{\text{tot}}$ and $\overline{y}$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> $R^2$ is calculated as $1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}$, where $SS_{\text{res}}$ is the residual sum of squares and $SS_{\text{tot}}$ is the total sum of squares.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the expression for the predicted value of the target variable, $\hat{y}_i$, in linear regression, identifying the parameters and features.**</h3>
+                <p class="answer">**A:** The predicted value for the $i$-th data point is:
+                    <span class="math">$$\hat{y}_{i} = \beta_{0} + \sum_{j=1}^{p}\beta_{j}x_{ij}$$</span>
+                    where:
+                    <ul>
+                        <li>$\beta_0$ is the **intercept** parameter.</li>
+                        <li>$\beta_j$ are the **weights** (parameters) of the $j$-th feature.</li>
+                        <li>$x_{ij}$ is the **value of the $j$-th feature** for the $i$-th data point.</li>
+                        <li>$p$ is the total number of features in the model.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: What is the Mean-Squared Error (MSE) and how is it expressed in terms of actual ($y_i$) and predicted ($\hat{y}_i$) values?**</h3>
+                <p class="answer">**A:** The Mean-Squared Error (MSE) is a loss function that quantifies the average squared difference between the true values and the predicted values. It is also called the residual sum of squares in this context.
+                    <span class="math">$$MSE(\beta) = \frac{1}{n}\sum_{i=1}^{n}(\overline{y_{i}-\hat{y}_{i}})^{2}$$</span>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: State the definition of the Moore-Penrose inverse ($\mathbf{X}^{+}$) and its role in the linear regression solution.**</h3>
+                <p class="answer">**A:** The **Moore-Penrose inverse** ($\mathbf{X}^{+}$) or **pseudo-inverse** of the feature matrix $\mathbf{X}$ is defined as:
+                    <span class="math">$$\mathbf{X}^{+} = (\mathbf{X}^{\text{T}}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}$$</span>
+                    It is the generalization of the concept of a matrix inverse to a **rectangular matrix**. It allows the optimal parameter vector $\hat{\beta}$ to be calculated as $\hat{\beta} = \mathbf{X}^{+}\mathbf{Y}$, which gives the "best-fit" linear model.
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the matrix notation for the linear regression model and the explicit formula for the optimal parameter vector $\hat{\beta}$ using the Normal Equation.**</h3>
+                <p class="answer">**A: Matrix Formulation and Optimal Solution:**</p>
+                <dl>
+                    <dt>Linear Model in Matrix Notation:</dt>
+                    <dd>
+                        The set of predicted values ($\mathbf{\hat{Y}}$) for all $n$ data points is expressed as the product of the feature matrix ($\mathbf{X}$) and the parameter vector ($\mathbf{\beta}$):
+                        <span class="math">$$\mathbf{\hat{Y}} = \mathbf{X}\mathbf{\beta}$$</span>
+                        where $\mathbf{X}$ includes a column of ones for the intercept $\beta_0$.
+                    </dd>
+
+                    <dt>Optimal Parameter Vector ($\hat{\beta}$) - The Normal Equation:</dt>
+                    <dd>
+                        The optimal set of parameters $\hat{\beta}$ that minimizes the MSE is obtained by solving the Normal Equation:
+                        <span class="math">$$\hat{\mathbf{\beta}} = (\mathbf{X}^{\text{T}}\mathbf{X})^{-1}\mathbf{X}^{\text{T}}\mathbf{Y}$$</span>
+                        This expression gives the optimal parameters for the **"best-fit" linear model**.
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Define the Coefficient of Determination ($R^2$) and explain how $SS_{\text{res}}$ and $SS_{\text{tot}}$ are calculated.**</h3>
+                <p class="answer">**A: Coefficient of Determination ($R^2$):**</p>
+                <p>The **Coefficient of Determination ($R^2$)** is a measure of the **goodness of fit** of a model, indicating the proportion of the variance in the dependent variable that is predictable from the independent variables.</p>
+                <p>The formula for $R^2$ is:
+                    <span class="math">$$R^{2} = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}$$</span>
+                </p>
+                <dl>
+                    <dt>Residual Sum of Squares ($SS_{\text{res}}$):</dt>
+                    <dd>
+                        This is the sum of the squared differences between the **actual values** ($y_i$) and the **predicted values** ($\hat{y}_i$) of the target variable. It quantifies the error that the model could not explain.
+                        <span class="math">$$SS_{\text{res}} = \sum_{i=1}^{n}(y_{i} - \hat{y}_{i})^{2}$$</span>
+                    </dd>
+
+                    <dt>Total Sum of Squares ($SS_{\text{tot}}$):</dt>
+                    <dd>
+                        This is the sum of the squared differences between the **actual values** ($y_i$) and the **sample mean** ($\overline{y}$) of the target variable. It represents the total variance in the data that could be explained.
+                        <span class="math">$$SS_{\text{tot}} = \sum_{i=1}^{n}(y_{i} - \overline{y})^{2}$$</span>
+                    </dd>
+                </dl>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

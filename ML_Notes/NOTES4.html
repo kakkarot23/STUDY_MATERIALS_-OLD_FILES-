@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH - Week 5 Assignment 5 Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    color: #fff;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.question-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+.question-card h3 {
+    margin: 0 0 10px;
+}
+
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.options li {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.options li.correct {
+    background: rgba(0,255,150,0.3);
+    font-weight: bold;
+}
+
+.options li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.explanation {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-left: 4px solid #ff6ec7;
+    display: none;
+    border-radius: 5px;
+}
+
+.show-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ff6ec7;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.show-btn:hover {
+    background: #ff3fb5;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SHATECH - Week 5 Assignment 5 Notes</h1>
+</header>
+
+<div class="container" id="questionsContainer"></div>
+
+<script>
+const questions = [
+{
+    q: "Which of the following cases would reducing the learning rate NOT help with?",
+    options: ["Model is underfitted and the predictions are not very accurate ✅", "Large oscillations in the loss function which are not settling", "Loss function diverges and the values blow up", "Loss function seems to approach minima and overshooting is to be avoided"],
+    answer: 0,
+    explanation: "Reducing learning rate helps with oscillations or overshooting, but if the model is underfitted, a low learning rate won't improve accuracy."
+},
+{
+    q: "Which method addresses rapid decay of learning rate in AdaGrad and how?",
+    options: ["RMSProp, by adding a velocity vector which accumulates past gradients", "SGD with momentum, by using an exponentially weighted moving average", "Adam by adding a velocity vector which accumulates past gradients", "RMSProp, by using an exponentially weighted moving average ✅"],
+    answer: 3,
+    explanation: "RMSProp uses an exponentially weighted moving average to prevent aggressive learning rate decay in AdaGrad."
+},
+{
+    q: "The Adam optimizer combines the benefits of which two techniques?",
+    options: ["Stochastic gradient descent and dropout", "Momentum and adaptive learning rates ✅", "L1 and L2 regularization", "Cross-entropy and mean squared loss"],
+    answer: 1,
+    explanation: "Adam combines momentum (accumulating past gradients) and adaptive learning rates for faster convergence."
+},
+{
+    q: "Why are adaptive learning rate methods preferred in deep learning?",
+    options: ["They eliminate the need for regularization", "They make the model invariant to the number of layers", "They automatically adjust learning rates for different parameters, speeding up convergence ✅", "They remove the need for batch normalization"],
+    answer: 2,
+    explanation: "Adaptive methods like Adam or RMSProp adjust learning rates for each parameter, making optimization faster."
+},
+{
+    q: "Gradient descent first step for dataset x=[1,2,3,4,5], y=[2,3,5,4,6], learning rate 0.01, initial β0=β1=0. First step β0, β1?",
+    options: ["0.4, 1.38", "0.04, 0.138", "0.08, 0.276 ✅", "0.2, 0.69"],
+    answer: 2,
+    explanation: "Compute gradients of MSE w.r.t β0 and β1, multiply by learning rate 0.01, subtract from initial 0 values."
+},
+{
+    q: "Which of the following matrices are positive definite?",
+    options: ["M1 ✅", "M1 and M3", "M2 and M3", "M1, M2, M3"],
+    answer: 0,
+    explanation: "Only M1 has all positive eigenvalues, making it positive definite."
+},
+{
+    q: "For linear regression using MSE, which of the following is NOT true regarding the Hessian?",
+    options: ["The Hessian is always positive definite ✅", "The Hessian does not depend on the value of the parameters", "The Hessian does not depend on the actual value of y", "All of these"],
+    answer: 0,
+    explanation: "Hessian can be positive semidefinite but not necessarily always positive definite; depends on X matrix."
+},
+{
+    q: "Consider matrix [[2,0,0],[1,3,0],[0,1,4]]. Eigenvalues?",
+    options: ["2, 3, 4 ✅", "2, 2, 4", "2, 3, 3", "1, 3, 4"],
+    answer: 0,
+    explanation: "Eigenvalues of upper triangular matrix are the diagonal entries: 2,3,4."
+},
+{
+    q: "Function f(x,y)=x²+4y². Hessian at (0,0) and critical point type?",
+    options: ["Hessian=[2 0;0 8], local minimum ✅", "Hessian=[-2 0;0 -8], local maximum", "Hessian=[2 0;0 -8], saddle point", "Hessian=[0 0;0 0], cannot determine"],
+    answer: 0,
+    explanation: "Second derivatives: f_xx=2, f_yy=8, f_xy=0. Hessian positive definite ⇒ local minimum."
+},
+{
+    q: "2D quadratic loss Hessian H=[[4,0],[0,9]], L(θ0)=5, (θ−θ0)=[1,-2]. Find L(θ).",
+    options: ["21", "15", "17", "25 ✅"],
+    answer: 3,
+    explanation: "Second order Taylor: L≈5 + 0.5 * [1 -2] * [[4,0],[0,9]] * [1;-2] = 5 + 20 = 25."
+}
+];
+
+// Render questions
+const container = document.getElementById('questionsContainer');
+
+questions.forEach((qData,index)=>{
+    const card = document.createElement('div');
+    card.className = 'question-card';
+
+    let optionsHtml = '<ul class="options">';
+    qData.options.forEach((opt,i)=>{
+        const isCorrect = (i === qData.answer) ? 'correct' : '';
+        optionsHtml += `<li class="${isCorrect}">${opt}</li>`;
+    });
+    optionsHtml += '</ul>';
+
+    card.innerHTML = `
+        <h3>Q${index+1}. ${qData.q}</h3>
+        ${optionsHtml}
+        <button class="show-btn">Show Explanation</button>
+        <div class="explanation">${qData.explanation}</div>
+    `;
+
+    container.appendChild(card);
+});
+
+// Toggle explanations
+document.querySelectorAll('.show-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const expl = btn.nextElementSibling;
+        expl.style.display = (expl.style.display === 'block') ? 'none' : 'block';
+    });
+});
+</script>
+
+</body>
+</html>

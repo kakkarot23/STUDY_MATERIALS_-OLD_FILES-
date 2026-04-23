@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 04 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 04 Notes</p>
+            <p>Topic: Bayes Theorem Application and Random Variables (PDF, CDF)</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Random Variables and Types</h3>
+                <ul>
+                    <li>A **Random Variable (RV)** is a variable that denotes the outcome of a stochastic experiment.</li>
+                    <li>The two main types of Random Variables are **Discrete** and **Continuous**.</li>
+                    <li>Two main functions that give probability distribution for an RV are the **Probability Density Function (PDF)** and the **Cumulative Distribution Function (CDF)**.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>PDF and CDF Fundamentals</h3>
+                <ul>
+                    <li>For a continuous RV, the probability of $X$ lying in a small interval $dx$ is $P(x \le X \le x+dx) = f(x) \cdot dx$, where $f(x)$ is the **PDF**.</li>
+                    <li>The **CDF**, $F(x)$, gives the probability that $X$ has a value **less than or equal to** $x$.</li>
+                    <li>The total probability over the entire range, $F(\infty)$, must always equal **1** ($\int_{-\infty}^{\infty} f(x)dx = 1$).</li>
+                    <li>The probability of $X$ lying between two values $a$ and $b$ is $P(a \le X \le b) = F(b) - F(a)$.</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Multiple Random Variables</h3>
+                <ul>
+                    <li>The distribution of multiple RVs is defined by the **Joint Probability Density Function (JPDF)**, $f(x, y)$.</li>
+                    <li>If two random variables $X$ and $Y$ are **independent**, their JPDF is the product of their individual PDFs: $f_{XY}(x, y) = f_X(x)f_Y(y)$.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: Which formula correctly represents the calculation of the Posterior Probability using Bayes Theorem?**</h3>
+                    <span class="mcq-option">A. $P(A_i|B) = \frac{P(A_i) + P(B|A_i)}{P(B)}$</span>
+                    <span class="mcq-option">B. $P(A_i|B) = \frac{P(A_i)P(B|A_i)}{\sum_{j}P(A_j) \cdot P(B|A_j)}$</span>
+                    <span class="mcq-option">C. $P(A_i|B) = P(A_i)P(B|A_i)P(B)$</span>
+                    <span class="mcq-option">D. $P(A_i|B) = \frac{P(A_i|B)P(A_i)}{P(B)}$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: B.</span> This is the general form of Bayes Theorem where $P(B)$ in the denominator is expanded as the sum of joint probabilities over all possible hypotheses $A_j$.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: What is the numerical value of the total area under the Probability Density Function (PDF) curve, $\int_{-\infty}^{\infty} f(x) dx$?**</h3>
+                    <span class="mcq-option">A. 0</span>
+                    <span class="mcq-option">B. $\infty$</span>
+                    <span class="mcq-option">C. 1</span>
+                    <span class="mcq-option">D. $F(x)$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> $F(\infty) = \int_{-\infty}^{\infty} f(x)dx = 1$. The total probability of a random variable $X$ taking any value in its domain ($\mathbb{R}$) is 1.
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: If $F(x, y)$ is the Joint Cumulative Distribution Function (JCDF), how is the Joint Probability Density Function (JPDF) $f(x, y)$ related to it?**</h3>
+                    <span class="mcq-option">A. $f(x, y) = \frac{d F(x, y)}{d x}$</span>
+                    <span class="mcq-option">B. $f(x, y) = \frac{\partial^2 F(x, y)}{\partial x \partial y}$</span>
+                    <span class="mcq-option">C. $f(x, y) = F(x, y) \cdot F'(x, y)$</span>
+                    <span class="mcq-option">D. $f(x, y) = \int F(x, y) dx$</span>
+                    <div class="mcq-explanation">
+                        <span class="answer: B.</span> The PDF is the derivative of the CDF. For multiple variables (JPDF from JCDF), this requires a mixed second-order partial derivative: $f_{XY}(x,y) = \frac{\partial^2 F_{XY}(x,y)}{\partial x \partial y}$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Define a Random Variable (RV) and name the two primary categories.**</h3>
+                <p class="answer">**A:** A **Random Variable** is a variable that denotes the outcome of a stochastic (random) experiment. The two primary categories of random variables are **Discrete** (takes on countable values) and **Continuous** (takes on any value within a given range).</p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: How is the probability of a continuous RV, $X$, lying between two values $a$ and $b$ calculated using its PDF, $f(x)$?**</h3>
+                <p class="answer">**A:** The probability $P(a \le X \le b)$ is calculated by integrating the Probability Density Function $f(x)$ over the interval $[a, b]$:
+                    <span class="math">$$P(a \le X \le b) = \int_{a}^{b} f(x) dx$$</span>
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: What condition must be satisfied by the JPDF for two random variables, $X$ and $Y$, to be considered statistically independent?**</h3>
+                <p class="answer">**A:** For $X$ and $Y$ to be independent, their Joint Probability Density Function (JPDF) must be equal to the product of their individual (marginal) PDFs:
+                    <span class="math">$$f_{XY}(x, y) = f_X(x) f_Y(y)$$</span>
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Apply Bayes Theorem to the following problem: In an ML class, 40% of students are from Science and 60% from Engineering. 20% of Science students and 30% of Engineering students have prior ML exposure. Find the probability of a student being from Science, given they have ML exposure.**</h3>
+                <p class="answer">**A:** This requires finding $P(\text{Science}|\text{ML Exposure})$. Let $A_1 = \text{Science}$, $A_2 = \text{Engineering}$, and $B = \text{ML Exposure}$.
+                <ol>
+                    <li>**Given Probabilities (Priors and Likelihoods):**
+                        <ul>
+                            <li>$P(A_1) = 0.4$ (Prior probability of Science)</li>
+                            <li>$P(A_2) = 0.6$ (Prior probability of Engineering)</li>
+                            <li>$P(B|A_1) = 0.2$ (Likelihood of ML exposure, given Science)</li>
+                            <li>$P(B|A_2) = 0.3$ (Likelihood of ML exposure, given Engineering)</li>
+                        </ul>
+                    </li>
+                    <li>**Bayes Theorem Formula:**
+                        <span class="math">$$P(A_1|B) = \frac{P(A_1)P(B|A_1)}{P(A_1)P(B|A_1) + P(A_2)P(B|A_2)}$$</span>
+                    </li>
+                    <li>**Calculation:**
+                        <span class="math">$$P(\text{Science}|\text{ML}) = \frac{0.4 \times 0.2}{(0.4 \times 0.2) + (0.6 \times 0.3)} = \frac{0.08}{0.08 + 0.18} = \frac{0.08}{0.26}$$</span>
+                    </li>
+                    <li>**Final Result:**
+                        <span class="math">$$P(\text{Science}|\text{ML Exposure}) \approx 0.3077$$</span>
+                        The probability of a randomly chosen student being from a Science background, given they have prior ML exposure, is approximately $30.77\%$.
+                </ol>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Explain the concepts of Probability Density Function (PDF) and Cumulative Distribution Function (CDF) for continuous random variables and show their fundamental mathematical relationship.**</h3>
+                <p class="answer">**A:**
+                <dl>
+                    <dt>Probability Density Function (PDF), $f(x)$:</dt>
+                    <dd>The PDF describes the **relative likelihood** for a continuous random variable (RV) to take on a given value. For a continuous RV, the probability of taking *exactly* one value is zero; hence, the PDF is used to find the probability of the RV falling within a small range $dx$, given by $f(x) \cdot dx$. The total area under the PDF curve must equal 1, representing the certainty that $X$ will take some value ($\int_{-\infty}^{\infty} f(x) dx = 1$).</dd>
+
+                    <dt>Cumulative Distribution Function (CDF), $F(x)$:</dt>
+                    <dd>The CDF gives the probability that the continuous RV $X$ takes a value **less than or equal to** a specific argument $x$. It accumulates the probability density from $-\infty$ up to $x$.</dd>
+
+                    <dt>Mathematical Relationship:</dt>
+                    <dd>The CDF is the integral of the PDF, and conversely, the PDF is the first derivative of the CDF:</dd>
+                    <dd>
+                        <span class="math">$$F(x) = P(-\infty < X \le x) = \int_{-\infty}^{x} f(x') dx'$$</span>
+                        <span class="math">$$f(x) = \frac{dF(x)}{dx}$$</span>
+                    </dd>
+                </dl>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

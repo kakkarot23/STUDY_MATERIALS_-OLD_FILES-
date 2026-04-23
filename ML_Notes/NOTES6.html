@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5 Assignment 5 - Explained</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .question {
+        margin-bottom: 25px;
+        padding: 15px;
+        border-left: 5px solid #007BFF;
+        background: #f0f8ff;
+        border-radius: 5px;
+    }
+    .options {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 10px;
+    }
+    .options li {
+        margin: 5px 0;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .options li:hover {
+        background: #e0e0e0;
+    }
+    .correct {
+        background-color: #d4edda !important;
+        border-left: 4px solid #28a745;
+    }
+    .incorrect {
+        background-color: #f8d7da !important;
+        border-left: 4px solid #dc3545;
+    }
+    .explanation {
+        display: none;
+        margin-top: 8px;
+        padding: 10px;
+        background: #fff3cd;
+        border-left: 4px solid #ffeeba;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 12px;
+        background: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background: #0056b3;
+    }
+    #score {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+        color: #007BFF;
+    }
+    .explain-btn {
+        margin-top: 5px;
+        background: #17a2b8;
+        color: #fff;
+        padding: 3px 8px;
+        font-size: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .explain-btn:hover {
+        background: #117a8b;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Week 5 Assignment 5 - Explained</h1>
+
+    <!-- Question 1 -->
+    <div class="question" data-correct="0">
+        <h2>Q1. Which of the following cases would reducing the learning rate NOT help with?</h2>
+        <ul class="options">
+            <li>Model is underfitted and the predictions are not very accurate</li>
+            <li>Large oscillations in the loss function which are not settling</li>
+            <li>Loss function diverges and the values blow up</li>
+            <li>Loss function seems to approach minima and overshooting is to be avoided</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Reducing the learning rate helps with overshooting or oscillations. However, if the model is underfitted (too simple to capture data patterns), lowering the learning rate won't improve accuracy because the problem is model capacity, not learning speed.
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question" data-correct="3">
+        <h2>Q2. Which of the following methods addresses the rapid decay of learning rate in AdaGrad and how?</h2>
+        <ul class="options">
+            <li>RMSProp, by adding a velocity vector which accumulates past gradients</li>
+            <li>SGD with momentum, by using an exponentially weighted moving average</li>
+            <li>Adam by adding a velocity vector which accumulates past gradients</li>
+            <li>RMSProp, by using an exponentially weighted moving average</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            AdaGrad decreases learning rate too quickly. RMSProp solves this by using an exponentially weighted moving average of squared gradients to adaptively scale learning rates, preventing them from decaying too fast.
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question" data-correct="1">
+        <h2>Q3. The Adam optimizer combines the benefits of which two techniques?</h2>
+        <ul class="options">
+            <li>Stochastic gradient descent and dropout</li>
+            <li>Momentum and adaptive learning rates</li>
+            <li>L1 and L2 regularization</li>
+            <li>Cross-entropy and mean squared loss</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Adam combines momentum (smooths gradients) and adaptive learning rates (scales per parameter), making training faster and more stable.
+        </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question" data-correct="2">
+        <h2>Q4. Why are adaptive learning rate methods preferred in deep learning?</h2>
+        <ul class="options">
+            <li>They eliminate the need for regularization</li>
+            <li>They make the model invariant to the number of layers</li>
+            <li>They automatically adjust learning rates for different parameters, speeding up convergence</li>
+            <li>They remove the need for batch normalization</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Adaptive methods like Adam adjust learning rates for each parameter automatically, which helps in faster convergence, especially for deep networks where gradients can vary greatly.
+        </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question" data-correct="2">
+        <h2>Q5. Gradient descent first step values for dataset (β0, β1)?</h2>
+        <ul class="options">
+            <li>0.4, 1.38</li>
+            <li>0.04, 0.138</li>
+            <li>0.08, 0.276</li>
+            <li>0.2, 0.69</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Using gradient descent with learning rate 0.01, initial parameters 0, the first update step calculates gradients and updates: β0 = 0 + 0.01 * gradient, β1 = 0 + 0.01 * gradient. Step calculation gives β0 ≈ 0.08, β1 ≈ 0.276.
+        </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question" data-correct="0">
+        <h2>Q6. Which of the following matrices are positive definite?</h2>
+        <ul class="options">
+            <li>M1</li>
+            <li>M1 and M3</li>
+            <li>M2 and M3</li>
+            <li>M1, M2, M3</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Positive definite matrices must have all positive eigenvalues. M1 satisfies this property. M2 has negative or zero eigenvalues, and M3 has zero, so only M1 is positive definite.
+        </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question" data-correct="0">
+        <h2>Q7. Which statement is NOT true regarding the Hessian?</h2>
+        <ul class="options">
+            <li>The Hessian is always positive definite</li>
+            <li>The Hessian does not depend on the value of the parameters</li>
+            <li>The Hessian does not depend on the actual value of y</li>
+            <li>All of these</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            For linear regression using MSE, the Hessian depends only on X. It's not always positive definite (depends on X), so claiming it always is positive definite is incorrect.
+        </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question" data-correct="0">
+        <h2>Q8. Eigenvalues of the matrix [[2,0,0],[1,3,0],[0,1,4]]?</h2>
+        <ul class="options">
+            <li>2, 3, 4</li>
+            <li>2, 2, 4</li>
+            <li>2, 3, 3</li>
+            <li>1, 3, 4</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Eigenvalues of a triangular matrix are its diagonal elements. So the eigenvalues are 2, 3, 4.
+        </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question" data-correct="0">
+        <h2>Q9. Hessian at (0,0) for f(x,y) = x² + 4y² and classify?</h2>
+        <ul class="options">
+            <li>Hessian = [2 0; 0 8], local minimum</li>
+            <li>Hessian = [-2 0; 0 -8], local maximum</li>
+            <li>Hessian = [2 0; 0 -8], saddle point</li>
+            <li>Hessian = [0 0; 0 0], cannot determine</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Hessian is [[2,0],[0,8]]. All eigenvalues positive → local minimum at (0,0).
+        </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question" data-correct="3">
+        <h2>Q10. L(θ) using Hessian H = [4 0; 0 9], θ - θ₀ = [1 -2], L(θ₀)=5?</h2>
+        <ul class="options">
+            <li>21</li>
+            <li>15</li>
+            <li>17</li>
+            <li>25</li>
+        </ul>
+        <button class="explain-btn" onclick="toggleExplanation(this)">Show Explanation</button>
+        <div class="explanation">
+            Second-order Taylor expansion: L(θ) ≈ L(θ₀) + 0.5*(θ-θ₀)^T H (θ-θ₀). Calculating: 0.5 * [1 -2]*[[4,0],[0,9]]*[1 -2]^T = 20. Adding L(θ₀)=5 → L(θ)=25.
+        </div>
+    </div>
+
+    <button class="btn" onclick="calculateScore()">Check Score</button>
+    <div id="score"></div>
+</div>
+
+<script>
+const questions = document.querySelectorAll('.question');
+
+questions.forEach(q => {
+    const options = q.querySelectorAll('li');
+    options.forEach((opt, index) => {
+        opt.addEventListener('click', () => {
+            if (index == q.dataset.correct) {
+                opt.classList.add('correct');
+            } else {
+                opt.classList.add('incorrect');
+            }
+            // show correct answer
+            options.forEach((o, i) => {
+                if (i == q.dataset.correct) o.classList.add('correct');
+            });
+        });
+    });
+});
+
+function calculateScore() {
+    let score = 0;
+    questions.forEach(q => {
+        const options = q.querySelectorAll('li');
+        options.forEach((opt, index) => {
+            if (opt.classList.contains('correct') && index == q.dataset.correct) {
+                score++;
+            }
+        });
+    });
+    document.getElementById('score').textContent = `Your Score: ${score} / ${questions.length}`;
+}
+
+function toggleExplanation(btn) {
+    const expl = btn.nextElementSibling;
+    expl.style.display = (expl.style.display === 'block') ? 'none' : 'block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4 Assignment 4 - Machine Learning</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6fa;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+h1 {
+    text-align: center;
+    color: #004aad;
+}
+.question {
+    background: #fff;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
+button {
+    background: #004aad;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+button:hover {
+    background: #0077ff;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 10;
+    text-align: center;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.4);
+    z-index: 5;
+}
+.correct { color: green; }
+.incorrect { color: red; }
+</style>
+</head>
+<body>
+
+<h1>📘 Week 4 Assignment 4</h1>
+<form id="quizForm">
+  <div id="questionsContainer"></div>
+  <center>
+    <button type="button" onclick="submitQuiz()">Submit Assignment</button>
+  </center>
+</form>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+  <h2>✅ Assignment Submitted!</h2>
+  <p id="scoreText"></p>
+  <button onclick="downloadPDF()">Download Answer Key (PDF)</button>
+  <button onclick="closePopup()">Close</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const questions = [
+  {
+    q: "Predicted efficiencies: [55,60,45,70], Actual: [50,65,50,60]. Which statement is true?",
+    options: ["RMSE > MAE", "MAE = RMSE", "MAE > RMSE", "None of these"],
+    correct: 0
+  },
+  {
+    q: "Given data (1,3),(2,5),(3,10), quadratic y=ax²+bx+c. Which (a,b,c) minimizes L2 loss?",
+    options: ["(1,0,1)", "(1,0,2)", "(1,1,0)", "(0.5,1,1)"],
+    correct: 0
+  },
+  {
+    q: "In Matplotlib, which plots x vs y as a red dashed line with circle markers?",
+    options: ["plt.plot(x, y, 'ro')", "plt.plot(x, y, 'or')", "plt.plot(x, y, '--ro')", "plt.plot(x, y, 'ro-')"],
+    correct: 2
+  },
+  {
+    q: "For df grouped by Department, what is grouped.loc['HR','Salary']?",
+    options: ["60000", "59000", "58000", "61000"],
+    correct: 1
+  },
+  {
+    q: "Expression for best-fit slope β1^ in linear regression?",
+    options: [
+      "∑(x²iȳ − x²iyi)/∑(x²i − xix̄)",
+      "∑(x²iyi − x²iȳ)/∑(x²i − xix̄)",
+      "∑(xiȳ − xiyi)/∑(x²i − xix̄)",
+      "∑(xiyi − xiȳ)/∑(x²i − xix̄)"
+    ],
+    correct: 3
+  },
+  {
+    q: "Expression for β1^ in terms of β0^, xi's, and yi's:",
+    options: [
+      "∑(β0^ − yi)/∑(xi)",
+      "∑(yi − β0^)/∑(xi)",
+      "∑(yi − β0^xi)/∑(xi)",
+      "∑(yi − β0^xi)/∑(x²i)"
+    ],
+    correct: 1
+  },
+  {
+    q: "Find best-fit β^ for y=β^x with dataset: (0,0),(6,10),(8,18),(10,20)",
+    options: ["2.00", "2.01", "2.02", "2.03"],
+    correct: 2
+  },
+  {
+    q: "Given electricity demand actual=[150,200,180,170,160,210,190], predicted=[145,195,185,160,155,220,195], RMSE is?",
+    options: ["5.477", "7.416", "6.814", "8.602"],
+    correct: 2
+  },
+  {
+    q: "For logits z=[2.0,1.0,0.1] and true label A (index 0), what is cross-entropy loss?",
+    options: ["0.417", "0.803", "0.551", "1.223"],
+    correct: 0
+  },
+  {
+    q: "Linear regression y=b0+b1x for points (1,4),(2,6),(4,10). Which equations hold?",
+    options: [
+      "3b0+7b1=20, 7b0+21b1=26",
+      "3b0+7b1=56, 7b0+21b1=20",
+      "3b0+7b1=20, 7b0+21b1=56",
+      "3b0+7b1=7, 7b0+21b1=56"
+    ],
+    correct: 2
+  }
+];
+
+// Render Questions
+const container = document.getElementById("questionsContainer");
+questions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<h3>Q${i+1}. ${q.q}</h3>` + 
+  q.options.map((opt, j) => `
+    <label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>
+  `).join("");
+  container.appendChild(div);
+});
+
+let userAnswers = [];
+
+function submitQuiz() {
+  userAnswers = [];
+  let score = 0;
+  questions.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected) {
+      const ans = parseInt(selected.value);
+      userAnswers.push(ans);
+      if (ans === q.correct) score += 1;
+    } else userAnswers.push(null);
+  });
+  document.getElementById("scoreText").innerText = `You scored ${score} / ${questions.length}`;
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("popup").style.display = "none";
+}
+
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+  pdf.setFontSize(14);
+  pdf.text("Week 4 Assignment 4 - Answer Key & Report", 10, 15);
+  let y = 25;
+  questions.forEach((q, i) => {
+    pdf.setFontSize(12);
+    pdf.text(`Q${i+1}. ${q.q}`, 10, y);
+    y += 6;
+    q.options.forEach((opt, j) => {
+      let mark = "";
+      if (j === q.correct) mark = "✅ Correct Answer";
+      if (userAnswers[i] === j && j !== q.correct) mark = "❌ Selected (Incorrect)";
+      pdf.text(`• ${opt} ${mark}`, 12, y);
+      y += 6;
+    });
+    pdf.text(`Marks Awarded: ${userAnswers[i] === q.correct ? "1" : "0"}`, 12, y);
+    y += 8;
+    if (y > 270) { pdf.addPage(); y = 20; }
+  });
+  pdf.save("Week4_Assignment4_AnswerKey.pdf");
+}
+</script>
+</body>
+</html>

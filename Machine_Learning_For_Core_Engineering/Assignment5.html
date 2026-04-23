@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5 Assignment 5 - ML Optimization Quiz</title>
+<style>
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f3f6fb;
+    }
+    header {
+        background: #004aad;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+    }
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h3 { color: #004aad; }
+    .question {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+    label {
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="radio"] {
+        margin-right: 8px;
+    }
+    label:hover {
+        background: #f0f8ff;
+    }
+    button {
+        background: #004aad;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #00337a;
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #004aad;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        text-align: center;
+        z-index: 1000;
+    }
+    .highlight-wrong {
+        color: red;
+    }
+</style>
+</head>
+<body>
+
+<header>Week 5 Assignment 5 – Optimization and Linear Regression Quiz</header>
+
+<div class="container" id="quiz-container"></div>
+
+<div style="text-align:center;">
+    <button onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+<div class="popup" id="resultPopup">
+    <h2>Your Score</h2>
+    <p id="scoreText"></p>
+    <button onclick="downloadPDF()">Download Answer Key</button>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const quizData = [
+    {
+        q: "1. Which of the following cases would reducing the learning rate NOT help with?",
+        options: [
+            "Model is underfitted and the predictions are not very accurate",
+            "Large oscillations in the loss function which are not settling",
+            "Loss function diverges and the values blow up",
+            "Loss function seems to approach minima and overshooting is to be avoided"
+        ],
+        correct: 0
+    },
+    {
+        q: "2. Which of the following methods addresses the rapid decay of learning rate in AdaGrad and how?",
+        options: [
+            "RMSProp, by adding a velocity vector which accumulates past gradients",
+            "SGD with momentum, by using an exponentially weighted moving average",
+            "Adam by adding a velocity vector which accumulates past gradients",
+            "RMSProp, by using an exponentially weighted moving average"
+        ],
+        correct: 3
+    },
+    {
+        q: "3. The Adam optimizer combines the benefits of which two techniques?",
+        options: [
+            "Stochastic gradient descent and dropout",
+            "Momentum and adaptive learning rates",
+            "L1 and L2 regularization",
+            "Cross-entropy and mean squared loss"
+        ],
+        correct: 1
+    },
+    {
+        q: "4. Why are adaptive learning rate methods preferred in deep learning?",
+        options: [
+            "They eliminate the need for regularization",
+            "They make the model invariant to the number of layers",
+            "They automatically adjust learning rates for different parameters, speeding up convergence",
+            "They remove the need for batch normalization"
+        ],
+        correct: 2
+    },
+    {
+        q: "5. Gradient Descent for y = β0 + β1x with MSE loss and learning rate 0.01, starting from 0 — after first step (0,0):",
+        options: [
+            "0.4, 1.38",
+            "0.04, 0.138",
+            "0.08, 0.276",
+            "0.2, 0.69"
+        ],
+        correct: 2
+    },
+    {
+        q: "6. Which of the following matrices are positive definite?",
+        options: [
+            "M1",
+            "M1 and M3",
+            "M2 and M3",
+            "M1, M2, M3"
+        ],
+        correct: 0
+    },
+    {
+        q: "7. For fitting y = β0 + β1x using MSE, which is NOT true about the Hessian?",
+        options: [
+            "The Hessian is always positive definite",
+            "The Hessian does not depend on the value of the parameters",
+            "The Hessian does not depend on the actual value of y",
+            "All of these"
+        ],
+        correct: 0
+    },
+    {
+        q: "8. Eigenvalues of matrix [[2,0,0],[1,3,0],[0,1,4]] are:",
+        options: [
+            "2, 3, 4",
+            "2, 2, 4",
+            "2, 3, 3",
+            "1, 3, 4"
+        ],
+        correct: 0
+    },
+    {
+        q: "9. For f(x,y)=x²+4y², find Hessian and classify (0,0).",
+        options: [
+            "Hessian = [2 0; 0 8], local minimum",
+            "Hessian = [-2 0; 0 -8], local maximum",
+            "Hessian = [2 0; 0 -8], saddle point",
+            "Hessian = [0 0; 0 0], cannot determine"
+        ],
+        correct: 0
+    },
+    {
+        q: "10. For Hessian H=[4 0;0 9], L(θ₀)=5, (θ−θ₀)=[1 −2], find L(θ).",
+        options: [
+            "21",
+            "15",
+            "17",
+            "25"
+        ],
+        correct: 3
+    }
+];
+
+const quizContainer = document.getElementById("quiz-container");
+
+quizData.forEach((data, i) => {
+    const div = document.createElement("div");
+    div.classList.add("question");
+    div.innerHTML = `<h3>${data.q}</h3>` +
+        data.options.map((opt, j) =>
+            `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`
+        ).join("");
+    quizContainer.appendChild(div);
+});
+
+let userAnswers = [];
+
+function submitQuiz() {
+    let score = 0;
+    userAnswers = [];
+    quizData.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+            const val = parseInt(selected.value);
+            userAnswers.push(val);
+            if (val === q.correct) score++;
+        } else userAnswers.push(null);
+    });
+
+    document.getElementById("scoreText").innerText =
+        `You scored ${score} out of ${quizData.length}`;
+    document.getElementById("resultPopup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("resultPopup").style.display = "none";
+}
+
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    doc.setFontSize(14);
+    doc.text("Week 5 Assignment 5 - Answer Key", 10, y);
+    y += 10;
+
+    quizData.forEach((q, i) => {
+        doc.setFontSize(12);
+        doc.text(`${i+1}. ${q.q}`, 10, y);
+        y += 8;
+        q.options.forEach((opt, j) => {
+            let prefix = "   ";
+            if (j === q.correct) prefix = "✅ ";
+            else if (userAnswers[i] === j && j !== q.correct) prefix = "❌ ";
+            const line = `${prefix}${opt}`;
+            doc.text(line, 15, y);
+            y += 7;
+        });
+        y += 5;
+        if (y > 270) { doc.addPage(); y = 10; }
+    });
+    doc.save("Assignment5_AnswerKey.pdf");
+}
+</script>
+</body>
+</html>

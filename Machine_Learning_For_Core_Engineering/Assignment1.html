@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShaTech ML Exam Portal</title>
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        background: #f5f7fb;
+    }
+    header {
+        background: #002b5b;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+    .container {
+        background: #fff;
+        width: 90%;
+        max-width: 900px;
+        margin: 25px auto;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #002b5b;
+    }
+    .question {
+        margin-bottom: 25px;
+    }
+    .question p {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    label {
+        display: block;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    label:hover {
+        background-color: #eef3fc;
+    }
+    .submit-btn {
+        background: #0078d7;
+        color: #fff;
+        padding: 12px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: block;
+        margin: 30px auto;
+    }
+    .submit-btn:hover {
+        background: #005fa3;
+    }
+    footer {
+        text-align: center;
+        color: #555;
+        margin: 20px;
+    }
+</style>
+</head>
+<body>
+
+<header>Machine Learning for Core Engineering - ShaTech</header>
+<div class="container">
+    <h2>Mock Exam - Week 1 Assignment 1</h2>
+    <form id="quizForm">
+        <div id="quiz"></div>
+        <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Exam</button>
+    </form>
+</div>
+<footer>© 2025 ShaTech | AI · ML · DL · GenAI Learning</footer>
+
+<!-- jsPDF for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+const quizData = [
+    {
+        question: "A hospital wants to predict diabetes using patient data. What type of ML problem is this?",
+        options: ["Unsupervised learning", "Reinforcement learning", "Supervised learning", "None of these"],
+        answer: 2
+    },
+    {
+        question: "Data scientists analyze unlabeled customer data to find patterns. Which type of learning is this?",
+        options: ["Supervised learning", "Unsupervised learning", "Reinforcement learning", "Transfer learning"],
+        answer: 1
+    },
+    {
+        question: "Probability of clearing exam = 0.25, max attempts = 4. Probability of success in 4th attempt?",
+        options: ["0.105", "0.0105", "0.004", "0.310"],
+        answer: 0
+    },
+    {
+        question: "If f(x)=e^(-πx²), what are mean and std dev?",
+        options: ["0, 1/(2π)", "0, 1/√π", "0, √(1/(2π))", "0, 1/√(2π)"],
+        answer: 3
+    },
+    {
+        question: "Which best describes parameters vs. hyperparameters?",
+        options: [
+            "Parameters are set manually; hyperparameters are learned",
+            "Parameters are tuned via CV; hyperparameters via loss function",
+            "Parameters are learned; hyperparameters set manually",
+            "No difference; both learned"
+        ],
+        answer: 2
+    },
+    {
+        question: "Match: Classification–Regression–Hyperparameter–Test set",
+        options: ["III-IV-I-II", "IV-III-I-II", "I-IV-III-II", "III-IV-I-II"],
+        answer: 3
+    },
+    {
+        question: "Accident-prone = 40% chance, non-prone = 20%, 30% population prone. Probability of accident?",
+        options: ["0.12", "0.26", "0.14", "0.18"],
+        answer: 1
+    },
+    {
+        question: "Median of exponential dist. with λ?",
+        options: ["ln(0.5)/λ", "ln(2)/λ", "2ln(λ)", "λln(2)"],
+        answer: 1
+    },
+    {
+        question: "A biased coin (head 3× more likely) tossed 5 times. Probability of exactly 2 heads?",
+        options: ["0.31", "0.156", "0.26", "0.088"],
+        answer: 2
+    },
+    {
+        question: "Poisson(λ=5): Probability of <2 complaints per day?",
+        options: ["0.232", "0.125", "0.04", "0.089"],
+        answer: 0
+    }
+];
+
+function loadQuiz() {
+    const quiz = document.getElementById("quiz");
+    quiz.innerHTML = "";
+    quizData.forEach((q, i) => {
+        const qDiv = document.createElement("div");
+        qDiv.classList.add("question");
+        qDiv.innerHTML = `
+            <p>${i + 1}. ${q.question}</p>
+            ${q.options.map((opt, j) =>
+                `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`
+            ).join("")}
+        `;
+        quiz.appendChild(qDiv);
+    });
+}
+
+loadQuiz();
+
+function submitQuiz() {
+    let score = 0;
+    let detailedReport = [];
+
+    quizData.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        let selectedVal = selected ? parseInt(selected.value) : null;
+        let correctVal = q.answer;
+
+        let mark = 0;
+        if (selectedVal === correctVal) mark = 1;
+        else if (selectedVal !== null) mark = -0.5;
+
+        score += mark;
+
+        detailedReport.push({
+            qno: i + 1,
+            question: q.question,
+            selected: selectedVal !== null ? q.options[selectedVal] : "Not Attempted",
+            correct: q.options[correctVal],
+            mark: mark
+        });
+    });
+
+    alert(`✅ Exam Completed!\nYour Final Score: ${score} / ${quizData.length}`);
+
+    generatePDFReport(detailedReport, score);
+}
+
+function generatePDFReport(report, totalScore) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: "p", unit: "pt", format: "a4" });
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("ShaTech - Machine Learning for Core Engineering", 40, 50);
+    doc.setFontSize(13);
+    doc.text(`Detailed Answer Key and Report`, 40, 70);
+    doc.text(`Final Score: ${totalScore}`, 40, 90);
+    doc.setFont("helvetica", "normal");
+
+    let y = 120;
+
+    report.forEach((r) => {
+        doc.setFontSize(11);
+        doc.text(`${r.qno}. ${r.question}`, 40, y);
+        y += 15;
+
+        if (r.selected === r.correct) {
+            doc.setTextColor(0, 128, 0); // green
+            doc.text(`Selected: ${r.selected}`, 60, y);
+        } else if (r.selected === "Not Attempted") {
+            doc.setTextColor(150, 150, 150);
+            doc.text(`Selected: Not Attempted`, 60, y);
+        } else {
+            doc.setTextColor(255, 0, 0);
+            doc.text(`Selected: ${r.selected}`, 60, y);
+        }
+
+        y += 15;
+        doc.setTextColor(0, 0, 255);
+        doc.text(`Correct: ${r.correct}`, 60, y);
+        doc.setTextColor(0, 0, 0);
+        y += 15;
+        doc.text(`Marks: ${r.mark}`, 60, y);
+        y += 25;
+
+        if (y > 750) {
+            doc.addPage();
+            y = 60;
+        }
+    });
+
+    doc.save("ShaTech_ML_Exam_Report.pdf");
+}
+</script>
+
+</body>
+</html>

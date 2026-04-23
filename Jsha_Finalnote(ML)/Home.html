@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShaTech ML Course Dashboard</title>
+    <style>
+        /* CSS embedded here for a single-file solution */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background-color: #007bff; /* ShaTech Blue */
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        .main-header p {
+            margin: 5px 0 0;
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .sidebar {
+            width: 350px; 
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .sidebar h3 {
+            color: #28a745;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        #lecture-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #lecture-list > li {
+            margin-bottom: 8px;
+            padding: 5px;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lecture-title {
+            font-weight: bold;
+            color: #333;
+            flex-basis: 40%;
+            min-width: 100px;
+        }
+
+        .link-group {
+            flex-basis: 55%;
+            display: flex;
+            gap: 5px;
+            justify-content: flex-end;
+        }
+
+        .link-group a {
+            display: inline-block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .link-html {
+            background-color: #007bff;
+        }
+
+        .link-pdf {
+            background-color: #dc3545; /* Red for PDF */
+        }
+        
+        .link-html:hover {
+            background-color: #0056b3;
+        }
+        
+        .link-pdf:hover {
+            background-color: #c82333;
+        }
+        
+        .link-placeholder {
+            background-color: #adb5bd;
+            cursor: default;
+        }
+        
+        .link-placeholder:hover {
+            background-color: #adb5bd;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: #fcfcfc;
+        }
+
+        .main-content h2 {
+            color: #007bff;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .section-card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        #add-file-section {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #e9f7ef;
+            border: 2px dashed #28a745;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.1s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .action-btn.primary {
+            background-color: #007bff;
+        }
+
+        .action-btn:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+        
+        .action-btn.primary:hover {
+             background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                max-height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+            .link-group {
+                flex-direction: column;
+                gap: 3px;
+                align-items: flex-end;
+            }
+            .link-group a {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <h1>ShaTech ML Course Notes</h1>
+        <p>Dashboard for Machine Learning for Core Engineering Disciplines</p>
+    </header>
+
+    <div class="content-wrapper">
+        <aside class="sidebar">
+            <h2>Course Content Index (1-66)</h2>
+            <p style="font-size: 0.9em; margin-top: -10px; color: #555;">Click **HTML** for the interactive notes or **PDF** for the original file.</p>
+            <nav id="lecture-nav">
+                <ul id="lecture-list">
+                    </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-view">
+            <h2>Welcome to the ShaTech Dashboard</h2>
+            <p>Use the navigation panel on the left to view specific lecture notes. **All links point to files in this directory.**</p>
+
+            <section class="section-card">
+                <h3>Quick Access: Lecture 01 Site</h3>
+                <p>Click the button below to open the first lecture site, **LECTURE1.html**.</p>
+                <a href="LECTURE1.html" target="_blank" class="action-btn primary">
+                    Open Lecture 01 HTML
+                </a>
+                <a href="Lec%2001.pdf" target="_blank" class="action-btn" style="background-color: #dc3545;">
+                    Open Lecture 01 PDF
+                </a>
+            </section>
+            
+            <section id="add-file-section">
+                <h3>Convert & Add More Files</h3>
+                <p>This is a placeholder. To add more lectures, manually generate the HTML/PDF files and name them consistently (e.g., `Lec 11.html`, `Lec 11.pdf`).</p>
+                <button id="add-file-btn" class="action-btn" onclick="simulateFileAdd()">
+                    ➕ Simulate File Conversion
+                </button>
+            </section>
+            
+            <section class="section-card">
+                <h3>Naming Convention</h3>
+                <p>Ensure Lecture 1 is named: **`LECTURE1.html`**.<br> Lectures 2-66 should be named: **`Lec XX.html`** (e.g., `Lec 02.html`, `Lec 10.html`).</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript embedded here for a single-file solution
+        // Lectures that have known PDF files (1-10 from your uploads)
+        const pdfAvailable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        const totalLectures = 66;
+        
+        function simulateFileAdd() {
+            alert("This button simulates the file conversion process.\n\nTo add new files (e.g., Lec 11), you must:\n1. Generate 'Lec 11.html' and 'Lec 11.pdf'.\n2. Save them in the same folder as this dashboard.\n3. (Advanced) Update the 'pdfAvailable' list in this script to activate the PDF link for the new lecture.");
+        }
+
+        function getFileNames(i) {
+            const lectureNumber = String(i).padStart(2, '0');
+            let htmlFileName, pdfFileName;
+
+            if (i === 1) {
+                // Special case for Lecture 1 based on your uploaded file name
+                htmlFileName = 'LECTURE1.html';
+                pdfFileName = 'Lec 01.pdf';
+            } else {
+                // Standard naming for Lectures 2 through 66
+                htmlFileName = `Lec ${lectureNumber}.html`; 
+                pdfFileName = `Lec ${lectureNumber}.pdf`;
+            }
+
+            // Encode space for URL safety
+            return {
+                html: htmlFileName.replace(' ', '%20'),
+                pdf: pdfFileName.replace(' ', '%20'),
+                number: lectureNumber
+            };
+        }
+
+        function populateLectureList() {
+            const lectureListElement = document.getElementById('lecture-list');
+            for (let i = 1; i <= totalLectures; i++) {
+                const files = getFileNames(i);
+                const isPdfAvailable = pdfAvailable.includes(i);
+
+                const listItem = document.createElement('li');
+
+                const titleSpan = document.createElement('span');
+                titleSpan.className = 'lecture-title';
+                titleSpan.textContent = `Lecture ${files.number}`;
+                listItem.appendChild(titleSpan);
+
+                const linkGroup = document.createElement('div');
+                linkGroup.className = 'link-group';
+
+                // 1. HTML Link (Always points to the file in the root directory)
+                const htmlLink = document.createElement('a');
+                htmlLink.href = files.html;
+                htmlLink.target = '_blank';
+                htmlLink.className = 'link-html';
+                htmlLink.textContent = 'HTML';
+                htmlLink.title = `Open ${files.html}`;
+                linkGroup.appendChild(htmlLink);
+
+                // 2. PDF Link (Active if PDF is known to exist)
+                const pdfLink = document.createElement('a');
+                pdfLink.target = '_blank';
+                pdfLink.textContent = 'PDF';
+
+                if (isPdfAvailable) {
+                    pdfLink.href = files.pdf; 
+                    pdfLink.className = 'link-pdf';
+                    pdfLink.title = `Open ${files.pdf}`;
+                } else {
+                    pdfLink.href = "#";
+                    pdfLink.className = 'link-placeholder';
+                    pdfLink.title = 'PDF not available / Check directory';
+                    pdfLink.onclick = (e) => {
+                        e.preventDefault();
+                        alert(`PDF file for Lecture ${files.number} is not listed as available.`);
+                    };
+                }
+                linkGroup.appendChild(pdfLink);
+                
+                listItem.appendChild(linkGroup);
+                lectureListElement.appendChild(listItem);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateLectureList();
+        });
+    </script>
+</body>
+
+</html>

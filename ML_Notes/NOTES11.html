@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 11 Assignment 11 - Solutions & Explanations</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      background-color: #0056d6;
+      color: white;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      border-left: 5px solid #0056d6;
+      background: #f9fbff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .question:hover {
+      background: #eef5ff;
+    }
+
+    .question h2 {
+      color: #0056d6;
+    }
+
+    .answer {
+      background: #e7f9ed;
+      border-left: 4px solid #28a745;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 5px;
+    }
+
+    .explanation {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #0056d6;
+      color: white;
+      margin-top: 30px;
+    }
+
+    .toggle-btn {
+      display: inline-block;
+      background: #0056d6;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .toggle-btn:hover {
+      background: #003fa3;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌟 Week 11 - Assignment 11 (Solutions & Explanations)</h1>
+    <p><strong>Due Date:</strong> 2025-10-08, 23:59 IST | <strong>Status:</strong> ✅ Solved</p>
+  </header>
+
+  <main id="assignment-container"></main>
+
+  <footer>
+    <p>Developed by <strong>ChatGPT</strong> | Machine Learning Course - Week 11</p>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        q: "In which situation can you skip feature standardization without hurting performance?",
+        answer: "✅ When training Random Forest and Gradient Boosting",
+        explanation:
+          "Tree-based models split data by thresholds, not distances. Hence, feature scaling doesn’t affect them, unlike SVM or Logistic Regression."
+      },
+      {
+        q: "Why did adding WhiteKernel improve the model performance in GPR?",
+        answer: "✅ It explicitly accounts for measurement noise in the dataset",
+        explanation:
+          "WhiteKernel models the dataset noise (σ²), allowing the model to handle measurement errors instead of overfitting."
+      },
+      {
+        q: "Which kernel combination is valid in scikit-learn’s GPR?",
+        answer: "✅ All of these",
+        explanation:
+          "scikit-learn supports kernel addition (+) and multiplication (*). Examples like RBF() + WhiteKernel() or RBF() * ConstantKernel() are valid."
+      },
+      {
+        q: "Which neural network type best captures temporal data?",
+        answer: "✅ RNN (Recurrent Neural Network)",
+        explanation:
+          "RNNs are designed for sequential data, retaining memory across time steps, making them perfect for temporal dependencies."
+      },
+      {
+        q: "Transformers differ from RNNs because they:",
+        answer: "✅ Use attention mechanisms to capture long-range dependencies",
+        explanation:
+          "Transformers replace recurrence with attention, allowing them to learn relationships between distant sequence elements efficiently."
+      },
+      {
+        q: "Which parameter grid is correct for GridSearchCV in scikit-learn?",
+        answer:
+          "✅ {'n_estimators': [100, 200], 'max_depth': [10, 20, None], 'bootstrap': [True, False]}",
+        explanation:
+          "These are the valid hyperparameter names for RandomForest. Others use invalid names like 'n_trees' or 'tree_depth'."
+      },
+      {
+        q: "Which model gives prediction uncertainty along with outputs?",
+        answer:
+          "✅ Choose GPR because it provides a full predictive distribution based on the Gaussian process assumption.",
+        explanation:
+          "GPR returns both mean predictions and uncertainty (variance), unlike SVM which provides only point estimates."
+      },
+      {
+        q: "Which statement about bagging is wrong?",
+        answer: "✅ None of these",
+        explanation:
+          "All statements are correct: bagging uses bootstrapping, builds multiple trees, and Random Forest is a bagging-based ensemble."
+      },
+      {
+        q: "Match ML methods/tools with their primary uses.",
+        answer: "✅ 1–A, 2–B, 3–C, 4–D, 5–E, 6–F",
+        explanation:
+          "Decision Trees → A (Interpretable), Random Forests → B (Ensemble), XGBoost → C (Boosting), SHAP → D (Explainable AI), SVM → E (Classification), GPR → F (Probabilistic Regression)."
+      },
+      {
+        q: "What does the following code do? (train_test_split with stratify=y)",
+        answer:
+          "✅ Splits dataset with 80% training and 20% test, preserving label proportions",
+        explanation:
+          "‘stratify=y’ maintains class distribution across splits; test_size=0.2 means 20% test, 80% training."
+      }
+    ];
+
+    const container = document.getElementById("assignment-container");
+
+    questions.forEach((item, i) => {
+      const div = document.createElement("div");
+      div.classList.add("question");
+      div.innerHTML = `
+        <h2>Question ${i + 1}</h2>
+        <p>${item.q}</p>
+        <button class="toggle-btn">Show Answer</button>
+        <div class="answer hidden">${item.answer}</div>
+        <div class="explanation hidden"><strong>Explanation:</strong> ${item.explanation}</div>
+      `;
+      container.appendChild(div);
+    });
+
+    // Toggle visibility for answers
+    document.querySelectorAll(".toggle-btn").forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const ans = document.querySelectorAll(".answer")[index];
+        const exp = document.querySelectorAll(".explanation")[index];
+        const isHidden = ans.classList.contains("hidden");
+
+        if (isHidden) {
+          ans.classList.remove("hidden");
+          exp.classList.remove("hidden");
+          btn.textContent = "Hide Answer";
+        } else {
+          ans.classList.add("hidden");
+          exp.classList.add("hidden");
+          btn.textContent = "Show Answer";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

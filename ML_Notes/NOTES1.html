@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHATECH Assignment 1 Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #d4c1ec, #b18ddb);
+    color: #fff;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Question Card */
+.question-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* Question Header */
+.question-card h3 {
+    margin: 0 0 10px;
+}
+
+/* Options */
+.options {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.options li {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.options li.correct {
+    background: rgba(0,255,150,0.3);
+    font-weight: bold;
+}
+
+.options li:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Explanation */
+.explanation {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-left: 4px solid #ff6ec7;
+    display: none;
+    border-radius: 5px;
+}
+
+/* Toggle Button */
+.show-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ff6ec7;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.show-btn:hover {
+    background: #ff3fb5;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SHATECH - Week 1 Assignment 1 Notes</h1>
+</header>
+
+<div class="container" id="questionsContainer">
+    <!-- Questions will be injected here -->
+</div>
+
+<script>
+// Question Data
+const questions = [
+    {
+        q: "A hospital wants to predict whether a patient will develop diabetes based on features like age, BMI, and blood sugar level. It uses a dataset of past patient records that includes both the features and whether the patient developed diabetes. What type of machine learning problem is this?",
+        options: ["Unsupervised learning", "Reinforcement learning", "Supervised learning", "None of these"],
+        answer: 2,
+        explanation: "This is a classic example of supervised learning because the dataset includes both input features and the target variable (whether the patient developed diabetes), which allows the model to learn from labeled data."
+    },
+    {
+        q: "A group of data scientists is analyzing customer purchase data without any labels to find patterns or natural groupings in spending behavior. They want to segment customers into different types. Which type of learning are they applying?",
+        options: ["Supervised learning", "Unsupervised learning", "Reinforcement learning", "Transfer learning"],
+        answer: 1,
+        explanation: "They are applying unsupervised learning because the data has no labels and they are trying to discover hidden patterns or clusters."
+    },
+    {
+        q: "The average probability of clearing the JEE Advanced examination is 25%. Let us say that the maximum number of attempts possible for a candidate is 4. What is the probability of passing the interview in the 4th attempt?",
+        options: ["0.105", "0.0105", "0.004", "0.310"],
+        answer: 0,
+        explanation: "Probability of first success on the 4th trial = (fail first 3 attempts) * success on 4th = (0.75^3)*0.25 = 0.105."
+    },
+    {
+        q: "Given that the probability density function of a continuous random variable X is a normal distribution given by f_X(x) = e^{-π x^2}. The values of mean and standard deviation are respectively:",
+        options: ["0, 1/2π", "0, 1/√π", "0, √(1/2π)", "0, 1/√2π"],
+        answer: 3,
+        explanation: "For a normal distribution f(x) = e^{-π x^2}, mean = 0, variance = 1/(2π), so std dev = 1/√(2π)."
+    },
+    {
+        q: "For a regression model, which of the following best describes the difference between parameters and hyperparameters?",
+        options: ["Parameters are set manually before training; hyperparameters are learned from the data during training.",
+                  "Parameters are tuned using cross-validation; hyperparameters are directly calculated from the loss function.",
+                  "Parameters are learned from the data during training; hyperparameters are set manually before training.",
+                  "There is no difference; both are learned from the data during training."],
+        answer: 2,
+        explanation: "Parameters (like weights) are learned from the data during training, whereas hyperparameters (like learning rate, number of layers) are set before training and guide the learning process."
+    },
+    {
+        q: "Match the following: A. Classification – B. Test set – C. Regression – D. Hyperparameters",
+        options: ["A", "B", "C", "D"],
+        answer: "D",
+        explanation: "The correct mapping is: A – III, B – IV, C – I, D – II. This involves understanding the roles of classification, regression, test sets, and hyperparameters in ML."
+    },
+    {
+        q: "An insurance company believes that people can be divided into two classes — those that are accident prone and those that are not. Their statistics show: Accident-prone: 40% chance of accident, Non-accident prone: 20% chance of accident, 30% of the population is accident-prone. What is the probability that a new policy holder will have an accident within a year?",
+        options: ["0.12", "0.26", "0.14", "0.18"],
+        answer: 1,
+        explanation: "Total probability = 0.3*0.4 + 0.7*0.2 = 0.26."
+    },
+    {
+        q: "The median of an exponential distribution with parameter λ is:",
+        options: ["ln(0.5)/λ", "ln(2)/λ", "2 ln(λ)", "λ ln(2)"],
+        answer: 1,
+        explanation: "Median = ln(2)/λ for an exponential distribution."
+    },
+    {
+        q: "If a biased coin (head is 3× more likely than tail) is tossed 5 times, what is the probability of getting exactly 2 heads?",
+        options: ["0.31", "0.156", "0.26", "0.088"],
+        answer: 2,
+        explanation: "Probability = C(5,2)*(3/4)^2*(1/4)^3 = 10 * 9/16 * 1/64 ≈ 0.26."
+    },
+    {
+        q: "A helpdesk centre receives an average of 5 complaints per day for product A. If it receives fewer than 2 complaints, it is awarded 'product of the day'. Assuming complaints follow a Poisson distribution, what is the probability product A receives the award?",
+        options: ["0.232", "0.125", "0.04", "0.089"],
+        answer: 0,
+        explanation: "P(X<2) = P(0) + P(1) = e^-5 * 5^0/0! + e^-5 * 5^1/1! ≈ 0.232."
+    }
+];
+
+// Render questions
+const container = document.getElementById('questionsContainer');
+
+questions.forEach((qData,index)=>{
+    const card = document.createElement('div');
+    card.className = 'question-card';
+
+    let optionsHtml = '<ul class="options">';
+    qData.options.forEach((opt,i)=>{
+        const isCorrect = (i === qData.answer) ? 'correct' : '';
+        optionsHtml += `<li class="${isCorrect}">${opt}</li>`;
+    });
+    optionsHtml += '</ul>';
+
+    card.innerHTML = `
+        <h3>Q${index+1}. ${qData.q}</h3>
+        ${optionsHtml}
+        <button class="show-btn">Show Explanation</button>
+        <div class="explanation">${qData.explanation}</div>
+    `;
+
+    container.appendChild(card);
+});
+
+// Add toggle functionality for explanations
+document.querySelectorAll('.show-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const exp = btn.nextElementSibling;
+        exp.style.display = exp.style.display === 'block' ? 'none' : 'block';
+    });
+});
+</script>
+
+</body>
+</html>

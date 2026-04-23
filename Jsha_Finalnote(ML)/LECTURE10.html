@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Core Engineering Disciplines - Lecture 10 Notes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        nav button:hover {
+            background-color: #218838;
+        }
+        section {
+            padding: 20px 0;
+            border-bottom: 2px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        h3 {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note-category {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .mcq-option {
+            display: block;
+            margin-top: 5px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .mcq-option:hover {
+            background-color: #d1e7dd;
+        }
+        .mcq-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: none;
+            border-radius: 5px;
+        }
+        .show-explanation {
+            background-color: #c3e6cb;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .answer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .topic-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #007bff;
+        }
+        .math {
+            display: block;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        function toggleExplanation(mcqElement) {
+            const explanation = mcqElement.querySelector('.mcq-explanation');
+            const isVisible = explanation.style.display === 'block';
+
+            // Hide all explanations first
+            document.querySelectorAll('.mcq-explanation').forEach(exp => {
+                exp.style.display = 'none';
+                exp.classList.remove('show-explanation');
+            });
+
+            // Toggle the selected one
+            if (!isVisible) {
+                explanation.style.display = 'block';
+                explanation.classList.add('show-explanation');
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShaTech</h1>
+            <p>Machine Learning for Core Engineering Disciplines - Lecture 10 Notes</p>
+            <p>Topic: Confidence Intervals and Hypothesis Testing for Linear Regression Parameters</p>
+        </header>
+
+        <nav>
+            <button onclick="scrollToSection('one-liners')">One-Liners</button>
+            <button onclick="scrollToSection('mcqs')">MCQs</button>
+            <button onclick="scrollToSection('short-answers')">Short Q&amp;A</button>
+            <button onclick="scrollToSection('long-answers')">Long Q&amp;A / Graphical</button>
+        </nav>
+
+        <section id="one-liners">
+            <h2>📝 One-Liner Notes</h2>
+            <div class="note-category">
+                <h3>Confidence Intervals (CI) and Significance Level ($\alpha$)</h3>
+                <ul>
+                    [cite_start]<li>A **Confidence Interval (CI)** specifies an interval around a stochastic quantity where it will lie $c$ of times, where $c$ is the confidence level[cite: 1, 3].</li>
+                    [cite_start]<li>The **Significance Level ($\alpha$)** is a related quantity, where the confidence level $c = 1 - \alpha$[cite: 1, 3, 6].</li>
+                    [cite_start]<li>For a 95% confidence level, the significance level $\alpha$ is **0.05**[cite: 7].</li>
+                    [cite_start]<li>For a 99% confidence level, the significance level $\alpha$ is **0.01**[cite: 7].</li>
+                </ul>
+            </div>
+            <div class="note-category">
+                <h3>Hypothesis Testing and Regression Parameters</h3>
+                <ul>
+                    [cite_start]<li>**Hypothesis testing** validates a certain statement (the null hypothesis $H_0$) against an alternate hypothesis ($H_a$) at a given significance level[cite: 9, 14, 16].</li>
+                    [cite_start]<li>The **Z-test** is used for the population mean when the **population standard deviation ($\sigma$) is known**[cite: 19, 34].</li>
+                    [cite_start]<li>The **T-test (Student's t-test)** is used for the population mean when the **population standard deviation ($\sigma$) is unknown**[cite: 30, 67, 69].</li>
+                    [cite_start]<li>To assign a **Confidence Interval (CI)** to a linear regression parameter $\hat{\beta}$, the model errors are typically assumed to be **normally distributed**[cite: 78, 88, 89].</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mcqs">
+            <h2>✅ Multiple Choice Questions (MCQs)</h2>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 1: If a linear regression model's confidence interval is 90%, what is the corresponding significance level ($\alpha$)?**</h3>
+                    <span class="mcq-option">A. 0.90</span>
+                    <span class="mcq-option">B. 0.05</span>
+                    <span class="mcq-option">C. 0.10</span>
+                    <span class="mcq-option">D. 0.01</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> Confidence level $c = 1 - \alpha$. [cite_start]If $c=90\%$ (or 0.90), then $\alpha = 1 - 0.90 = 0.10$[cite: 7].
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 2: The Z-test is specifically used for the population mean under the condition that:**</h3>
+                    <span class="mcq-option">A. The sample size $n$ is very small.</span>
+                    <span class="mcq-option">B. The sample standard deviation ($s$) is known.</span>
+                    <span class="mcq-option">C. The population standard deviation ($\sigma$) is known.</span>
+                    <span class="mcq-option">D. The data is non-normally distributed.</span>
+                    <div class="mcq-explanation">
+                        <span class="answer">Answer: C.</span> The Z-test is applicable when the population standard deviation ($\sigma$) is known. [cite_start]If $\sigma$ is unknown, the t-test must be used[cite: 19, 34, 69].
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-category">
+                <div class="mcq" onclick="toggleExplanation(this)">
+                    <h3>**MCQ 3: For an unbiased estimator $\hat{\beta}$ of a parameter $\beta$ in linear regression, what is the required condition for its expected value?**</h3>
+                    <span class="mcq-option">A. $E[\hat{\beta}] = 0$</span>
+                    <span class="mcq-option">B. $\text{Var}(\hat{\beta}) = \sigma^2$</span>
+                    <span class="mcq-option">C. $E[\hat{\beta}] = \beta$</span>
+                    <span class="mcq-option">D. $E[\hat{\beta}] = \hat{\beta}$</span>
+                    <div class="mcq-explanation">
+                        [cite_start]<span class="answer">Answer: C.</span> The expected value of an unbiased estimator $\hat{\beta}$ must be equal to the true parameter value $\beta$, as shown by the proof $E[\hat{\beta}] = \beta$[cite: 101, 104].
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="short-answers">
+            <h2>❓ Short Question &amp; Answer</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Write the mathematical expression for the Z-statistic and state its distribution.**</h3>
+                <p class="answer">**A:** The Z-statistic is defined as:
+                    <span class="math">$$Z = \frac{\overline{y}-\mu}{\sigma/\sqrt{n}}$$</span>
+                    [cite_start]The Z-statistic follows the **Standard Normal Distribution** ($\mathcal{N}(0, 1)$)[cite: 47, 53].
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Write the mathematical expression for the T-statistic and state its distribution and degrees of freedom.**</h3>
+                <p class="answer">**A:** The T-statistic is defined as:
+                    <span class="math">$$T = \frac{\overline{y}-\mu}{s/\sqrt{n}}$$</span>
+                    [cite_start]The T-statistic follows the **Student's t-distribution** with **$(n-1)$ degrees of freedom** ($t_{n-1}$)[cite: 70, 72, 73].
+                </p>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q3: State the rejection rule for the Null Hypothesis ($H_0$) in a two-sided Z-test.**</h3>
+                [cite_start]<p class="answer">**A:** In a two-sided test, the Null Hypothesis ($H_0$) is rejected if the absolute value of the calculated Z-statistic is greater than the critical value $Z_{\alpha/2}$[cite: 55, 56]:
+                    <span class="math">$$H_0 \text{ is rejected if } |Z| > Z_{\alpha/2}$$</span>
+                </p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="long-answers">
+            <h2>📚 Long Q&amp;A / Description / Graphical Questions</h2>
+
+            <div class="note-category topic-header">
+                <h3>**Q1: Prove that the linear regression parameter estimator $\hat{\beta}$ is an unbiased estimator for the true parameter vector $\beta$.**</h3>
+                <p class="answer">**A: Proof that $E[\hat{\beta}] = \beta$ (Unbiased Estimator):**</p>
+                <ol>
+                    <li>**Parameter Estimator $\hat{\beta}$:**
+                        [cite_start]The optimal parameter vector is given by the Normal Equation $\hat{\beta} = (X^T X)^{-1} X^T Y$[cite: 110].
+                    </li>
+                    <li>**Actual Value $Y$:**
+                        The actual target vector $Y$ is modeled as the linear combination of features and true parameters ($\beta$) plus an error term ($\epsilon$):
+                        <span class="math">$$\mathbf{Y} = \mathbf{X}\mathbf{\beta} + \mathbf{\epsilon}$$</span>
+                        [cite_start]The expectation of the error is assumed to be zero: $E(\epsilon) = 0$[cite: 94, 100].
+                    </li>
+                    <li>**Expected Value of $\hat{\beta}$:**
+                        Substitute $\mathbf{Y}$ into the expression for $E[\hat{\beta}]$:
+                        <span class="math">$$E[\hat{\beta}] = E[(X^T X)^{-1} X^T (X\beta + \epsilon)]$$</span>
+                    </li>
+                    <li>**Expansion and Simplification:**
+                        <span class="math">$$E[\hat{\beta}] = E[(X^T X)^{-1} X^T X\beta + (X^T X)^{-1} X^T \epsilon]$$</span>
+                        Since $(X^T X)^{-1} X^T X = I$ (Identity Matrix):
+                        <span class="math">$$E[\hat{\beta}] = E[I\beta] + (X^T X)^{-1} X^T E(\epsilon)$$</span>
+                    </li>
+                    <li>**Final Result:**
+                        Since $E(\epsilon) = 0$, the second term vanishes:
+                        <span class="math">$$E[\hat{\beta}] = \beta + 0 = \beta$$</span>
+                        [cite_start]**Conclusion:** Since $E[\hat{\beta}] = \beta$, $\hat{\beta}$ is an **unbiased estimator** for the true parameter vector $\beta$[cite: 101, 104].
+                    </li>
+                </ol>
+            </div>
+
+            <div class="note-category topic-header">
+                <h3>**Q2: Describe the formula for the Confidence Interval (CI) of a linear regression parameter $\beta$ and identify the components, assuming the error variance is estimated.**</h3>
+                <p class="answer">**A: Confidence Interval for $\beta$:**</p>
+                [cite_start]<p>To determine the Confidence Interval (CI) for a linear regression parameter $\beta$ (when the population error variance $\sigma^2$ is unknown and estimated by $\hat{\sigma}^2$ or $s^2$), the t-distribution is used[cite: 121, 122]. [cite_start]The formula for the variance of the parameter estimator is $Var(\hat{\beta}) = \sigma^2 \text{diag}((X^T X)^{-1})$[cite: 118, 119].</p>
+
+                <p>The CI for $\beta$ at a $1-\alpha$ confidence level is generally given by:</p>
+                <span class="math">$$\hat{\beta} \pm t_{n-p, \alpha/2} \cdot \sqrt{\hat{\sigma}^2 \cdot \text{diag}((X^T X)^{-1})}$$</span>
+                <p>Where:</p>
+                <ul>
+                    [cite_start]<li>$\hat{\beta}$ is the **estimated parameter**[cite: 122].</li>
+                    [cite_start]<li>$t_{n-p, \alpha/2}$ is the **critical value** from the Student's t-distribution[cite: 122].</li>
+                    [cite_start]<li>$n$ is the number of data points and $p$ is the number of parameters, making $n-p$ the **degrees of freedom**[cite: 121].</li>
+                    [cite_start]<li>$\hat{\sigma}^2$ (or $s^2$) is the **estimated error variance**, calculated using the residuals[cite: 119].</li>
+                    [cite_start]<li>$\text{diag}((X^T X)^{-1})$ are the **diagonal elements** of the $(X^T X)^{-1}$ matrix, which relate to the variance of each parameter estimate[cite: 118].</li>
+                </ul>
+            </div>
+            
+            <div class="note-category topic-header">
+                <h3>**Q3: Describe the rejection region for the Null Hypothesis ($H_0$) in a One-Sided Test based on the provided graphical representation.**</h3>
+                <p class="answer">**A: Rejection Region for One-Sided Test:**</p>
+                [cite_start]<p>The provided graph illustrates a **one-sided hypothesis test** for a standard normal distribution, where the significance level $\alpha$ is concentrated in the right tail of the distribution[cite: 59, 60].</p>
+                <ul>
+                    [cite_start]<li>The critical value is denoted as $z_{1-\alpha}$ (or $z_{\alpha}$ for the $\alpha$ area from the right)[cite: 58, 65].</li>
+                    <li>The shaded area $\alpha$ represents the **rejection region**.</li>
+                    [cite_start]<li>The Null Hypothesis ($H_0$) is rejected if the calculated Z-statistic falls into this region[cite: 61, 62].</li>
+                </ul>
+                <p>The formal rejection rule is:
+                    <span class="math">$$H_0 \text{ is rejected if } z > z_{1-\alpha}$$</span>
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

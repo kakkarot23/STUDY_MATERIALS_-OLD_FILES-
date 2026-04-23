@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 6 Assignment 6 - Cross Validation & PCA Quiz</title>
+<style>
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f7fb;
+    }
+    header {
+        background: #004aad;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+    }
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h3 { color: #004aad; }
+    .question {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+    label {
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="radio"] {
+        margin-right: 8px;
+    }
+    label:hover {
+        background: #eef4ff;
+    }
+    button {
+        background: #004aad;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    button:hover {
+        background: #00337a;
+    }
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #004aad;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        text-align: center;
+        z-index: 1000;
+    }
+</style>
+</head>
+<body>
+
+<header>Week 6 Assignment 6 – Cross Validation, PCA & Evaluation Quiz</header>
+
+<div class="container" id="quiz-container"></div>
+
+<div style="text-align:center;">
+    <button onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+<div class="popup" id="resultPopup">
+    <h2>Your Score</h2>
+    <p id="scoreText"></p>
+    <button onclick="downloadPDF()">Download Answer Key</button>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const quizData = [
+    {
+        q: "1. You train a model on 1000 samples using 5-fold cross validation (80% train, 20% validation). How many unique samples are used in validation across all folds?",
+        options: ["200", "400", "800", "1000"],
+        correct: 3
+    },
+    {
+        q: "2. Leave-One-Out Cross Validation (LOOCV) is computationally expensive. If training one model takes 2 seconds, and there are 1500 samples, approximately how much time will LOOCV take?",
+        options: ["25 minutes", "50 minutes", "1 hour", "45 hours"],
+        correct: 1
+    },
+    {
+        q: "3. Suppose you split a dataset into training (80%) and testing (20%) using a fixed random_state. Which statement is true?",
+        options: ["The exact split will change on every run", "The split will be reproducible on every run", "Random_state ensures higher test accuracy", "Random_state balances the dataset"],
+        correct: 1
+    },
+    {
+        q: "4. You apply PCA on a dataset with 10 standardized features. Eigenvalues (variances) of first 3 components are [5.0, 2.5, 1.5]. What % of variance is explained by these three components?",
+        options: ["90%", "70%", "65%", "50%"],
+        correct: 0
+    },
+    {
+        q: "5. If X has shape (500, 20) and PCA(n_components=2) is applied, what is X_pca.shape?",
+        options: ["(500, 2)", "(20, 2)", "(2, 500)", "(20, 500)"],
+        correct: 0
+    },
+    {
+        q: "6. In sklearn LinearRegression, model.coef_ returns [0, 0, 0]. Which is the most likely reason?",
+        options: ["Model is perfectly regularized", "Features are linearly dependent", "Target values are constant", "Model is overfitting"],
+        correct: 2
+    },
+    {
+        q: "7. Which of the following is NOT a typical step in a scikit-learn ML pipeline?",
+        options: ["Preprocessing data using transformers", "Training a model using .fit()", "Performing backpropagation through layers", "Tuning hyperparameters with GridSearchCV"],
+        correct: 2
+    },
+    {
+        q: "8. You have only 120 samples and want to estimate generalization performance. Which strategy is most appropriate?",
+        options: ["Use 2-fold CV to reduce training time", "Use repeated random train-test splits", "Use a fixed 80/20 split", "Use 10-fold CV as a balance between bias and variance"],
+        correct: 3
+    },
+    {
+        q: "9. Using GridSearchCV with 3-fold CV and parameter grid: Learning rate=[0.1, 0.01], N_estimators=[50,100,200]. How many total model fits?",
+        options: ["5", "6", "15", "18"],
+        correct: 3
+    },
+    {
+        q: "10. What is the main purpose of k-fold cross-validation?",
+        options: ["To reduce training time by averaging predictions", "To optimize loss using fewer epochs", "To evaluate model performance more reliably by reducing variance due to a specific split", "To automatically tune hyperparameters"],
+        correct: 2
+    }
+];
+
+const quizContainer = document.getElementById("quiz-container");
+
+quizData.forEach((data, i) => {
+    const div = document.createElement("div");
+    div.classList.add("question");
+    div.innerHTML = `<h3>${data.q}</h3>` +
+        data.options.map((opt, j) =>
+            `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`
+        ).join("");
+    quizContainer.appendChild(div);
+});
+
+let userAnswers = [];
+
+function submitQuiz() {
+    let score = 0;
+    userAnswers = [];
+    quizData.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+            const val = parseInt(selected.value);
+            userAnswers.push(val);
+            if (val === q.correct) score++;
+        } else userAnswers.push(null);
+    });
+
+    document.getElementById("scoreText").innerText =
+        `You scored ${score} out of ${quizData.length}`;
+    document.getElementById("resultPopup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("resultPopup").style.display = "none";
+}
+
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    doc.setFontSize(14);
+    doc.text("Week 6 Assignment 6 - Answer Key", 10, y);
+    y += 10;
+
+    quizData.forEach((q, i) => {
+        doc.setFontSize(12);
+        doc.text(`${i+1}. ${q.q}`, 10, y);
+        y += 8;
+        q.options.forEach((opt, j) => {
+            let prefix = "   ";
+            if (j === q.correct) prefix = "✅ ";
+            else if (userAnswers[i] === j && j !== q.correct) prefix = "❌ ";
+            const line = `${prefix}${opt}`;
+            doc.text(line, 15, y);
+            y += 7;
+        });
+        y += 5;
+        if (y > 270) { doc.addPage(); y = 10; }
+    });
+    doc.save("Assignment6_AnswerKey.pdf");
+}
+</script>
+</body>
+</html>
