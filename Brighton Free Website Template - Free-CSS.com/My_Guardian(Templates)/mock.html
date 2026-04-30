@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Exam Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f7;
+      color: #333;
+      padding: 20px;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      text-decoration: none;
+      text-align: center;
+      flex: 1 1 200px;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .instructions {
+      background: #f9f9f9;
+      padding: 15px;
+      border-left: 4px solid #2980b9;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>School Mock Examination Portal</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="section">
+      <h2>Welcome!</h2>
+      <p>This portal allows school students to attempt mock exams, review their performance, and get familiar with real exam patterns.</p>
+    </div>
+
+    <div class="section">
+      <h2>Choose an Action</h2>
+      <div class="btn-group">
+        <a href="#" class="btn">Start Mock Test</a>
+        <a href="#" class="btn">View Past Results</a>
+        <a href="#" class="btn">Instructions</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>General Instructions</h2>
+      <div class="instructions">
+        <ul>
+          <li>Each test consists of 20-50 MCQs.</li>
+          <li>Timer starts once the test begins. No pause allowed.</li>
+          <li>Click "Submit" after completing all questions.</li>
+          <li>Use a stable internet connection.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 School Mock Exam Portal. All rights reserved.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Location Timeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fb;
+      color: #333;
+    }
+
+    header {
+      background: #003366;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .timeline-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #005599;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 60px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #005599;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px #cce5ff;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: #003366;
+    }
+
+    .timeline-item time {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .timeline-item p {
+      margin: 5px 0 0;
+      font-size: 15px;
+    }
+
+    footer {
+      text-align: center;
+      margin: 40px 0 20px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .timeline::before {
+        left: 12px;
+      }
+
+      .timeline-item {
+        padding-left: 50px;
+      }
+
+      .timeline-item::before {
+        left: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Student Location Timeline</h1>
+  </header>
+
+  <div class="timeline-container">
+    <ul class="timeline">
+      <li class="timeline-item">
+        <h3>Home</h3>
+        <time>07:30 AM</time>
+        <p>Left home and started walking to the bus stop.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>Bus Stop</h3>
+        <time>07:45 AM</time>
+        <p>Boarded school bus from the local stop.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>School Entry</h3>
+        <time>08:15 AM</time>
+        <p>Arrived at school and checked in through the front gate.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>Classroom</h3>
+        <time>08:30 AM</time>
+        <p>Seated in classroom, Grade 7-B.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>Library</h3>
+        <time>12:15 PM</time>
+        <p>Moved to the library for reading hour.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>School Exit</h3>
+        <time>03:30 PM</time>
+        <p>Left school and boarded the return bus.</p>
+      </li>
+
+      <li class="timeline-item">
+        <h3>Home</h3>
+        <time>04:00 PM</time>
+        <p>Arrived safely back home.</p>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+  
+  </footer>
+
+</body>
+</html>

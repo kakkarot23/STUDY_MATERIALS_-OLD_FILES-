@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School Applications</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .app-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .app-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .app-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #2980b9;
+    }
+
+    .app-name {
+      font-weight: 600;
+      color: #333;
+      font-size: 18px;
+    }
+
+    @media(max-width: 600px) {
+      .app-card {
+        padding: 15px;
+      }
+    }
+  </style>
+  <!-- Optional: Icon library -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <h1>School Applications</h1>
+
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-calendar-alt"></i></div>
+      <div class="app-name">Timetable</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-user-check"></i></div>
+      <div class="app-name">Attendance</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="app-name">Performance Dashboard</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-file-alt"></i></div>
+      <div class="app-name">Marksheet</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <div class="app-name">Live Tracking</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-bell"></i></div>
+      <div class="app-name">Notices</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-laptop-code"></i></div>
+      <div class="app-name">Online Classes</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-envelope"></i></div>
+      <div class="app-name">Leave Application</div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon"><i class="fas fa-clipboard-list"></i></div>
+      <div class="app-name">Exam Reports</div>
+    </div>
+  </div>
+
+</body>
+</html>

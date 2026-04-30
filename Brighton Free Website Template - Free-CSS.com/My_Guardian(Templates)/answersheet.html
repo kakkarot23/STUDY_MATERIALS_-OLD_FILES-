@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Answer Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fc;
+      padding: 20px;
+      color: #333;
+    }
+
+    .answer-sheet {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    .student-info, .exam-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .question-block {
+      margin-bottom: 25px;
+    }
+
+    .question {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .answer {
+      background: #f0f4f8;
+      padding: 10px;
+      border-left: 4px solid #3498db;
+      border-radius: 5px;
+    }
+
+    @media print {
+      .answer-sheet {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="answer-sheet">
+    <h1>Answer Sheet</h1>
+
+    <div class="student-info">
+      <div><strong>Name:</strong> Arya Sharma</div>
+      <div><strong>Class:</strong> 9 B</div>
+      <div><strong>Roll No:</strong> 2023</div>
+    </div>
+
+    <div class="exam-info">
+      <div><strong>Subject:</strong> Science</div>
+      <div><strong>Date:</strong> 10 March 2025</div>
+      <div><strong>Exam:</strong> Mid-Term</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question">Q1. What is photosynthesis?</div>
+      <div class="answer">Photosynthesis is the process by which green plants use sunlight to make their own food using carbon dioxide and water.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question">Q2. Define the three states of matter.</div>
+      <div class="answer">The three states of matter are: Solid (fixed shape and volume), Liquid (fixed volume, variable shape), and Gas (no fixed shape or volume).</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question">Q3. Write the formula for water and explain its composition.</div>
+      <div class="answer">The formula for water is H<sub>2</sub>O. It consists of two hydrogen atoms bonded to one oxygen atom.</div>
+    </div>
+
+    <!-- Add more questions as needed -->
+  </div>
+
+</body>
+</html>

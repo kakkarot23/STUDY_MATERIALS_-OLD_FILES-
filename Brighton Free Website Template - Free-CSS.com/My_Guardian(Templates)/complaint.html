@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Complaint Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #f5f7fa;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      color: #34495e;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Student Complaint Submission</h2>
+    <form>
+      <label for="reporterType">Reporter Type</label>
+      <select id="reporterType" name="reporterType" required>
+        <option value="">-- Select --</option>
+        <option value="teacher">Teacher</option>
+        <option value="outsider">Outsider</option>
+      </select>
+
+      <label for="reporterName">Your Name</label>
+      <input type="text" id="reporterName" name="reporterName" required>
+
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" name="studentName" required>
+
+      <label for="class">Class/Grade</label>
+      <input type="text" id="class" name="class" required>
+
+      <label for="incidentDate">Date of Incident</label>
+      <input type="date" id="incidentDate" name="incidentDate" required>
+
+      <label for="description">Complaint Description</label>
+      <textarea id="description" name="description" placeholder="Provide details of the incident..." required></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+  </div>
+
+</body>
+</html>

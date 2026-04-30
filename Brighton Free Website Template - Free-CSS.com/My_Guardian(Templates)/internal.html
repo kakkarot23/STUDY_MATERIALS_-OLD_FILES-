@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Internal Exam Report - All Views</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .report-container {
+      max-width: 1200px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .role-banner {
+      background-color: #2980b9;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .class-section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: #34495e;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: white;
+    }
+
+    .high {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .low {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .medium {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    @media print {
+      body {
+        background: none;
+      }
+      .report-container {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-container">
+
+    <!-- Change the role class to simulate different views -->
+    <div class="role-banner">PRINCIPAL VIEW</div>
+
+    <!-- PRINCIPAL VIEW: Full report -->
+    <h1>Internal Exam Report</h1>
+
+    <div class="class-section">
+      <h2>Class 10 - Section A</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th><th>Math</th><th>Science</th><th>English</th><th>Total (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Aarav Mehta</td><td class="high">88</td><td class="medium">75</td><td class="high">90</td><td class="high">84.3</td></tr>
+          <tr><td>Diya Sharma</td><td class="medium">72</td><td class="medium">78</td><td class="medium">74</td><td class="medium">74.6</td></tr>
+          <tr><td>Rohan Verma</td><td class="low">56</td><td class="low">60</td><td class="medium">65</td><td class="low">60.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="class-section">
+      <h2>Class 9 - Section B</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th><th>Math</th><th>Science</th><th>Social</th><th>Total (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Shruti Singh</td><td class="high">91</td><td class="high">89</td><td class="high">93</td><td class="high">91</td></tr>
+          <tr><td>Harsh Patel</td><td class="medium">70</td><td class="medium">76</td><td class="medium">71</td><td class="medium">72.3</td></tr>
+          <tr><td>Anjali Das</td><td class="low">58</td><td class="medium">66</td><td class="low">59</td><td class="low">61</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Uncomment below for TEACHER or PARENT view and adjust content accordingly -->
+
+    <!-- <div class="role-banner">TEACHER VIEW - Class 10 A</div>
+    <h1>Class 10 A - Exam Summary</h1>
+    [Insert only Class 10 A section here]
+    -->
+
+    <!-- <div class="role-banner">PARENT VIEW - Student: Aarav Mehta</div>
+    <h1>Your Child’s Performance</h1>
+    [Insert only Aarav Mehta's row in a full-width table]
+    -->
+
+  </div>
+
+</body>
+</html>

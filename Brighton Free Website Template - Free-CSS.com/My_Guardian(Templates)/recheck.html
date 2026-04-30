@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paper Recheck Application</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #f3f7fb;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      height: 90px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      width: 48%;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button.reset-btn {
+      background-color: #e67e22;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 500px) {
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn-group button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Apply for Paper Recheck</h2>
+    <form>
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" name="studentName" required>
+
+      <label for="rollNumber">Roll Number</label>
+      <input type="text" id="rollNumber" name="rollNumber" required>
+
+      <label for="class">Class</label>
+      <input type="text" id="class" name="class" required>
+
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject" required>
+        <option value="">Select Subject</option>
+        <option value="math">Mathematics</option>
+        <option value="science">Science</option>
+        <option value="english">English</option>
+        <option value="history">History</option>
+        <option value="geography">Geography</option>
+      </select>
+
+      <label for="exam">Exam Name</label>
+      <input type="text" id="exam" name="exam" placeholder="e.g., Mid Term, Final Exam" required>
+
+      <label for="reason">Reason for Recheck</label>
+      <textarea id="reason" name="reason" placeholder="Explain why you are requesting a re-evaluation..." required></textarea>
+
+      <div class="btn-group">
+        <button type="submit">Submit Application</button>
+        <button type="reset" class="reset-btn">Reset</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

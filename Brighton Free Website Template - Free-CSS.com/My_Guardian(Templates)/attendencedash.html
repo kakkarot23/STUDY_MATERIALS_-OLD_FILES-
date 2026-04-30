@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Attendance Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+    }
+
+    .dashboard {
+      padding: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #003366;
+    }
+
+    .card p {
+      margin-top: 10px;
+      font-size: 24px;
+      color: #005599;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    th, td {
+      padding: 15px 20px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #005599;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .status-present {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-absent {
+      color: red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>School Attendance Dashboard</h1>
+  </header>
+
+  <div class="dashboard">
+    <div class="summary-cards">
+      <div class="card">
+        <h3>Total Students</h3>
+        <p>120</p>
+      </div>
+      <div class="card">
+        <h3>Present Today</h3>
+        <p>110</p>
+      </div>
+      <div class="card">
+        <h3>Absent Today</h3>
+        <p>10</p>
+      </div>
+      <div class="card">
+        <h3>Attendance %</h3>
+        <p>91.7%</p>
+      </div>
+    </div>
+
+    <h2>Today's Attendance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Roll No.</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td>Aarav Kumar</td>
+          <td>7-A</td>
+          <td class="status-present">Present</td>
+        </tr>
+        <tr>
+          <td>002</td>
+          <td>Diya Shah</td>
+          <td>7-A</td>
+          <td class="status-absent">Absent</td>
+        </tr>
+        <tr>
+          <td>003</td>
+          <td>Rohan Mehta</td>
+          <td>7-A</td>
+          <td class="status-present">Present</td>
+        </tr>
+        <tr>
+          <td>004</td>
+          <td>Simran Verma</td>
+          <td>7-A</td>
+          <td class="status-present">Present</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

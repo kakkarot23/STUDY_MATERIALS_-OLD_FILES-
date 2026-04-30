@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Materials & Scientific Kits Shop</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 36px;
+    }
+
+    nav {
+      background-color: #2980b9;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 18px;
+    }
+
+    nav a:hover {
+      background-color: #3498db;
+      border-radius: 5px;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 30%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin: 15px 0;
+      color: #2c3e50;
+    }
+
+    .product-card p {
+      color: #7f8c8d;
+      margin-bottom: 10px;
+    }
+
+    .product-card .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+
+    .product-card .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .product-card .btn:hover {
+      background-color: #2980b9;
+    }
+
+    footer {
+      background-color: #34495e;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .product-card {
+        width: 48%;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .product-card {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Study Materials & Scientific Kits Shop</h1>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Books</a>
+    <a href="#">PDF Notes</a>
+    <a href="#">Scientific Kits</a>
+    <a href="#">Cart</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="container">
+    <!-- Books Section -->
+    <div class="section-title">Books</div>
+    <div class="products">
+      <div class="product-card">
+        <img src="book1.jpg" alt="Book 1">
+        <h3>Mathematics for Class 10</h3>
+        <p>Comprehensive guide for class 10 students</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="product-card">
+        <img src="book2.jpg" alt="Book 2">
+        <h3>Science for Class 8</h3>
+        <p>Interactive lessons for Science students</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="product-card">
+        <img src="book3.jpg" alt="Book 3">
+        <h3>History for Class 12</h3>
+        <p>A detailed book on historical events</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <!-- PDF Notes Section -->
+    <div class="section-title">PDF Notes</div>
+    <div class="products">
+      <div class="product-card">
+        <img src="pdf1.jpg" alt="PDF 1">
+        <h3>Physics Notes - Class 11</h3>
+        <p>Downloadable PDF notes for physics</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="product-card">
+        <img src="pdf2.jpg" alt="PDF 2">
+        <h3>Chemistry Notes - Class 12</h3>
+        <p>Complete notes for chemistry students</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <!-- Scientific Kits Section -->
+    <div class="section-title">Scientific Kits</div>
+    <div class="products">
+      <div class="product-card">
+        <img src="kit1.jpg" alt="Kit 1">
+        <h3>Physics Lab Kit</h3>
+        <p>Complete physics lab kit for students</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+      <div class="product-card">
+        <img src="kit2.jpg" alt="Kit 2">
+        <h3>Biology Experiment Kit</h3>
+        <p>Conduct biology experiments with this kit</p>
+        <div class="price">Rs 100</div>
+        <a href="#" class="btn">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+ 
+  </footer>
+
+</body>
+</html>

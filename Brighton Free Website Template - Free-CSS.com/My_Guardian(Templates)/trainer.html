@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Teacher Hiring System</title>
+
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  
+  <!-- Custom CSS for styling -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="index.html">
+                <img src="images/12345.png" alt="" height="200" width="600" />
+                <span>
+                  
+                </span>
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                  <ul class="navbar-nav  ">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="index.html">
+                        Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+  <div class="container">
+    <div class="hire-teacher-container">
+      <h2 class="text-center">Online Teacher Hiring System</h2>
+      <form action="hire_teacher_process.php" method="POST">
+        <!-- Teacher Name Input -->
+        <div class="form-group">
+          <label for="teacherName">Teacher's Name</label>
+          <input type="text" class="form-control" id="teacherName" name="teacherName" placeholder="Enter Teacher's Name" required />
+        </div>
+
+        <!-- Multiple Subject Selection -->
+        <div class="form-group">
+          <label for="subjects">Select Subjects (Multiple)</label>
+          <select class="form-control" id="subjects" name="subjects[]" multiple required>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Biology">Biology</option>
+            <option value="English">English</option>
+            <option value="History">History</option>
+            <option value="Geography">Geography</option>
+            <option value="Computer Science">Computer Science</option>
+          </select>
+        </div>
+
+        <!-- Trainer Selection Dropdown -->
+        <div class="form-group">
+          <label for="trainer">Select Trainer</label>
+          <select class="form-control" id="trainer" name="trainer" required>
+            <option value="" disabled selected>Select Trainer</option>
+            <option value="Trainer 1">Trainer 1</option>
+            <option value="Trainer 2">Trainer 2</option>
+            <option value="Trainer 3">Trainer 3</option>
+            <option value="Trainer 4">Trainer 4</option>
+            <option value="Trainer 5">Trainer 5</option>
+          </select>
+        </div>
+
+        <!-- Hiring Date -->
+        <div class="form-group">
+          <label for="hiringDate">Hiring Date</label>
+          <input type="date" class="form-control" id="hiringDate" name="hiringDate" required />
+        </div>
+
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block">Hire Teacher</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

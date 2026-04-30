@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leave Status Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f9fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .school-select {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 250px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #003366;
+      color: white;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .approved {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+      }
+
+      td:before {
+        position: absolute;
+        left: 10px;
+        content: attr(data-label);
+        text-align: left;
+        font-weight: bold;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Leave Status Dashboard</h2>
+
+    <div class="school-select">
+      <select>
+        <option value="school-a">SCHOOL NAME 1</option>
+        <option value="school-b">SCHOOL NAME 2</option>
+        <option value="school-c">SCHOOL NAME 3</option>
+        \<option value="school-a">SCHOOL NAME 4</option>
+        <option value="school-b">SCHOOL NAME 5</option>
+        <option value="school-c">SCHOOL NAME 6</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Class</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Reason</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Student Name">Student 1</td>
+          <td data-label="Class">7A</td>
+          <td data-label="From">2025-04-02</td>
+          <td data-label="To">2025-04-05</td>
+          <td data-label="Reason">Fever</td>
+          <td data-label="Status"><span class="status approved">Approved</span></td>
+        </tr>
+        <tr>
+          <td data-label="Student Name">Student 2</td>
+          <td data-label="Class">8B</td>
+          <td data-label="From">2025-04-10</td>
+          <td data-label="To">2025-04-12</td>
+          <td data-label="Reason">Family function</td>
+          <td data-label="Status"><span class="status pending">Pending</span></td>
+        </tr>
+        <tr>
+          <td data-label="Student Name">Student 3</td>
+          <td data-label="Class">6C</td>
+          <td data-label="From">2025-03-25</td>
+          <td data-label="To">2025-03-26</td>
+          <td data-label="Reason">Travel</td>
+          <td data-label="Status"><span class="status rejected">Rejected</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

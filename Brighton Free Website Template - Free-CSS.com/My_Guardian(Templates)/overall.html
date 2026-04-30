@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Overall Performance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      color: #2980b9;
+      margin: 10px 0;
+    }
+
+    .card p {
+      margin: 0;
+      color: #7f8c8d;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .high {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .medium {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .low {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    @media screen and (max-width: 768px) {
+      .stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>School Overall Academic Performance</h1>
+
+    <!-- Summary Stats -->
+    <div class="stats">
+      <div class="card">
+        <p>Overall Average Score</p>
+        <h2>78%</h2>
+      </div>
+      <div class="card">
+        <p>Pass Percentage</p>
+        <h2>92%</h2>
+      </div>
+      <div class="card">
+        <p>Top Performing Class</p>
+        <h2>Class 10A</h2>
+      </div>
+      <div class="card">
+        <p>Top Subject</p>
+        <h2>Mathematics</h2>
+      </div>
+    </div>
+
+    <!-- Class Performance Table -->
+    <h2 style="color:#2c3e50; margin-bottom: 15px;">Class-wise Performance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Average (%)</th>
+          <th>Top Student</th>
+          <th>Pass Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Class 10A</td>
+          <td class="high">89%</td>
+          <td>Aarav Mehta</td>
+          <td class="high">98%</td>
+        </tr>
+        <tr>
+          <td>Class 9B</td>
+          <td class="medium">75%</td>
+          <td>Shruti Singh</td>
+          <td class="medium">85%</td>
+        </tr>
+        <tr>
+          <td>Class 8C</td>
+          <td class="low">61%</td>
+          <td>Neha Reddy</td>
+          <td class="low">70%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

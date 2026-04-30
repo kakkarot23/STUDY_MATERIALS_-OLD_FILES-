@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parent-Teacher Meeting Request</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccd6dd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Parent-Teacher Meeting Request</h2>
+    <form>
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" name="studentName" required>
+
+      <label for="class">Class</label>
+      <input type="text" id="class" name="class" required>
+
+      <label for="parentName">Parent/Guardian Name</label>
+      <input type="text" id="parentName" name="parentName" required>
+
+      <label for="teacher">Teacher Name</label>
+      <input type="text" id="teacher" name="teacher" required>
+
+      <label for="date">Preferred Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Preferred Time</label>
+      <input type="time" id="time" name="time" required>
+
+      <label for="purpose">Purpose of Meeting</label>
+      <textarea id="purpose" name="purpose" placeholder="Briefly describe the reason for the meeting..." required></textarea>
+
+      <button type="submit">Request Meeting</button>
+    </form>
+  </div>
+
+</body>
+</html>
